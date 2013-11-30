@@ -1,5 +1,7 @@
 import Resolver from 'resolver';
 
+Ember.FEATURES["query-params"] = true;
+
 var App = Ember.Application.extend({
   LOG_ACTIVE_GENERATION: true,
   LOG_MODULE_RESOLVER: true,
