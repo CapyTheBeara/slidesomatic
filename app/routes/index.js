@@ -2,6 +2,8 @@
 
 export default Ember.Route.extend({
   model: function(params, queryParams) {
+    queryParams.start = queryParams.start || null; // can't be undefined when constructing model
+
     var presentation = this.store.createRecord('presentation'),
 
         sequences = createSequences(this.store, queryParams.seq),
@@ -14,12 +16,6 @@ export default Ember.Route.extend({
     presentation.set('video', video);
     presentation.get('sequences').pushObjects(sequences);
     return presentation;
-  },
-
-  actions: {
-    updateTime: function(time) {
-      console.log(time);
-    }
   }
 });
 

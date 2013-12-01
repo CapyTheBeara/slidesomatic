@@ -8,7 +8,8 @@
     "Em",
     "DS",
     "$",
-    "console"
+    "console",
+    "Popcorn"
   ],
   "node" : false,
   "browser" : false,
