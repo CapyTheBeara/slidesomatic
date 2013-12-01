@@ -1,11 +1,3 @@
-{{video.url}}
-
-<ul>
-{{#each s in sequences}}
-    <li>
-        {{s.start}}
-        {{s.stop}}
-        {{s.slide}}
-    </li>
-{{/each}}
-</ul>
+{{popcorn-video id  = 'video-view'
+                src = video.url
+                action = 'updateTime'}}

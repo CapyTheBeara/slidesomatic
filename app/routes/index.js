@@ -1,4 +1,4 @@
-// http://localhost:8000/#/?vtype=yt_video&vid=bzT0ezT-Jn8&start=2700&seq=2729.6,2|2733.6,3|2736.4,4
+// http://localhost:8000/#/?vtype=yt&vid=bzT0ezT-Jn8&start=2700&seq=2729.6,2|2733.6,3|2736.4,4
 
 export default Ember.Route.extend({
   model: function(params, queryParams) {
@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
         sequences = createSequences(this.store, queryParams.seq),
 
-        video = this.store.createRecord(queryParams.vtype, {
+        video = this.store.createRecord(queryParams.vtype + '_video', {
           start: queryParams.start,  // needs to be before videoId
           videoId: queryParams.vid
         });
@@ -14,6 +14,12 @@ export default Ember.Route.extend({
     presentation.set('video', video);
     presentation.get('sequences').pushObjects(sequences);
     return presentation;
+  },
+
+  actions: {
+    updateTime: function(time) {
+      console.log(time);
+    }
   }
 });
 
