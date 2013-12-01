@@ -2961,6 +2961,8 @@
     }
 
     function onPlayerReady( event ) {
+      player.playVideo();  // workaround to get popcorn.play() to work
+      player.pauseVideo();
       playerReady = true;
     }
 
