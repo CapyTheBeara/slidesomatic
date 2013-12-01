@@ -4,6 +4,13 @@ export default Ember.ObjectController.extend({
   videoPlayer: null,
   slidePlayer: null,
 
+  sequences: function() {
+    return Em.ArrayProxy.createWithMixins(Em.SortableMixin, {
+      sortProperties: ['start'],
+      content: this.get('model.sequences')
+    });
+  }.property('model.sequences'),
+
   actions: {
     setVideoPlayer: function(player) {
       this.set('videoPlayer', player);
@@ -24,9 +31,9 @@ export default Ember.ObjectController.extend({
           currentSequence = this.get('currentSequence'),
           seqs = this.get('sequences'),
 
-          hit = seqs.find(function(seq) {
-            if (seq.includesTime(time)) { return true; }
-          });
+          hit = seqs.filter(function(seq) {
+            if (seq.hasPast(time)) { return true; }
+          }).get('lastObject');
 
       if (!hit) { return false; }
       if (!currentSequence || !currentSequence.eq(hit)) {
@@ -38,9 +45,9 @@ export default Ember.ObjectController.extend({
         if (slide === '1') {  // get rid of bouncing arrow
           slidePlayer.next();
           slidePlayer.previous();
-        } else {
-          slidePlayer.jumpTo(slide);
         }
+
+        slidePlayer.jumpTo(slide);
       }
     }
   }
