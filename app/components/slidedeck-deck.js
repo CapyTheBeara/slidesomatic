@@ -5,14 +5,16 @@ export default Ember.Component.extend({
   deckId: null,
 
   didInsertElement: function() {
-    var self = this,
+    var player,
+        self = this,
         id = this.get('elementId'),
-        params = { allowScriptAccess: "always" },
+        params = { allowScriptAccess: "always", allowfullscreen: true },
         atts = { id: "flashPlayer" },
         flashvars = { doc : this.get('deckId'), startSlide : 1, rel : 0 };
 
     swfobject.embedSWF(endpoint, "flashPlayer", "100%", "100%", "8", null, flashvars, params, atts, function() {
-      self.sendAction('action', document.getElementById(id));
+      player = document.getElementById(id);
+      self.sendAction('action', player);
     });
 
   }

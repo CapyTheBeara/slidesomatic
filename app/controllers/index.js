@@ -1,17 +1,27 @@
 export default Ember.ObjectController.extend({
   time: null,
   currentSequence: null,
-  flashPlayer: null,
+  videoPlayer: null,
+  slidePlayer: null,
 
   actions: {
-    setFlashPlayer: function(player) {
-      this.set('flashPlayer', player);
+    setVideoPlayer: function(player) {
+      this.set('videoPlayer', player);
+    },
+
+    setSlidePlayer: function(player) {
+      this.set('slidePlayer', player);
+    },
+
+    skipTo: function(time) {
+      this.get('videoPlayer').play(time);
     },
 
     updateSequence: function(time) {
       this.set('time', time);
 
-      var currentSequence = this.get('currentSequence'),
+      var slidePlayer, slide,
+          currentSequence = this.get('currentSequence'),
           seqs = this.get('sequences'),
 
           hit = seqs.find(function(seq) {
@@ -21,7 +31,16 @@ export default Ember.ObjectController.extend({
       if (!hit) { return false; }
       if (!currentSequence || !currentSequence.eq(hit)) {
         this.set('currentSequence', hit);
-        this.get('flashPlayer').jumpTo(hit.get('slide'));
+
+        slidePlayer = this.get('slidePlayer');
+        slide = hit.get('slide');
+
+        if (slide === '1') {  // get rid of bouncing arrow
+          slidePlayer.next();
+          slidePlayer.previous();
+        } else {
+          slidePlayer.jumpTo(slide);
+        }
       }
     }
   }

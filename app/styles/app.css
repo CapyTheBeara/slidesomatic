@@ -1,20 +1,26 @@
 /* Put your CSS here */
-html, body {
-    margin: 20px;
-}
 
 @keyframes domChanged { from { background: yellow; } }
 @-webkit-keyframes domChanged { from { background: yellow; } }
 .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
 
-#video-view {
-    height: 500px;
-    width: 500px;
-    float: left;
+.left-bar {
+    height: 98%;
+    width: 75%;
 }
 
-#flashPlayer {
+.right-bar {
+    width: 25%;
+}
+
+#widget2 {
+    min-height: 200px;
+}
+
+.fr {
+    float: right;
+}
+
+.fl {
     float: left;
-    height: 500px;
-    width: 500px;
 }

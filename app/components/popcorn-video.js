@@ -15,14 +15,16 @@ export default Ember.Component.extend({
     video.src = srcInfo.src;
     video.width = $el.width();
     video.height = $el.height();
-    video.play();
 
     popcorn = Popcorn(video);
     popcorn.currentTime(srcInfo.startTime);
 
+    this.sendAction('setPlayer', popcorn);
+
     popcorn.on('timeupdate', function(evt){
-      var last = self.get('currentTime');
-      var current = Math.round(popcorn.currentTime()*10) / 10;
+      var last = self.get('currentTime'),
+          current = Math.round(popcorn.currentTime()*10) / 10;
+
       if (last !== current) {
         self.set('currentTime', current);
         self.sendAction('action', current);
