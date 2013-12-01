@@ -9,7 +9,8 @@
     "DS",
     "$",
     "console",
-    "Popcorn"
+    "Popcorn",
+    "swfobject"
   ],
   "node" : false,
   "browser" : false,

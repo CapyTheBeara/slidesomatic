@@ -6,3 +6,15 @@ html, body {
 @keyframes domChanged { from { background: yellow; } }
 @-webkit-keyframes domChanged { from { background: yellow; } }
 .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
+
+#video-view {
+    height: 500px;
+    width: 500px;
+    float: left;
+}
+
+#flashPlayer {
+    float: left;
+    height: 500px;
+    width: 500px;
+}

@@ -1,17 +1,20 @@
-{{popcorn-video id  = 'video-view'
-                src = video.url
-                action = 'updateSequence'}}
+<div class="presentation">
+    {{popcorn-video id  = 'video-view'
+                    src = video.url
+                    action = 'updateSequence'}}
+    {{slidedeck-deck deckId = deck.deckId
+                     action = 'setFlashPlayer'}}
+</div>
+
 <hr>
-{{currentSequence.slide}} {{time}}
+{{currentSequence.slide}} - {{format-seconds time}} - {{time}}s
 <hr>
 
 <ul>
 {{#each s in sequences}}
     <li>
         {{s.slide}}
-        {{s.start}}
-        {{s.stop}}
+        {{format-seconds s.stop}}
     </li>
 {{/each}}
 </ul>
-

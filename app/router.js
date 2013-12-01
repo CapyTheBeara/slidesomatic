@@ -3,7 +3,7 @@ var Router = Ember.Router.extend(); // ensure we don't share routes between all 
 Router.map(function() {
   this.route('index', {
     path: '/',
-    queryParams: ['vid', 'vtype', 'seq', 'start']
+    queryParams: ['vid', 'vtype', 'seq', 'start', 'did']
   });
 });
 

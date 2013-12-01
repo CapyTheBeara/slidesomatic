@@ -33,6 +33,7 @@
   <!-- endbuild -->
 
     <script src="/vendor/popcorn/popcorn.js"></script>
+    <script src="/vendor/swfobject.js"></script>
 
   <!-- build:js(tmp/result) assets/app.min.js -->
 
@@ -65,14 +66,6 @@
 
 </head>
 <body>
-  <!--[if lt IE 8]>
-    <p class="browsehappy">
-      You are using an <strong>outdated</strong> browser. Please
-      <a href="http://browsehappy.com/">upgrade your browser</a>
-      to improve your experience.
-    </p>
-  <![endif]-->
-
   <!-- @if tests=true -->
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
@@ -87,5 +80,9 @@
   </script>
   <!-- @endif -->
 
+  <script>
+    var foo = function(res) {console.log(res);};
+  </script>
+  <script src="http://query.yahooapis.com/v1/public/yql?q=select%20thumbnail%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.slideshare.net%2Fapi%2Foembed%2F2%3Furl%3Dhttp%3A%2F%2Fwww.slideshare.net%2Ftboyt%2Fpresentation-27430110%26format%3Djson%22&format=json&diagnostics=true&callback=foo"></script>
 </body>
 </html>
