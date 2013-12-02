@@ -11,24 +11,26 @@
                         setPlayer = 'setVideoPlayer'}}
     </div>
 
-    <div class="details">
+    <div class="details fl">
         <table>
             <tr>
                 <th>Time</th>
                 <th>Slide</th>
+                <th></th>
             </tr>
-        {{#each s in sequences}}
-            <tr>
-                <td>
-                    <a href="#" {{action 'skipTo' s.start}}>
-                        {{format-seconds s.start}}
-                    </a>
-                </td>
-                <td>
-                    {{s.slide}}
-                </td>
-            </tr>
+        {{#each s in sequences itemController='sequence'}}
+            {{#if isEditing}}
+                {{partial 'sequence/edit'}}
+            {{else}}
+                {{partial 'sequence/view'}}
+            {{/if}}
         {{/each}}
         </table>
+    </div>
+
+    <div class="nav fr">
+        <a href="#" {{action 'toggleEdit'}}>
+            Edit Mode
+        </a>
     </div>
 </div>

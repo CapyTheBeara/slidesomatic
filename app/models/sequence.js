@@ -1,10 +1,12 @@
+import ModelProxyMixin from 'appkit/utils/model_proxy_mixin';
+
 var attr = DS.attr;
 
-var Sequence = DS.Model.extend({
+export default DS.Model.extend(ModelProxyMixin, {
   start: attr(),
   slide: attr('number'),
 
-  hasPast: function(time) {
+  hasPassed: function(time) {
     return this.get('start') <= time;
   },
 
@@ -12,7 +14,3 @@ var Sequence = DS.Model.extend({
     return this.get('start') === seq.get('start');
   }
 });
-
-export default Sequence;
-
-

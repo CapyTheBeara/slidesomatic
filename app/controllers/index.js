@@ -3,6 +3,7 @@ export default Ember.ObjectController.extend({
   currentSequence: null,
   videoPlayer: null,
   slidePlayer: null,
+  editMode: false,
 
   sequences: function() {
     return Em.ArrayProxy.createWithMixins(Em.SortableMixin, {
@@ -10,6 +11,18 @@ export default Ember.ObjectController.extend({
       content: this.get('model.sequences')
     });
   }.property('model.sequences'),
+
+  updateSlide: function() {
+    var slidePlayer = this.get('slidePlayer'),
+        slide = this.get('currentSequence.slide');
+
+    if (slide === '1') {  // get rid of bouncing arrow
+      slidePlayer.next();
+      slidePlayer.previous();
+    }
+
+    slidePlayer.jumpTo(slide);
+  }.observes('currentSequence'),
 
   actions: {
     setVideoPlayer: function(player) {
@@ -24,6 +37,10 @@ export default Ember.ObjectController.extend({
       this.get('videoPlayer').play(time);
     },
 
+    toggleEdit: function() {
+      this.toggleProperty('editMode');
+    },
+
     updateSequence: function(time) {
       this.set('time', time);
 
@@ -32,22 +49,12 @@ export default Ember.ObjectController.extend({
           seqs = this.get('sequences'),
 
           hit = seqs.filter(function(seq) {
-            if (seq.hasPast(time)) { return true; }
+            if (seq.hasPassed(time)) { return true; }
           }).get('lastObject');
 
       if (!hit) { return false; }
       if (!currentSequence || !currentSequence.eq(hit)) {
         this.set('currentSequence', hit);
-
-        slidePlayer = this.get('slidePlayer');
-        slide = hit.get('slide');
-
-        if (slide === '1') {  // get rid of bouncing arrow
-          slidePlayer.next();
-          slidePlayer.previous();
-        }
-
-        slidePlayer.jumpTo(slide);
       }
     }
   }
