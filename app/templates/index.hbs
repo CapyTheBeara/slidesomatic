@@ -26,6 +26,12 @@
             {{/if}}
         {{/each}}
         </table>
+
+        {{#if editMode}}
+            URL: {{input value=url}}
+            <br>
+            <a {{bind-attr href='url'}}>{{url}}</a>
+        {{/if}}
     </div>
 
     <div class="nav fr">
