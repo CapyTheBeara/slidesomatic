@@ -3,21 +3,23 @@
 export default Ember.Component.extend({
   src: "",
   currentTime: 0,
+  start: 0,
 
   didInsertElement: function() {
     var popcorn,
         self = this,
-        srcInfo = parseSrc(this.get('src')),
+        src = this.get('src') + '&controls=2',
+        start = this.get('start'),
         id = "#" + this.get('elementId'),
         video = Popcorn.HTMLYouTubeVideoElement(id),
         $el = $(id);
 
-    video.src = srcInfo.src;
+    video.src = src;
     video.width = $el.width();
     video.height = $el.height();
 
     popcorn = Popcorn(video);
-    popcorn.currentTime(srcInfo.startTime);
+    popcorn.currentTime(start);
 
     this.sendAction('setPlayer', popcorn);
 
@@ -32,11 +34,3 @@ export default Ember.Component.extend({
     });
   }
 });
-
-function parseSrc(fullSrc) {
-  var split = fullSrc.split('#t=');
-  return {
-    src: split[0] + '&controls=2',
-    startTime: split[1] || 0
-  };
-}

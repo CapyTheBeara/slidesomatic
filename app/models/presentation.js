@@ -8,6 +8,10 @@ export default DS.Model.extend({
   sequences: DS.hasMany('sequence'),
   encodedSequencesUrlFrag: null,
 
+  firstSequence: function() {
+    return this.get('sequences').sortBy('start')[0];
+  }.property('sequences.@each.start'),
+
   url: function() {
     var start = this.get('video.start'),
         host = window.location.host + "/#/?",
