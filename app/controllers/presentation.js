@@ -5,6 +5,22 @@ export default Ember.ObjectController.extend({
   deckPlayer: null,
   needs: ['sequences'],
 
+  updateSequence: function() {
+    var deckPlayer, slide,
+        time = this.get('time'),
+        currentSequence = this.get('currentSequence'),
+        seqs = this.get('sequences'),
+
+        hit = seqs.filter(function(seq) {
+          if (seq.hasPassed(time)) { return true; }
+        }).get('lastObject');
+
+    if (!hit) { return false; }
+    if (!currentSequence || !currentSequence.eq(hit)) {
+      this.set('currentSequence', hit);
+    }
+  }.observes('time'),
+
   updateSlide: function() {
     var deckPlayer = this.get('deckPlayer'),
         slide = this.get('currentSequence.slide');
@@ -31,22 +47,6 @@ export default Ember.ObjectController.extend({
 
     skipTo: function(time) {
       this.get('videoPlayer').play(time);
-    },
-
-    updateSequence: function() {
-      var deckPlayer, slide,
-          time = this.get('time'),
-          currentSequence = this.get('currentSequence'),
-          seqs = this.get('sequences'),
-
-          hit = seqs.filter(function(seq) {
-            if (seq.hasPassed(time)) { return true; }
-          }).get('lastObject');
-
-      if (!hit) { return false; }
-      if (!currentSequence || !currentSequence.eq(hit)) {
-        this.set('currentSequence', hit);
-      }
-    }.observes('time')
+    }
   }
 });

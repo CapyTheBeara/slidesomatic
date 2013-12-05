@@ -6,12 +6,6 @@ export default PresentationController.extend({
   newSequence: null,
   showSequence: Em.computed.and('deck.valid', 'video.valid'),
 
-  init: function() {
-    this._super();
-    this.set('newSequence', this.store.createRecord('sequence'));
-    this.set('controllers.sequences.editMode', true);
-  },
-
   actions: {
     addDeck: function() {
       var url = this.get('deckUrl'),

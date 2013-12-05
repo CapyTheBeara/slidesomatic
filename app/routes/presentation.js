@@ -7,7 +7,7 @@ export default Ember.Route.extend({
         }),
 
         deck = this.store.createRecord('deck', {
-          docId: queryParams.did
+          deckId: queryParams.did
         }),
 
         video = this.store.createRecord(queryParams.vtype + '_video', {
@@ -17,6 +17,11 @@ export default Ember.Route.extend({
 
     presentation.setProperties({ deck: deck, video: video });
     return presentation;
+  },
+
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('controllers.sequences.editMode', false);
   },
 
   renderTemplate: function(controller, model) {

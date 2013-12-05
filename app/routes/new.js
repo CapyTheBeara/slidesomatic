@@ -14,9 +14,12 @@ export default PresentationRoute.extend({
   setupController: function(controller, model, queryParams) {
     this._super(controller, model);
 
+    controller.set('newSequence', this.store.createRecord('sequence'));
+    controller.set('controllers.sequences.editMode', true);
+
     if (queryParams.seq) {
       controller.set('videoUrl', model.get('video.url'));
-      controller.set('deckUrl', null);
+      controller.set('deckUrl', model.get('deck.url'));
     }
   }
 });

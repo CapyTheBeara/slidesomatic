@@ -1,6 +1,8 @@
 <div class="left-bar fl">
-    {{slidedeck-deck docId = deck.docId
-                     action = 'setDeckPlayer'}}
+    {{#if deck.docId}}
+        {{slidedeck-deck docId = deck.docId
+                         action = 'setDeckPlayer'}}
+    {{/if}}
 </div>
 
 <div class='right-bar fr'>

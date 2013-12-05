@@ -1,7 +1,8 @@
-// http://developer.yahoo.com/yql/console/#h=select+thumbnail+from+json+where+url%3D%22http%3A%2F%2Fwww.slideshare.net%2Fapi%2Foembed%2F2%3Furl%3Dhttp%3A%2F%2Fwww.slideshare.net%2Ftboyt%2Fpresentation-27430110%26format%3Djson%22
-
-// http://query.yahooapis.com/v1/public/yql?q=select%20thumbnail%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.slideshare.net%2Fapi%2Foembed%2F2%3Furl%3Dhttp%3A%2F%2Fwww.slideshare.net%2Ftboyt%2Fpresentation-27430110%26format%3Djson%22&format=json&callback=
+// http://www.slideshare.net/tboyt/presentation-27430110
 // presentation-131021192733-phpapp02
+
+// http://developer.yahoo.com/yql/console/#h=select+thumbnail+from+json+where+url%3D%22http%3A%2F%2Fwww.slideshare.net%2Fapi%2Foembed%2F2%3Furl%3Dhttp%3A%2F%2Fwww.slideshare.net%2Ftboyt%2Fpresentation-27430110%26format%3Djson%22
+// http://query.yahooapis.com/v1/public/yql?q=select%20thumbnail%20from%20json%20where%20url%3D%22http%3A%2F%2Fwww.slideshare.net%2Fapi%2Foembed%2F2%3Furl%3Dhttp%3A%2F%2Fwww.slideshare.net%2Ftboyt%2Fpresentation-27430110%26format%3Djson%22&format=json&callback=
 
 var attr = DS.attr,
     SDUrl = "http://www.slideshare.net/",
@@ -16,13 +17,17 @@ function getYqlUrl(id) {
 
 export default DS.Model.extend({
   url: attr(),
-  docId: attr().property('deckId'),
   presentation: DS.belongsTo('presentation'),
 
   error: null,
   valid: false,
 
-  deckId: function() {
+  deckId: function(key, value) {
+    if (arguments.length > 1) {
+      this.set('url', SDUrl + value);
+      return value;
+    }
+
     var url = this.get('url');
 
     if (!url) { return; }
@@ -31,11 +36,9 @@ export default DS.Model.extend({
 
   validate: function() {
     var id = this.get('deckId'),
-        docId = this.get('docId'),
         yqlUrl = getYqlUrl(id),
         self = this;
 
-    if (docId) { return this.setValid(); }
     if (!id) { return this.setError('Invalid SlideShare URL'); }
 
     $.getJSON(yqlUrl, function(obj) {
@@ -46,7 +49,7 @@ export default DS.Model.extend({
     }).fail(function() {
       self.setError('There was a problem with the request. Please try again later.');
     });
-  }.observes('url', 'docId'),
+  }.observes('url'),
 
   setError: function(msg) {
     this.set('error', msg);
