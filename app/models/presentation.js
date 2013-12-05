@@ -8,9 +8,9 @@ export default DS.Model.extend({
   sequences: DS.hasMany('sequence'),
   encodedSequencesUrlFrag: null,
 
-  url: function() {
-    var host = window.location.host + "/#/?",
-        did = 'did=' + this.get('deck.deckId'),
+  path: function() {
+    var host = "#/?",
+        did = 'did=' + this.get('deck.docId'),
         vtype = '&vtype=' + 'yt',
         vid = "&vid=" + this.get('video.videoId'),
         seq = "&seq=" + this.get('encodedSequences'),
@@ -18,6 +18,10 @@ export default DS.Model.extend({
 
     return url;
   }.property('deck.url', 'video.url', 'encodedSequences'),
+
+  url: function() {
+    return window.location.host + "/" + this.get('path');
+  }.property('path'),
 
   firstSequence: function() {
     return this.get('sequences').sortBy('start')[0];

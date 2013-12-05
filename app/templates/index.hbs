@@ -13,26 +13,7 @@
     </div>
 
     <div class="details fl">
-        <table>
-            <tr>
-                <th>Time</th>
-                <th>Slide</th>
-                <th></th>
-            </tr>
-        {{#each s in sequences itemController='sequence'}}
-            {{#if isEditing}}
-                {{partial 'sequence/edit'}}
-            {{else}}
-                {{partial 'sequence/view'}}
-            {{/if}}
-        {{/each}}
-        </table>
-
-        {{#if editMode}}
-            URL: {{input value=url}}
-            <br>
-            <a {{bind-attr href='url'}}>{{url}}</a>
-        {{/if}}
+        {{outlet sequences}}
     </div>
 
     <div class="nav fr">

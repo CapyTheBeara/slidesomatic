@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Slide</th>
+        <th></th>
+    </tr>
+
+    {{#each}}
+        {{#if isEditing}}
+            {{partial 'sequence/edit'}}
+        {{else}}
+            {{partial 'sequence/view'}}
+        {{/if}}
+    {{/each}}
+</table>
+
+{{#if showUrl}}
+    <br>
+    Presentation URL: {{input value=url}}
+    <a target='_blank' {{bind-attr href='presentation.path'}}>Preview</a>
+{{/if}}

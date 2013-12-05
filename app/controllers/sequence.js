@@ -1,5 +1,5 @@
 export default Ember.ObjectController.extend({
-  needs: ['index'],
+  needs: ['sequences'],
   isEditing: false,
 
   actions: {

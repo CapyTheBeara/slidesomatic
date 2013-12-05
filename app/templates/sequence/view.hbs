@@ -1,14 +1,14 @@
 <tr>
     <td>
-        <a href="#" {{action 'skipTo' s.start}}>
-            {{format-seconds s.start}}
+        <a href="#" {{action 'skipTo' start}}>
+            {{format-seconds start}}
         </a>
     </td>
     <td>
-        {{s.slide}}
+        {{slide}}
     </td>
     <td>
-        {{#if controllers.index.editMode}}
+        {{#if controllers.sequences.editMode}}
         <button {{action 'edit'}}>Edit</button>
         {{/if}}
     </td>

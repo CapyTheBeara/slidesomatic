@@ -3,14 +3,7 @@ export default Ember.ObjectController.extend({
   currentSequence: null,
   videoPlayer: null,
   slidePlayer: null,
-  editMode: false,
-
-  sequences: function() {
-    return Em.ArrayProxy.createWithMixins(Em.SortableMixin, {
-      sortProperties: ['start'],
-      content: this.get('model.sequences')
-    });
-  }.property('model.sequences'),
+  needs: ['sequences'],
 
   updateSlide: function() {
     var slidePlayer = this.get('slidePlayer'),
@@ -38,7 +31,7 @@ export default Ember.ObjectController.extend({
     },
 
     toggleEdit: function() {
-      this.toggleProperty('editMode');
+      this.toggleProperty('controllers.sequences.editMode');
     },
 
     updateSequence: function(time) {

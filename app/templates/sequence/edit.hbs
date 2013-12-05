@@ -1,9 +1,11 @@
 <tr>
     <td>
-        {{input value=s.proxy.start}}
+        {{input value=proxy.start}}
+        <br>
+        ({{format-seconds proxy.start}})
     </td>
     <td>
-        {{input value=s.proxy.slide}}
+        {{input value=proxy.slide}}
     </td>
     <td>
         <button {{action 'save'}}>Save</button>

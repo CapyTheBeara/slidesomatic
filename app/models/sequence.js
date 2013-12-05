@@ -5,7 +5,7 @@ var attr = DS.attr,
 
 export default DS.Model.extend(ModelProxyMixin, {
   start: attr(),
-  slide: attr('number'),
+  slide: attr('number', { defaultValue: 1 }),
   urlFrag: null,
 
   hasPassed: function(time) {
