@@ -31,25 +31,32 @@ export default DS.Model.extend({
 
   validate: function() {
     var id = this.get('deckId'),
+        docId = this.get('docId'),
         yqlUrl = getYqlUrl(id),
         self = this;
 
+    if (docId) { return this.setValid(); }
     if (!id) { return this.setError('Invalid SlideShare URL'); }
 
     $.getJSON(yqlUrl, function(obj) {
       var thumbnail = obj.query.results && obj.query.results.json.thumbnail;
 
       self.set('docId', thumbnail.match(thumbnailRegex)[1]);
-      self.set('error', null);
-      self.set('valid', true);
+      self.setValid();
     }).fail(function() {
       self.setError('There was a problem with the request. Please try again later.');
     });
-  }.observes('url'),
+  }.observes('url', 'docId'),
 
   setError: function(msg) {
     this.set('error', msg);
     this.set('valid', false);
+  },
+
+  setValid: function() {
+    this.set('error', null);
+    this.set('valid', true);
+    return true;
   }
 });
 

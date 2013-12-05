@@ -2,8 +2,8 @@ var Router = Ember.Router.extend(), // ensure we don't share routes between all 
     params = ['vid', 'vtype', 'seq', 'start', 'did'];
 
 Router.map(function() {
-  this.route('index', { path: '/', queryParams: params });
-  this.route('new', { path: '/new' });
+  this.route('presentation', { path: '/show', queryParams: params });
+  this.route('new', { path: '/new', queryParams: params });
 });
 
 export default Router;

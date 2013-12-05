@@ -2,42 +2,40 @@ export default Ember.ObjectController.extend({
   time: null,
   currentSequence: null,
   videoPlayer: null,
-  slidePlayer: null,
+  deckPlayer: null,
   needs: ['sequences'],
 
   updateSlide: function() {
-    var slidePlayer = this.get('slidePlayer'),
+    var deckPlayer = this.get('deckPlayer'),
         slide = this.get('currentSequence.slide');
 
     if (slide === '1') {  // get rid of bouncing arrow
-      slidePlayer.next();
-      slidePlayer.previous();
+      deckPlayer.next();
+      deckPlayer.previous();
     }
 
-    slidePlayer.jumpTo(slide);
+    deckPlayer.jumpTo(slide);
   }.observes('currentSequence'),
 
   actions: {
+    setTime: function(time) {
+      this.set('time', time);
+    },
     setVideoPlayer: function(player) {
       this.set('videoPlayer', player);
     },
 
-    setSlidePlayer: function(player) {
-      this.set('slidePlayer', player);
+    setDeckPlayer: function(player) {
+      this.set('deckPlayer', player);
     },
 
     skipTo: function(time) {
       this.get('videoPlayer').play(time);
     },
 
-    toggleEdit: function() {
-      this.toggleProperty('controllers.sequences.editMode');
-    },
-
-    updateSequence: function(time) {
-      this.set('time', time);
-
-      var slidePlayer, slide,
+    updateSequence: function() {
+      var deckPlayer, slide,
+          time = this.get('time'),
           currentSequence = this.get('currentSequence'),
           seqs = this.get('sequences'),
 
@@ -49,6 +47,6 @@ export default Ember.ObjectController.extend({
       if (!currentSequence || !currentSequence.eq(hit)) {
         this.set('currentSequence', hit);
       }
-    }
+    }.observes('time')
   }
 });

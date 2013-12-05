@@ -1,11 +1,9 @@
-export default Ember.ObjectController.extend({
-  time: null,
+import PresentationController from 'appkit/controllers/presentation';
+
+export default PresentationController.extend({
   videoUrl: 'http://www.youtube.com/watch?v=bzT0ezT-Jn8#t=3676', // null,
   deckUrl: 'http://www.slideshare.net/tboyt/presentation-27430110', // null,
   newSequence: null,
-  deckPlayer: null,
-  videoPlayer: null,
-  needs: ['sequences'],
   showSequence: Em.computed.and('deck.valid', 'video.valid'),
 
   init: function() {
@@ -15,10 +13,6 @@ export default Ember.ObjectController.extend({
   },
 
   actions: {
-    setTime: function(time) {
-      this.set('time', time);
-    },
-
     addDeck: function() {
       var url = this.get('deckUrl'),
           deck = this.store.createRecord('deck', {url: url});
@@ -32,14 +26,6 @@ export default Ember.ObjectController.extend({
 
       this.set('model.video', video);
       this.set('newSequence.start', video.get('start'));
-    },
-
-    setDeckPlayer: function(player) {
-      this.set('deckPlayer', player);
-    },
-
-    setVideoPlayer: function(player) {
-      this.set('videoPlayer', player);
     },
 
     setSequence: function() {

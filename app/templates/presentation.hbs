@@ -1,6 +1,6 @@
 <div class="left-bar fl">
     {{slidedeck-deck docId = deck.docId
-                     action = 'setSlidePlayer'}}
+                     action = 'setDeckPlayer'}}
 </div>
 
 <div class='right-bar fr'>
@@ -8,7 +8,7 @@
         {{popcorn-video id  = 'video-view'
                         src = video.url
                         start = video.start
-                        action = 'updateSequence'
+                        action = 'setTime'
                         setPlayer = 'setVideoPlayer'}}
     </div>
 
@@ -17,8 +17,8 @@
     </div>
 
     <div class="nav fr">
-        <a href="#" {{action 'toggleEdit'}}>
-            Edit Mode
-        </a>
+        {{#link-to 'new'}}
+            Edit
+        {{/link-to}}
     </div>
 </div>
