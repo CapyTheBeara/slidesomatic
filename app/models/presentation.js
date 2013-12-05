@@ -8,22 +8,20 @@ export default DS.Model.extend({
   sequences: DS.hasMany('sequence'),
   encodedSequencesUrlFrag: null,
 
-  firstSequence: function() {
-    return this.get('sequences').sortBy('start')[0];
-  }.property('sequences.@each.start'),
-
   url: function() {
-    var start = this.get('video.start'),
-        host = window.location.host + "/#/?",
+    var host = window.location.host + "/#/?",
         did = 'did=' + this.get('deck.deckId'),
         vtype = '&vtype=' + 'yt',
         vid = "&vid=" + this.get('video.videoId'),
         seq = "&seq=" + this.get('encodedSequences'),
         url = [host, did, vtype, vid, seq].join('');
 
-    if (start) { url = url + "&start=" + start; }
     return url;
   }.property('deck.url', 'video.url', 'encodedSequences'),
+
+  firstSequence: function() {
+    return this.get('sequences').sortBy('start')[0];
+  }.property('sequences.@each.start'),
 
   encodedSequences: function() {
     return this.get('sequences').mapBy('encoded').join(DELIMITER);
@@ -32,6 +30,7 @@ export default DS.Model.extend({
   createSequences: function() {
     var self = this,
         frag = this.get('encodedSequencesUrlFrag'),
+
         seqs = frag.split(DELIMITER).map(function(item) {
           return self.store.createRecord('sequence', { urlFrag: item });
         });

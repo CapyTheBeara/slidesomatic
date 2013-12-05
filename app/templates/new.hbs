@@ -1,0 +1,33 @@
+<input value ='http://www.youtube.com/watch?v=8GKmkD1pUG0#t=44'></input>
+<div>
+    YouTube URL: {{input value=videoUrl enter='addVideo'}}
+    <button {{action 'addVideo'}}>Submit</button>
+
+    {{video.error}}
+</div>
+
+{{#if video.valid}}
+    <div>
+        Video start time: {{input value=video.start}}s
+    </div>
+
+    {{popcorn-video id  = 'video-view'
+                    src = video.url
+                    action = 'setTime'}}
+
+    <hr>
+    <input value="http://www.slideshare.net/tboyt/presentation-27430110">
+    <div>
+        SlideShare URL: {{input value=deckUrl enter='addDeck'}}
+        <button {{action 'addDeck'}}>Submit</button>
+
+        {{deck.error}}
+    </div>
+
+    {{#if deck.valid}}
+        {{slidedeck-deck docId=deck.docId}}
+
+        <hr>
+
+    {{/if}}
+{{/if}}

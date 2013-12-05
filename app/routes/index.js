@@ -7,7 +7,7 @@ export default Ember.Route.extend({
         }),
 
         deck = this.store.createRecord('deck', {
-          deckId: queryParams.did
+          docId: queryParams.did
         }),
 
         video = this.store.createRecord(queryParams.vtype + '_video', {
