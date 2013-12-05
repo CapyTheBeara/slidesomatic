@@ -1,33 +1,66 @@
-<input value ='http://www.youtube.com/watch?v=8GKmkD1pUG0#t=44'></input>
+<div>
+    SlideShare URL: {{input value=deckUrl enter='addDeck'}}
+    <button {{action 'addDeck'}}>Get Slides</button>
+
+    {{deck.error}}
+</div>
+
 <div>
     YouTube URL: {{input value=videoUrl enter='addVideo'}}
-    <button {{action 'addVideo'}}>Submit</button>
+    <button {{action 'addVideo'}}>Get Video</button>
 
     {{video.error}}
 </div>
 
 {{#if video.valid}}
     <div>
-        Video start time: {{input value=video.start}}s
+        Video start time (sec): {{input value=video.start}}
+        ({{format-seconds video.start}})
     </div>
 
     {{popcorn-video id  = 'video-view'
                     src = video.url
-                    action = 'setTime'}}
+                    start = video.start
+                    action = 'setTime'
+                    setPlayer = 'setVideoPlayer'}}
 
-    <hr>
-    <input value="http://www.slideshare.net/tboyt/presentation-27430110">
+{{/if}}
+
+{{#if deck.valid}}
+    {{slidedeck-deck docId = deck.docId
+                     action = 'setDeckPlayer'}}
+{{/if}}
+
+{{#if showSequence}}
+    <h2>
+        Add a new sequence
+    </h2>
+
+    {{#with newSequence}}
     <div>
-        SlideShare URL: {{input value=deckUrl enter='addDeck'}}
-        <button {{action 'addDeck'}}>Submit</button>
-
-        {{deck.error}}
+        <label>
+            Start time
+            {{input value=start}}
+            {{format-seconds start}}
+        </label>
     </div>
 
-    {{#if deck.valid}}
-        {{slidedeck-deck docId=deck.docId}}
+    <div>
+        <label>
+            Slide number
+            {{input value=slide}}
+        </label>
+    </div>
 
-        <hr>
+    <div>
+        <button {{action 'setSequence'}}>
+            Set Time and Slide
+        </button>
+        <button {{action 'addSequence'}}>
+            Add Sequence
+        </button>
+    </div>
+    {{/with}}
 
-    {{/if}}
+    {{outlet sequences}}
 {{/if}}
