@@ -44,8 +44,13 @@ export default DS.Model.extend({
     $.getJSON(yqlUrl, function(obj) {
       var thumbnail = obj.query.results && obj.query.results.json.thumbnail;
 
-      self.set('docId', thumbnail.match(thumbnailRegex)[1]);
-      self.setValid();
+      if (thumbnail) {
+        self.set('docId', thumbnail.match(thumbnailRegex)[1]);
+        self.setValid();
+      } else {
+        self.setError('There was a problem with the request. Please try again later.');
+      }
+
     }).fail(function() {
       self.setError('There was a problem with the request. Please try again later.');
     });
