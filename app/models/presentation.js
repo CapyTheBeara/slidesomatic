@@ -6,7 +6,7 @@ export default DS.Model.extend({
   deck: DS.belongsTo('deck/deck'),
   video: DS.belongsTo('video/video'),
   sequences: DS.hasMany('sequence'),
-  encodedSequencesUrlFrag: null,
+  sequencesUrlFrag: null,
 
   path: function() {
     var host = "#/show?",
@@ -33,12 +33,12 @@ export default DS.Model.extend({
 
   createSequences: function() {
     var self = this,
-        frag = this.get('encodedSequencesUrlFrag'),
+        frag = this.get('sequencesUrlFrag'),
 
         seqs = frag.split(DELIMITER).map(function(item) {
           return self.store.createRecord('sequence', { urlFrag: item });
         });
 
     this.get('sequences').pushObjects(seqs);
-  }.observes('encodedSequencesUrlFrag')
+  }.observes('sequencesUrlFrag')
 });

@@ -9,14 +9,14 @@ export default PresentationController.extend({
   actions: {
     addDeck: function() {
       var url = this.get('deckUrl'),
-          deck = this.store.createRecord('deck/deck', {url: url});
+          deck = this.store.createRecord('deck/slide_share', {url: url});
 
       this.set('model.deck', deck);
     },
 
     addVideo: function() {
       var url = this.get('videoUrl'),
-          video = this.store.createRecord('video/yt_video', {url: url});
+          video = this.store.createRecord('video/you_tube', {url: url});
 
       this.set('model.video', video);
       this.set('newSequence.start', video.get('start'));

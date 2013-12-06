@@ -3,14 +3,14 @@ export default Ember.Route.extend({
 
   model: function(params, queryParams) {
     var presentation = this.store.createRecord('presentation', {
-          encodedSequencesUrlFrag: queryParams.seq
+          sequencesUrlFrag: queryParams.seq
         }),
 
-        deck = this.store.createRecord('deck/deck', {
+        deck = this.store.createRecord('deck/' + queryParams.dtype, {
           deckId: queryParams.did
         }),
 
-        video = this.store.createRecord('video/' + queryParams.vtype + '_video', {
+        video = this.store.createRecord('video/' + queryParams.vtype, {
           start: presentation.get('firstSequence.start'),  // needs to be before videoId
           videoId: queryParams.vid
         });
