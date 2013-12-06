@@ -1,14 +1,17 @@
 <tr>
-    <td>
-        {{format-seconds proxy.start}}
-    </td>
-    <td>
-        {{input value=proxy.start}}
-    </td>
-    <td>
-        {{input value=proxy.slide}}
-    </td>
-    <td>
-        <button {{action 'save'}}>Save</button>
-    </td>
+    <form {{action 'save' on='submit'}}>
+        <td>
+            {{format-seconds proxy.start}}
+        </td>
+        <td>
+            {{input value=proxy.start}}
+        </td>
+        <td>
+            {{input value=proxy.slide}}
+        </td>
+        <td>
+            <button type='submit'>Save</button>
+            <a href="#" {{action 'destroy'}}>Remove</a>
+        </td>
+    </form>
 </tr>

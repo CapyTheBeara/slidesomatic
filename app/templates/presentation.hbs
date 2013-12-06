@@ -1,8 +1,16 @@
 <div class="left-bar fl">
-    {{#if deck.docId}}
+{{#if deck.valid}}
+    {{#if deck.slideshare}}
         {{slidedeck-deck docId = deck.docId
                          action = 'setDeckPlayer'}}
     {{/if}}
+
+    {{#if deck.speakerdeck}}
+        {{speakerdeck-deck class='view-slides'
+                           docId = deck.docId
+                           action = 'setDeckPlayer'}}
+    {{/if}}
+{{/if}}
 </div>
 
 <div class='right-bar fr'>

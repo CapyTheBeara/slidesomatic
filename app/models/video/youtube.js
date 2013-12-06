@@ -7,6 +7,8 @@ var YTUrl = "http://www.youtube.com/watch?v=VIDEO_ID",
     regex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 
 export default Video.extend({
+  type: 'youtube',
+  youtube: true,
   _url: '',
 
   url: function(key, value) {

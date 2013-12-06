@@ -18,6 +18,7 @@ function getYqlUrl(id) {
 }
 
 export default Deck.extend({
+  type: 'slideshare',
   slideshare: true,
 
   deckId: function(key, value) {

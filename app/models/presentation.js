@@ -11,10 +11,11 @@ export default DS.Model.extend({
   path: function() {
     var host = "#/show?",
         did = 'did=' + this.get('deck.deckId'),
-        vtype = '&vtype=' + 'yt',
+        dtype = '&dtype=' + this.get('deck.type'),
+        vtype = '&vtype=' + this.get('video.type'),
         vid = "&vid=" + this.get('video.videoId'),
         seq = "&seq=" + this.get('encodedSequences'),
-        url = [host, did, vtype, vid, seq].join('');
+        url = [host, did, dtype, vtype, vid, seq].join('');
 
     return url;
   }.property('deck.url', 'video.url', 'encodedSequences'),
