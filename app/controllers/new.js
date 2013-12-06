@@ -10,17 +10,30 @@ export default PresentationController.extend({
   deckUrl: 'http://www.slideshare.net/tboyt/presentation-27430110', // null,
   newSequence: null,
   showSequence: Em.computed.and('deck.valid', 'video.valid'),
+  urlError: null,
 
   actions: {
     addChild: function(type) {
       var url = this.get(type + 'Url'),
-          modelName = type + '/' + domainName(url),
-          model = this.store.createRecord(modelName, {url: url});
-// TODO handle bad url
-      this.set('model.' + type, model);
+          domain = domainName(url);
 
-      if (type === 'video') {
-        this.set('newSequence.start', model.get('start'));
+      if (domain) {
+        var modelName = type + '/' + domain;
+
+        try {
+          var model = this.store.createRecord(modelName, {url: url});
+
+          this.set('urlError', null);
+          this.set('model.' + type, model);
+
+          if (type === 'video') {
+            this.set('newSequence.start', model.get('start'));
+          }
+        } catch (e) {
+          return this.set('urlError', 'Sorry, that website is not supported.');
+        }
+      } else {
+        this.set('urlError', 'Please input full URLs');
       }
     },
 

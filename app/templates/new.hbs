@@ -1,20 +1,33 @@
 <div>
-    SlideShare URL: {{input value=deckUrl enter='addDeck'}}
-    <button {{action 'addChild' 'deck'}}>Get Slides</button>
-
+    <form {{action 'addChild' 'deck' on='submit'}}>
+        <label>
+            SlideShare URL
+            {{input value=deckUrl}}
+        </label>
+        <button type='submit'>Get Slides</button>
+    </form>
     {{deck.error}}
+    {{urlError}}
 </div>
 
 <div>
-    YouTube URL: {{input value=videoUrl enter='addVideo'}}
-    <button {{action 'addChild' 'video'}}>Get Video</button>
-
+    <form {{action 'addChild' 'video' on='submit'}}>
+        <label>
+            YouTube URL
+            {{input value=videoUrl}}
+        </label>
+        <button type='submit'>Get Video</button>
+    </form>
     {{video.error}}
 </div>
 
 {{#if video.valid}}
     <div>
-        Video start time (sec): {{input value=video.start}}
+        <label>
+            Video start time (sec)
+            {{input value=video.start}}
+        </label>
+
         ({{format-seconds video.start}})
     </div>
 
