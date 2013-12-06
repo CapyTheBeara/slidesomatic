@@ -1,7 +1,7 @@
 <div>
     <form {{action 'addChild' 'deck' on='submit'}}>
         <label>
-            SlideShare URL
+            Slides URL
             {{input value=deckUrl}}
         </label>
         <button type='submit'>Get Slides</button>
@@ -13,7 +13,7 @@
 <div>
     <form {{action 'addChild' 'video' on='submit'}}>
         <label>
-            YouTube URL
+            Video URL
             {{input value=videoUrl}}
         </label>
         <button type='submit'>Get Video</button>
@@ -36,12 +36,18 @@
                     start = video.start
                     action = 'setTime'
                     setPlayer = 'setVideoPlayer'}}
-
 {{/if}}
 
 {{#if deck.valid}}
-    {{slidedeck-deck docId = deck.docId
-                     action = 'setDeckPlayer'}}
+    {{#if deck.slideshare}}
+        {{slidedeck-deck docId = deck.docId
+                         action = 'setDeckPlayer'}}
+    {{/if}}
+
+    {{#if deck.speakerdeck}}
+        {{speakerdeck-deck docId = deck.docId
+                           action = 'setDeckPlayer'}}
+    {{/if}}
 {{/if}}
 
 {{#if showSequence}}

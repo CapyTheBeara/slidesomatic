@@ -18,11 +18,7 @@ function getYqlUrl(id) {
 }
 
 export default Deck.extend({
-  url: attr(),
-  presentation: DS.belongsTo('presentation'),
-
-  error: null,
-  valid: false,
+  slideshare: true,
 
   deckId: function(key, value) {
     if (arguments.length > 1) {
@@ -56,17 +52,6 @@ export default Deck.extend({
     }).fail(function() {
       self.setError('There was a problem with the request. Please try again later.');
     });
-  }.observes('url'),
-
-  setError: function(msg) {
-    this.set('error', msg);
-    this.set('valid', false);
-  },
-
-  setValid: function() {
-    this.set('error', null);
-    this.set('valid', true);
-    return true;
-  }
+  }.observes('url')
 });
 

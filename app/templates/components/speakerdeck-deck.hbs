@@ -1,0 +1,20 @@
+
+<img {{bind-attr src='src'}} alt="speakerdeck slide">
+
+<div class="controls">
+    <button {{action 'previous'}} class='btn btn-default'>
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        Previous
+    </button>
+
+    {{input value=seekNum action='seek' on='enter'}}
+
+    <button {{action 'next'}} class='btn btn-default'>
+        Next
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </button>
+
+    {{imgError}}
+</div>
+
+

@@ -1,13 +1,13 @@
 import PresentationController from 'appkit/controllers/presentation';
 
 function domainName(url) {
-  var match = url.match(/www\.(.+)\./);
+  var match = url.match(/^http(?:s?):\/\/(?:w*\.?)(.+)\.(?:com|net)/);
   return match && match[1];
 }
 
 export default PresentationController.extend({
   videoUrl: 'http://www.youtube.com/watch?v=bzT0ezT-Jn8#t=3676', // null,
-  deckUrl: 'http://www.slideshare.net/tboyt/presentation-27430110', // null,
+  deckUrl: 'https://speakerdeck.com/patrickjholloway/ember-templates', // null,
   newSequence: null,
   showSequence: Em.computed.and('deck.valid', 'video.valid'),
   urlError: null,
@@ -18,10 +18,9 @@ export default PresentationController.extend({
           domain = domainName(url);
 
       if (domain) {
-        var modelName = type + '/' + domain;
-
         try {
-          var model = this.store.createRecord(modelName, {url: url});
+          var modelName = type + '/' + domain,
+              model = this.store.createRecord(modelName, {url: url});
 
           this.set('urlError', null);
           this.set('model.' + type, model);
