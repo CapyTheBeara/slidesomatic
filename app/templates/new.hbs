@@ -1,13 +1,13 @@
 <div>
     SlideShare URL: {{input value=deckUrl enter='addDeck'}}
-    <button {{action 'addDeck'}}>Get Slides</button>
+    <button {{action 'addChild' 'deck'}}>Get Slides</button>
 
     {{deck.error}}
 </div>
 
 <div>
     YouTube URL: {{input value=videoUrl enter='addVideo'}}
-    <button {{action 'addVideo'}}>Get Video</button>
+    <button {{action 'addChild' 'video'}}>Get Video</button>
 
     {{video.error}}
 </div>
