@@ -4,6 +4,13 @@
             {{format-seconds start}}
         </a>
     </td>
+
+    {{#if controllers.sequences.showSeconds}}
+    <td>
+        {{start}}
+    </td>
+    {{/if}}
+
     <td>
         {{slide}}
     </td>
