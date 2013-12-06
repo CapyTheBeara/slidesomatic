@@ -6,14 +6,15 @@ export default Ember.Route.extend({
           encodedSequencesUrlFrag: queryParams.seq
         }),
 
-        deck = this.store.createRecord('deck', {
+        deck = this.store.createRecord('deck/deck', {
           deckId: queryParams.did
         }),
 
-        video = this.store.createRecord(queryParams.vtype + '_video', {
+        video = this.store.createRecord('video/' + queryParams.vtype + '_video', {
           start: presentation.get('firstSequence.start'),  // needs to be before videoId
           videoId: queryParams.vid
         });
+
 
     presentation.setProperties({ deck: deck, video: video });
     return presentation;
@@ -22,6 +23,7 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('controllers.sequences.editMode', false);
+    controller.set('controllers.sequences.showSeconds', false);
   },
 
   renderTemplate: function(controller, model) {

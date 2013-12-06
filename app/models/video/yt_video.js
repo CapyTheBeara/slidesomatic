@@ -1,6 +1,6 @@
 // http://www.youtube.com/watch?v=8GKmkD1pUG0
 
-import Video from 'appkit/models/video';
+import Video from 'appkit/models/video/video';
 
 var YTUrl = "http://www.youtube.com/watch?v=VIDEO_ID",
     ytDataUrl = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc',

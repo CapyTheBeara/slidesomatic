@@ -3,8 +3,8 @@
 var DELIMITER = 'l';
 
 export default DS.Model.extend({
-  deck: DS.belongsTo('deck'),
-  video: DS.belongsTo('video'),
+  deck: DS.belongsTo('deck/deck'),
+  video: DS.belongsTo('video/video'),
   sequences: DS.hasMany('sequence'),
   encodedSequencesUrlFrag: null,
 
