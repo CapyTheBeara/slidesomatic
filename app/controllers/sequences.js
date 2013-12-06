@@ -12,6 +12,8 @@ export default Ember.ArrayController.extend({
   showUrl: Em.computed.and('editMode', 'presentation.firstSequence'),
   shortUrl: null,
   showSeconds: true,
+  parent: null,
+  currentSequence: Em.computed.alias('parent.currentSequence'),
 
   actions: {
     shortenUrl: function() {

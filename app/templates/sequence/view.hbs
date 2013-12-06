@@ -1,4 +1,4 @@
-<tr>
+<tr {{bind-attr class='isPast:past'}}>
     <td>
         <a href="#" {{action 'skipTo' start}}>
             {{format-seconds start}}
@@ -14,6 +14,7 @@
     <td>
         {{slide}}
     </td>
+
     <td>
         {{#if controllers.sequences.editMode}}
         <button {{action 'edit'}}>Edit</button>

@@ -24,6 +24,7 @@ export default Ember.Route.extend({
     this._super(controller, model);
     controller.set('controllers.sequences.editMode', false);
     controller.set('controllers.sequences.showSeconds', false);
+    controller.set('controllers.sequences.parent', controller);
   },
 
   renderTemplate: function(controller, model) {
