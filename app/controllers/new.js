@@ -6,8 +6,8 @@ function domainName(url) {
 }
 
 export default PresentationController.extend({
-  videoUrl: 'http://www.youtube.com/watch?v=bzT0ezT-Jn8#t=3676', // null,
-  deckUrl: 'https://speakerdeck.com/patrickjholloway/ember-templates', // null,
+  videoUrl: 'http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451', // null,
+  deckUrl: 'https://speakerdeck.com/jrallison/ember-components', // null,
   newSequence: null,
   showSequence: Em.computed.and('deck.valid', 'video.valid'),
   urlError: null,
@@ -37,25 +37,26 @@ export default PresentationController.extend({
     },
 
     setSequence: function() {
-      var deckPlayer = this.get('deckPlayer'),
-          videoPlayer = this.get('videoPlayer'),
-          currentSlide = deckPlayer.getCurrentSlide(),
-          currentTime = Math.round(videoPlayer.currentTime() * 10)/10;
+      var slide = this.get('deckPlayer').getCurrentSlide(),
+          start = this.get('time');
 
-      this.set('newSequence.start', currentTime);
-      this.set('newSequence.slide', currentSlide);
+      this.set('newSequence.start', start);
+      this.set('newSequence.slide', slide);
     },
 
     addSequence: function() {
       var seq = this.get('newSequence'),
           model = this.get('model'),
           nextSeq = this.store.createRecord('sequence', {
-            slide: seq.get('slide') + 1
+            slide: seq.get('slide')
           });
 
       model.get('sequences').pushObject(seq);
       this.set('newSequence', nextSeq);
-      this.get('deckPlayer').next();
+    },
+
+    scrubVideo: function(change) {
+      this.get('videoPlayer').currentTime(this.get('time') + change/5);
     }
   }
 });

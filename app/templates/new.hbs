@@ -1,85 +1,100 @@
-<div>
-    <form {{action 'addChild' 'deck' on='submit'}}>
-        <label>
-            Slides URL
-            {{input value=deckUrl}}
-        </label>
-        <button type='submit'>Get Slides</button>
-    </form>
-    {{deck.error}}
-    {{urlError}}
+<div class='edit-top'>
+    {{#if video.valid}}
+        {{popcorn-video id  = 'video-view'
+                        src = video.url
+                        start = video.start
+                        action = 'setTime'
+                        setPlayer = 'setVideoPlayer'}}
+
+        {{input-slider action='scrubVideo'}}
+    {{/if}}
 </div>
 
-<div>
-    <form {{action 'addChild' 'video' on='submit'}}>
-        <label>
-            Video URL
-            {{input value=videoUrl}}
-        </label>
-        <button type='submit'>Get Video</button>
-    </form>
-    {{video.error}}
+<div class='edit-bottom'>
+    {{#if deck.valid}}
+        <div class='edit-video fl'>
+            {{#if deck.slideshare}}
+                {{slidedeck-deck docId = deck.docId
+                                 action = 'setDeckPlayer'}}
+            {{/if}}
+
+            {{#if deck.speakerdeck}}
+                {{speakerdeck-deck class='new-slides'
+                                   docId = deck.docId
+                                   action = 'setDeckPlayer'}}
+            {{/if}}
+        </div>
+    {{/if}}
+
+    {{#if showSequence}}
+        <div class="edit-sequence fl">
+            <h3>
+                Add a new sequence
+            </h3>
+
+            <div>
+                Current time: {{time}}
+            </div>
+
+            <div>
+                <label>
+                    Start time
+                    {{input value=newSequence.start}}
+                </label>
+                {{format-seconds newSequence.start}}
+            </div>
+
+            <div>
+                <label>
+                    Slide #
+                    {{input value=newSequence.slide}}
+                </label>
+            </div>
+
+            <div>
+                <button {{action 'setSequence'}}>
+                    Set Time and Slide
+                </button>
+                <button {{action 'addSequence'}}>
+                    Add Sequence
+                </button>
+            </div>
+
+            {{outlet sequences}}
+        </div>
+    {{/if}}
+
+    {{#if video.valid}}
+        <div>
+            <label>
+                Video playback start time (sec)
+                {{input value=video.start}}
+            </label>
+
+            ({{format-seconds video.start}})
+        </div>
+    {{/if}}
+
+    <div>
+        <form {{action 'addChild' 'deck' on='submit'}}>
+            <label>
+                Slides URL
+                {{input value=deckUrl}}
+            </label>
+            <button type='submit'>Get Slides</button>
+        </form>
+        {{deck.error}}
+        {{urlError}}
+    </div>
+
+    <div>
+        <form {{action 'addChild' 'video' on='submit'}}>
+            <label>
+                Video URL
+                {{input value=videoUrl}}
+            </label>
+            <button type='submit'>Get Video</button>
+        </form>
+        {{video.error}}
+    </div>
 </div>
-
-{{#if video.valid}}
-    <div>
-        <label>
-            Video start time (sec)
-            {{input value=video.start}}
-        </label>
-
-        ({{format-seconds video.start}})
-    </div>
-
-    {{popcorn-video id  = 'video-view'
-                    src = video.url
-                    start = video.start
-                    action = 'setTime'
-                    setPlayer = 'setVideoPlayer'}}
-{{/if}}
-
-{{#if deck.valid}}
-    {{#if deck.slideshare}}
-        {{slidedeck-deck docId = deck.docId
-                         action = 'setDeckPlayer'}}
-    {{/if}}
-
-    {{#if deck.speakerdeck}}
-        {{speakerdeck-deck docId = deck.docId
-                           action = 'setDeckPlayer'}}
-    {{/if}}
-{{/if}}
-
-{{#if showSequence}}
-    <h2>
-        Add a new sequence
-    </h2>
-
-    {{#with newSequence}}
-    <div>
-        <label>
-            Start time
-            {{input value=start}}
-            {{format-seconds start}}
-        </label>
-    </div>
-
-    <div>
-        <label>
-            Slide #
-            {{input value=slide}}
-        </label>
-    </div>
-
-    <div>
-        <button {{action 'setSequence'}}>
-            Set Time and Slide
-        </button>
-        <button {{action 'addSequence'}}>
-            Add Sequence
-        </button>
-    </div>
-    {{/with}}
-
-    {{outlet sequences}}
-{{/if}}
