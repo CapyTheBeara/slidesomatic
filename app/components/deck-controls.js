@@ -1,3 +1,6 @@
+import speakerdeckMixin from 'appkit/components/deck-controls/speakerdeck';
+import slideshareMixin from 'appkit/components/deck-controls/slideshare';
+
 export default Ember.Component.extend({
   deckView: null,
   seekNum: 1,
@@ -12,24 +15,29 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
+    this.addMixin();
     this.sendAction('setPlayer', this);
   },
 
-  jumpTo: function(num) {
-    this.set('slide', num);
+  addMixin: function() {
+    var ctor = this.constructor,
+        tagName = this.get('deckView.tagName'),
+        mixin = tagName === 'img' ? speakerdeckMixin : slideshareMixin;
+
+    ctor.reopen(mixin);
+    ctor.create();  // for the mixin to take effect. ?Ember needs fixin?
   },
 
   actions: {
     next: function() {
-      this.incrementProperty('slide');
+      this.next();
       this.sendAction('action', this.get('slide'));
     },
 
     previous: function() {
-      if (this.get('slide') > 1) {
-        this.decrementProperty('slide');
+      if (this.previous()) {
         this.sendAction('action', this.get('slide'));
-      }
+      };
     },
 
     seekTo: function() {

@@ -9,6 +9,8 @@ function round(num) {
   return Math.round(num*10) / 10;
 }
 
+// TOD - add Deck URL field in Slides tab
+
 export default PresentationController.extend({
   videoUrl: 'http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451',
   deckUrl: 'https://speakerdeck.com/jrallison/ember-components', // null,
@@ -74,16 +76,8 @@ export default PresentationController.extend({
 // TODO handle error
     },
 
-    navigate: function(tab) {
+    changeTab: function(tab) {
       this.set('activeTab', tab);
-    },
-
-    setSequence: function() {
-      var slide = this.get('deckPlayer').currentSlide(),
-          start = this.getVideoCurrentTime();
-
-      this.set('newSequence.start', start);
-      this.set('newSequence.slide', slide);
     },
 
     setSequenceTime: function() {
@@ -103,9 +97,10 @@ export default PresentationController.extend({
     },
 
     scrubVideo: function(change) {
-      var time = this.getVideoCurrentTime();
-      this.set('time', time);
+      var time = this.getVideoCurrentTime(),
+          player = this.get('videoPlayer');
 
+      this.set('time', time);
       player.currentTime(round(time + change/5));
     }
   }

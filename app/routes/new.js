@@ -23,5 +23,9 @@ export default PresentationRoute.extend({
       controller.set('videoUrl', model.get('video.url'));
       controller.set('deckUrl', model.get('deck.url'));
     }
+  },
+
+  deactivate: function() {
+    this.controller.set('controllers.application.modalMode', false);
   }
 });
