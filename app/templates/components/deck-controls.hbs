@@ -1,0 +1,19 @@
+
+<div class="row deck-controls">
+    <a {{action 'previous'}} class='previous btn active input-sm' role='button'>
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+
+    {{input class = 'form-control input-sm'
+            placeholder = 'Slide #'
+            value = seekNum
+            action = 'seekTo'}}
+
+    <a {{action 'next'}} class='next btn active input-sm' role='button'>
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+
+    {{imgError}}
+</div>
+
+

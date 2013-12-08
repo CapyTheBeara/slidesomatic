@@ -2,12 +2,13 @@
 var endpoint = "https://speakerd.s3.amazonaws.com/presentations/DOC_ID/slide_NUMBER.jpg";
 
 export default Ember.Component.extend({
-  elementId: 'speakerdeck',
+  tagName: 'img',
+  elementId: 'slide-player',
+  attributeBindings: ['src', 'alt'],
+  src: null,
+  alt: 'slide',
   docId: null,
   slide: 1,
-  seekNum: Em.computed.oneWay('slide'),
-  src: null,
-  imgError: null,
 
   updateSrc: function() {
     var self = this,
@@ -17,10 +18,10 @@ export default Ember.Component.extend({
 
     img.on('load', function() {
         self.set('src', src);
-        self.set('imgError', null);
+        self.sendAction('deckViewError', null);
       })
       .on('error', function() {
-        self.set('imgError', 'There was an error getting that slide. (It might not exist.)');
+        self.sendAction('deckViewError', 'There was an error getting that slide. (It might not exist.)');
       });
 
     src = src.replace('NUMBER', num);
@@ -29,35 +30,5 @@ export default Ember.Component.extend({
 
   didInsertElement: function() {
     this.sendAction('action', this);
-  },
-
-  next: function() {
-    this.incrementProperty('slide');
-  },
-
-  previous: function() {
-    this.decrementProperty('slide');
-  },
-
-  jumpTo: function(num) {
-    this.set('slide', num);
-  },
-
-  getCurrentSlide: function() {
-    return this.get('slide');
-  },
-
-  actions: {
-    next: function() {
-      this.next();
-    },
-
-    previous: function() {
-      this.previous();
-    },
-
-    seek: function() {
-      this.jumpTo(parseInt(this.get('seekNum'), 10));
-    }
   }
 });

@@ -1,7 +1,7 @@
 var endpoint = "http://static.slidesharecdn.com/swf/ssplayer2.swf";
 
 export default Ember.Component.extend({
-  elementId: "flashPlayer",
+  elementId: "slide-player",
   docId: null,
 
   didInsertElement: function() {
@@ -9,10 +9,10 @@ export default Ember.Component.extend({
         self = this,
         id = this.get('elementId'),
         params = { allowScriptAccess: "always", allowfullscreen: true },
-        atts = { id: "flashPlayer" },
+        atts = { id: id },
         flashvars = { doc : this.get('docId'), startSlide : 1, rel : 0 };
 
-    swfobject.embedSWF(endpoint, "flashPlayer", "100%", "100%", "8", null, flashvars, params, atts, function() {
+    swfobject.embedSWF(endpoint, id, "100%", "100%", "8", null, flashvars, params, atts, function() {
       player = document.getElementById(id);
       self.sendAction('action', player);
     });
