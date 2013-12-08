@@ -23,14 +23,16 @@ export default Ember.ObjectController.extend({
 
   updateSlide: function() {
     var deckPlayer = this.get('deckPlayer'),
-        slide = this.get('currentSequence.slide');
+        slide = parseInt(this.get('currentSequence.slide'), 10);
 
-    if (slide === '1') {  // get rid of bouncing arrow
-      deckPlayer.next();
-      deckPlayer.previous();
+    if (deckPlayer) {
+      if (slide === 1) {  // get rid of bouncing arrow
+        deckPlayer.next();
+        deckPlayer.previous();
+      }
+
+      deckPlayer.jumpTo(slide);
     }
-
-    deckPlayer.jumpTo(slide);
   }.observes('currentSequence'),
 
   actions: {

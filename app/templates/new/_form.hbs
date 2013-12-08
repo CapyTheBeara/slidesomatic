@@ -1,0 +1,31 @@
+<div class="row">
+    <form>
+        <h4>Copy and paste the website addresses here</h4>
+        <div class='form-group'>
+            {{input class = 'form-control'
+                    placeholder = 'Slides URL'
+                    value = deckUrl
+                    focus-out = 'addDeck'
+                    action = 'addDeck'}}
+
+            <span class="error">{{deck.error}}</span>
+            {{urlError}}
+        </div>
+
+        {{#if deck.valid}}
+            <div class='form-group'>
+                {{input class = 'form-control'
+                        placeholder = 'Video URL'
+                        value = videoUrl
+                        focus-out = 'addVideo'
+                        action = 'addVideo'}}
+                {{video.error}}
+            </div>
+        {{/if}}
+
+        <div class='form-group'>
+            <button class='btn btn-default' type='submit'>Go</button>
+        </div>
+    </form>
+</div>
+

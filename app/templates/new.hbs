@@ -1,5 +1,20 @@
-<div class='edit-top'>
-    {{#if video.valid}}
+{{#unless validUrls}}
+    <div id='new-form' class='modal'>
+        <div class="model-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Create A New Presentation</h3>
+                </div>
+                <div class="modal-body">
+                    {{partial 'new/_form'}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/unless}}
+
+{{#if video.valid}}
+    <div class='row'>
         {{popcorn-video id  = 'video-view'
                         src = video.url
                         start = video.start
@@ -7,94 +22,70 @@
                         setPlayer = 'setVideoPlayer'}}
 
         {{input-slider action='scrubVideo'}}
-    {{/if}}
-</div>
+    </div>
+{{/if}}
 
-<div class='edit-bottom'>
+<div class='row edit-bottom'>
     {{#if deck.valid}}
-        <div class='edit-video fl'>
-            {{#if deck.slideshare}}
-                {{slidedeck-deck docId = deck.docId
-                                 action = 'setDeckPlayer'}}
-            {{/if}}
-
-            {{#if deck.speakerdeck}}
-                {{speakerdeck-deck class='new-slides'
-                                   docId = deck.docId
-                                   action = 'setDeckPlayer'}}
-            {{/if}}
+        <div class='col-md-5'>
+            {{partial 'new/_deck'}}
         </div>
     {{/if}}
 
-    {{#if showSequence}}
-        <div class="edit-sequence fl">
-            <h3>
-                Add a new sequence
-            </h3>
+    {{#if validUrls}}
+        <section class="col-md-7 tabs">
+            <div class="row">
+                <nav id='new-nav' class="navbar navbar-default">
+                    <ul class="nav navbar-nav">
+                        {{#tab-li tabName = 'video'
+                                  activeTab = activeTab
+                                  action = 'navigate'}}
+                            <a>1. Video</a>
+                        {{/tab-li}}
 
-            <div>
-                Current time: {{time}}
+                        {{#tab-li tabName = 'slides'
+                                  activeTab = activeTab
+                                  action = 'navigate'}}
+                            <a>2. Slides</a>
+                        {{/tab-li}}
+
+                        {{#tab-li tabName = 'finish'
+                                  activeTab = activeTab
+                                  action = 'navigate'}}
+                            <a>3. Finish</a>
+                        {{/tab-li}}
+                    </ul>
+                </nav>
             </div>
 
-            <div>
-                <label>
-                    Start time
-                    {{input value=newSequence.start}}
-                </label>
-                {{format-seconds newSequence.start}}
-            </div>
+            <div class="row">
+                {{#tab-content tabName = 'video'
+                              activeTab = activeTab}}
+                    {{partial 'new/_video_form'}}
+                {{/tab-content}}
 
-            <div>
-                <label>
-                    Slide #
-                    {{input value=newSequence.slide}}
-                </label>
-            </div>
+                {{#tab-content tabName = 'slides'
+                              activeTab = activeTab}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{partial 'sequence/_form'}}
+                        </div>
 
-            <div>
-                <button {{action 'setSequence'}}>
-                    Set Time and Slide
-                </button>
-                <button {{action 'addSequence'}}>
-                    Add Sequence
-                </button>
-            </div>
+                        {{#if firstSequence}}
+                            <div class="col-md-8">
+                                {{outlet sequences}}
+                            </div>
+                        {{/if}}
+                    </div>
+                {{/tab-content}}
 
-            {{outlet sequences}}
-        </div>
+                {{#tab-content tabName = 'finish'
+                              activeTab = activeTab}}
+                    {{partial 'new/_urls'}}
+                {{/tab-content}}
+            </div>
+        </section>
     {{/if}}
-
-    {{#if video.valid}}
-        <div>
-            <label>
-                Video playback start time (sec)
-                {{input value=video.start}}
-            </label>
-
-            ({{format-seconds video.start}})
-        </div>
-    {{/if}}
-
-    <div>
-        <form {{action 'addChild' 'deck' on='submit'}}>
-            <label>
-                Slides URL
-                {{input value=deckUrl}}
-            </label>
-            <button type='submit'>Get Slides</button>
-        </form>
-        {{deck.error}}
-        {{urlError}}
-    </div>
-
-    <div>
-        <form {{action 'addChild' 'video' on='submit'}}>
-            <label>
-                Video URL
-                {{input value=videoUrl}}
-            </label>
-            <button type='submit'>Get Video</button>
-        </form>
-        {{video.error}}
-    </div>
 </div>
+
+

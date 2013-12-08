@@ -1,23 +1,23 @@
-<tr {{bind-attr class='isPast:past'}}>
-    <td>
+<div class='tr row' {{bind-attr class='isPast:past'}}>
+    <div class='td col1'>
         <a href="#" {{action 'skipTo' start}}>
             {{format-seconds start}}
         </a>
-    </td>
+    </div>
 
     {{#if controllers.sequences.showSeconds}}
-    <td>
+    <div class='td col2'>
         {{start}}
-    </td>
+    </div>
     {{/if}}
 
-    <td>
+    <div class='td col3'>
         {{slide}}
-    </td>
+    </div>
 
-    <td>
+    <div class='td col4'>
         {{#if controllers.sequences.editMode}}
         <button {{action 'edit'}}>Edit</button>
         {{/if}}
-    </td>
-</tr>
+    </div>
+</div>

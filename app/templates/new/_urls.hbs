@@ -1,0 +1,12 @@
+<div>
+    Presentation URL: {{input value=url}}
+    <a target='_blank' {{bind-attr href='path'}}>Preview</a>
+
+    <br>
+    Shortened URL:
+    {{#if shortUrl}}
+        {{input value=shortUrl}}
+    {{else}}
+        <button {{action 'shortenUrl'}}>Get is.gd URL</button>
+    {{/if}}
+</div>

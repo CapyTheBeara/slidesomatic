@@ -1,8 +1,28 @@
 /* Put your CSS here */
 
-@keyframes domChanged { from { background: yellow; } }
+/*@keyframes domChanged { from { background: yellow; } }
 @-webkit-keyframes domChanged { from { background: yellow; } }
 .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
+*/
+html, body {
+    min-height: 100%;
+}
+
+body {
+    position: relative;
+}
+
+.container.overlay:after {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+}
 
 .left-bar {
     height: 98%;
@@ -13,27 +33,92 @@
     width: 25%;
 }
 
-#widget2 {
-    min-height: 200px;
-}
-
-.fr {
-    float: right;
-}
-
-.fl {
-    float: left;
-}
-
-.new-slides img {
-    width: 600px;
-    height: 450px;
-}
-
 .input-slider {
     width: 100%;
 }
 
-tr.past {
+#slide-player {
+    height: 370px;
+}
+#video-view {
+    height: 300px;
+}
+
+.start-time-form input {
+    width: 70px;
+}
+
+.sequence-new input {
+    width: 140px;
+}
+
+form.sequence-new button {
+    width: 140px;
+}
+
+.sequences-table {
+    height: 300px;
+    overflow: scroll;
+    border: 1px solid black;
+}
+
+.sequences-table .tr.past {
     background-color: #CFFAD0;
+}
+
+.sequences-table .th,
+.sequences-table .td {
+    float: left;
+}
+
+.sequences-table .col1,
+.sequences-table .col2,
+.sequences-table .col2 input {
+    width: 70px;
+}
+
+.sequences-table .col3,
+.sequences-table .col3 input {
+    width: 50px;
+}
+
+.modal {
+    display: block;
+}
+
+#new-form {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+}
+
+#new-form .modal-content {
+    padding: 30px 60px 30px 60px;
+}
+
+#new-form input {
+    width: 200px;
+}
+
+.deck-controls {
+    margin-left: 1px;
+}
+
+.deck-controls input {
+    float: left;
+    width: 58px;
+    text-align: center;
+}
+
+.deck-controls a.btn {
+    float: left;
+    background-color: #F8F8FF;
+}
+
+.sequence-start-input button {
+    background-color: #F8F8FF;
+}
+
+#new-nav {
+    width: 251px;
 }

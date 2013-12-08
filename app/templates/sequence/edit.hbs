@@ -1,17 +1,21 @@
-<tr>
-    <form {{action 'save' on='submit'}}>
-        <td>
+<div class='tr row'>
+    <form class='sequence-edit' role='form' {{action 'save' on='submit'}}>
+
+        <div class='td col1'>
             {{format-seconds proxy.start}}
-        </td>
-        <td>
+        </div>
+
+        <div class='td col2'>
             {{input value=proxy.start}}
-        </td>
-        <td>
+        </div>
+
+        <div class='td col3'>
             {{input value=proxy.slide}}
-        </td>
-        <td>
+        </div>
+
+        <div class='td col4'>
             <button type='submit'>Save</button>
             <a href="#" {{action 'destroy'}}>Remove</a>
-        </td>
+        </div>
     </form>
-</tr>
+</div>

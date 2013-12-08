@@ -1,14 +1,14 @@
-<table>
-    <tr>
-        <th>Time</th>
+<div class='col-md-12 sequences-table'>
+    <div class='tr row'>
+        <div class='th col1'>Time</div>
 
         {{#if showSeconds}}
-        <th>(seconds)</th>
+        <div class='th col2'>(seconds)</div>
         {{/if}}
 
-        <th>Slide</th>
-        <th></th>
-    </tr>
+        <div class='th col3'>Slide</div>
+        <div class='th col4'></div>
+    </div>
 
     {{#each}}
         {{#if isEditing}}
@@ -17,19 +17,4 @@
             {{partial 'sequence/view'}}
         {{/if}}
     {{/each}}
-</table>
-
-{{#if showUrl}}
-    <br>
-    Presentation URL: {{input value=url}}
-    <a target='_blank' {{bind-attr href='presentation.path'}}>Preview</a>
-
-    <br>
-    Shortened URL:
-    {{#if shortUrl}}
-        {{input value=shortUrl}}
-    {{else}}
-        <button {{action 'shortenUrl'}}>Get is.gd URL</button>
-    {{/if}}
-
-{{/if}}
+</div>

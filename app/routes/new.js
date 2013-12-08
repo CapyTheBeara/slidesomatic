@@ -15,8 +15,9 @@ export default PresentationRoute.extend({
     this._super(controller, model);
 
     controller.set('newSequence', this.store.createRecord('sequence'));
-    controller.set('controllers.sequences.editMode', true);
     controller.set('controllers.sequences.showSeconds', true);
+    controller.set('controllers.sequences.editMode', true);
+    controller.set('controllers.application.modalMode', true);
 
     if (queryParams.seq) {
       controller.set('videoUrl', model.get('video.url'));

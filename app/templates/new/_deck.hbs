@@ -1,0 +1,11 @@
+{{#if deck.slideshare}}
+    {{slidedeck-deck docId = deck.docId
+                     action = 'setDeckPlayer'}}
+{{/if}}
+
+{{#if deck.speakerdeck}}
+    {{speakerdeck-deck class = 'new-slides'
+                       docId = deck.docId
+                       action = 'setDeckView'
+                       imgError = 'deckViewError'}}
+{{/if}}

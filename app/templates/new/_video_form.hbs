@@ -1,0 +1,21 @@
+<h4>Setup Your Video</h4>
+
+<div class='form-group'>
+    <label>
+        Video Start Time (sec)
+        {{input class = 'form-control'
+                placeholder = 'optional'
+                value = video.start}}
+    </label>
+
+    {{#if video.start}}
+        <span class="help-block">The time your video will go to when it first loads: {{format-seconds video.start}}</span>
+    {{/if}}
+</div>
+
+<div {{bind-attr class=':form-group isValid:has-success'}}>
+    <label>Video Address</label>
+
+    {{input class = 'form-control'
+            value = video.url}}
+</div>
