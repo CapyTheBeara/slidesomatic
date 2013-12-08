@@ -8,8 +8,7 @@
                     focus-out = 'addDeck'
                     action = 'addDeck'}}
 
-            <span class="error">{{deck.error}}</span>
-            {{urlError}}
+            <span>{{deckValidationMsg}}</span>
         </div>
 
         {{#if deck.valid}}
@@ -19,8 +18,15 @@
                         value = videoUrl
                         focus-out = 'addVideo'
                         action = 'addVideo'}}
-                {{video.error}}
+
+                <span>{{videoValidationMsg}}</span>
             </div>
+        {{/if}}
+
+        {{#if urlError}}
+            <span class="alert alert-danger">
+                {{urlError}}
+            </span>
         {{/if}}
 
         <div class='form-group'>

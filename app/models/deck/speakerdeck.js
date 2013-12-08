@@ -39,6 +39,8 @@ export default Deck.extend({
         yqlUrl = getYqlUrl(id),
         self = this;
 
+    this.setInvalid('pending');
+
     $.getJSON(yqlUrl, function(obj) {
       var href = obj.query.results && obj.query.results.a.href;
 
@@ -46,6 +48,10 @@ export default Deck.extend({
         self.set('docId', href.match(docIdRegex)[1]);
         self.setValid();
       }
+      else { self.setInvalid('notFound'); }
+
+    }).fail(function() {
+      self.setInvalid('requestError');
     });
   }.observes('url')
 });

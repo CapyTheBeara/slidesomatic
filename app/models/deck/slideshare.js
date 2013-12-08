@@ -38,7 +38,8 @@ export default Deck.extend({
         yqlUrl = getYqlUrl(id),
         self = this;
 
-    if (!id) { return this.setError('Invalid SlideShare URL'); }
+    if (!id) { return this.setInvalid('notFound'); }
+    this.setInvalid('pending');
 
     $.getJSON(yqlUrl, function(obj) {
       var thumbnail = obj.query.results && obj.query.results.json.thumbnail;
@@ -46,12 +47,11 @@ export default Deck.extend({
       if (thumbnail) {
         self.set('docId', thumbnail.match(thumbnailRegex)[1]);
         self.setValid();
-      } else {
-        self.setError('There was a problem with the request. Please try again later.');
       }
+      else { self.setInvalid('notFound'); }
 
     }).fail(function() {
-      self.setError('There was a problem with the request. Please try again later.');
+      self.setError('requestError');
     });
   }.observes('url')
 });

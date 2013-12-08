@@ -1,0 +1,35 @@
+<h4>Time Your Slides</h4>
+
+<div class='form-group input-group-sm'>
+    {{#if deckView}}
+        <label>Slide Number</label>
+        {{deck-controls deckView = deckView
+                        slide = newSequence.slide
+                        setPlayer = 'setDeckPlayer'}}
+    {{/if}}
+</div>
+
+<div>
+    <label>Slide Starts At</label>
+    <em>{{format-seconds newSequence.start}}</em>
+</div>
+
+<div class='input-group input-group-sm sequence-start-input'>
+    {{input class = 'form-control'
+            value = newSequence.start
+            placeholder = 'seconds'}}
+    <span class="input-group-btn">
+        <button class="btn btn-default"
+                {{action 'setSequenceTime'}}>
+            Now
+        </button>
+    </span>
+</div>
+
+<br>
+<button type = 'button'
+        class = 'btn btn-success'
+        {{action 'addSequence'}}>
+    Add Slide
+</button>
+

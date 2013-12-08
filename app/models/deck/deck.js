@@ -5,17 +5,16 @@ export default DS.Model.extend({
   docId: attr(),
   presentation: DS.belongsTo('presentation'),
 
-  error: null,
-  valid: false,
-
-  setError: function(msg) {
-    this.set('error', msg);
-    this.set('valid', false);
-  },
+  valid: false,  // TODO move to mixin. add to videos
+  validationState: null, // 'pending', 'notFound', 'requestError', 'valid'
 
   setValid: function() {
-    this.set('error', null);
+    this.set('validationState', 'valid');
     this.set('valid', true);
-    return true;
+  },
+
+  setInvalid: function(state) {
+    this.set('validationState', state);
+    this.set('valid', false);
   }
 });

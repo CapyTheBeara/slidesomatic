@@ -1,19 +1,21 @@
 
-<div class="row deck-controls">
-    <a {{action 'previous'}} class='previous btn active input-sm' role='button'>
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
+<div class="row deck-controls input-group input-group-sm">
+    <span class="input-group-btn">
+        <button {{action 'previous'}} class='previous btn btn-default' type='button'>
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+    </span>
 
     {{input class = 'form-control input-sm'
             placeholder = 'Slide #'
             value = seekNum
             action = 'seekTo'}}
 
-    <a {{action 'next'}} class='next btn active input-sm' role='button'>
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
-
-    {{imgError}}
+    <span class="input-group-btn">
+        <button {{action 'next'}} class='next btn btn-default' type='button'>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+    </span>
 </div>
 
 

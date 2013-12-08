@@ -6,7 +6,7 @@
                     <h3 class="modal-title">Create A New Presentation</h3>
                 </div>
                 <div class="modal-body">
-                    {{partial 'new/_form'}}
+                    {{partial 'new/_modal'}}
                 </div>
             </div>
         </div>
@@ -68,14 +68,26 @@
                               activeTab = activeTab}}
                     <div class="row">
                         <div class="col-md-4">
-                            {{partial 'sequence/_form'}}
+                            {{partial 'new/_sequence_form'}}
                         </div>
 
                         {{#if firstSequence}}
-                            <div class="col-md-8">
+                            <div class="col-md-7 col-md-offset-1">
+                                <h4>Slide Sequence</h4>
                                 {{outlet sequences}}
                             </div>
                         {{/if}}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Slides Address</label>
+                                {{input class='form-control'
+                                        value=deck.url}}
+                            </div>
+
+                        </div>
                     </div>
                 {{/tab-content}}
 

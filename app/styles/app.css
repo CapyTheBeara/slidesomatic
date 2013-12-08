@@ -57,7 +57,7 @@ form.sequence-new button {
 }
 
 .sequences-table {
-    height: 300px;
+    height: 188px;
     overflow: scroll;
     border: 1px solid black;
 }
@@ -105,13 +105,11 @@ form.sequence-new button {
 }
 
 .deck-controls input {
-    float: left;
     width: 58px;
     text-align: center;
 }
 
-.deck-controls a.btn {
-    float: left;
+.deck-controls button {
     background-color: #F8F8FF;
 }
 

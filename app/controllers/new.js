@@ -9,7 +9,12 @@ function round(num) {
   return Math.round(num*10) / 10;
 }
 
-// TOD - add Deck URL field in Slides tab
+var validationMsg = {
+  pending: 'Fetching...',
+  valid: 'Got it!',
+  notFound: "Couldn't find that. Is the address correct?",
+  requestError: 'There was a problem contacting that site. Please try again later.'
+};
 
 export default PresentationController.extend({
   videoUrl: 'http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451',
@@ -21,6 +26,22 @@ export default PresentationController.extend({
   needs: ['application'],
   deckView: null,
   activeTab: 'video',
+
+  // TODO move to component
+  deckValidationMsg: function() {
+    return this.validationMsg('deck');
+  }.property('deck.validationState'),
+
+  // TODO implemnt validation msg in video models
+  videoValidationMsg: function() {
+    return this.validationMsg('video');
+  }.property('video.validationState'),
+
+  validationMsg: function(type) {
+    var state = this.get(type + '.validationState');
+    if (!state) { return; }
+    return validationMsg[state];
+  },
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -51,7 +72,7 @@ export default PresentationController.extend({
         return this.set('urlError', 'Sorry, that website is not supported.');
       }
     } else {
-      this.set('urlError', 'Please input full URLs');
+      this.set('urlError', 'Invalid address.');
     }
   },
 
