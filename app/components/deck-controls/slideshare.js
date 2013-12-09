@@ -1,13 +1,13 @@
 export default {
-  jumpTo: function(num) {
-    this.get('deckView').jumpTo(num);
-  },
+  updatePlayerSlide: function() {
+    var slide = this.get('slide'),
+        deckView = this.get('deckView');
 
-  next: function() {
-    this.get('deckView').next();
-  },
+    deckView.jumpTo(slide);
 
-  previous: function() {
-    this.get('deckView').previous();
+    if (slide === 1) {  // get rid of bouncing arrow
+      deckView.next();
+      deckView.previous();
+    }
   }
 };

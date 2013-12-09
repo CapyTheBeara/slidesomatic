@@ -26,11 +26,6 @@ export default Ember.ObjectController.extend({
         slide = parseInt(this.get('currentSequence.slide'), 10);
 
     if (deckPlayer) {
-      if (slide === 1) {  // get rid of bouncing arrow
-        deckPlayer.next();
-        deckPlayer.previous();
-      }
-
       deckPlayer.jumpTo(slide);
     }
   }.observes('currentSequence'),

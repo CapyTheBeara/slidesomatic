@@ -76,8 +76,12 @@ export default PresentationController.extend({
     }
   },
 
-  getVideoCurrentTime: function() {
+  getCurrentTime: function() {
     return round(this.get('videoPlayer').currentTime());
+  },
+
+  getCurrentSlide: function() {
+    return this.get('deckPlayer.slide');
   },
 
   actions: {
@@ -102,7 +106,7 @@ export default PresentationController.extend({
     },
 
     setSequenceTime: function() {
-      var start = this.getVideoCurrentTime();
+      var start = this.getCurrentTime();
       this.set('newSequence.start', start);
     },
 
@@ -113,12 +117,16 @@ export default PresentationController.extend({
             slide: seq.get('slide')
           });
 
+      seq.set('start', this.getCurrentTime());
+      seq.set('slide', this.getCurrentSlide());
+
       model.get('sequences').pushObject(seq);
       this.set('newSequence', nextSeq);
+      this.get('deckPlayer').next();
     },
 
     scrubVideo: function(change) {
-      var time = this.getVideoCurrentTime(),
+      var time = this.getCurrentTime(),
           player = this.get('videoPlayer');
 
       this.set('time', time);

@@ -1,13 +1,16 @@
-import speakerdeckMixin from 'appkit/components/deck-controls/speakerdeck';
 import slideshareMixin from 'appkit/components/deck-controls/slideshare';
 
 export default Ember.Component.extend({
   deckView: null,
   seekNum: 1,
   slide: Em.computed.alias('deckView.slide'),
+  useMixin: false,
 
-  updateSeekNum: function() {  // is there a better way to do this?
+  updateSeekNum: function() {
     this.set('seekNum', parseInt(this.get('slide'), 10));
+    if (this.get('useMixin')) {
+      this.updatePlayerSlide();  // couldn't get slide observer to work in mixin
+    }
   }.observes('slide'),
 
   currentSlide: function() {
@@ -20,12 +23,30 @@ export default Ember.Component.extend({
   },
 
   addMixin: function() {
-    var ctor = this.constructor,
-        tagName = this.get('deckView.tagName'),
-        mixin = tagName === 'img' ? speakerdeckMixin : slideshareMixin;
+    var mixin,
+        ctor = this.constructor,
+        tagName = this.get('deckView.tagName');
 
-    ctor.reopen(mixin);
-    ctor.create();  // for the mixin to take effect. ?Ember needs fixin?
+    if (tagName !== 'img') {
+      this.set('useMixin', true);
+      ctor.reopen(slideshareMixin);
+      ctor.create();  // for the mixin to take effect. ?Ember needs fixin?
+    }
+  },
+
+  jumpTo: function(num) {
+    this.set('slide', num);
+  },
+
+  next: function() {
+    this.incrementProperty('slide');
+  },
+
+  previous: function() {
+    if (this.get('slide') > 1) {
+      this.decrementProperty('slide');
+      return true;
+    }
   },
 
   actions: {
@@ -37,7 +58,7 @@ export default Ember.Component.extend({
     previous: function() {
       if (this.previous()) {
         this.sendAction('action', this.get('slide'));
-      };
+      }
     },
 
     seekTo: function() {

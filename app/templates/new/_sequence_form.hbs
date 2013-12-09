@@ -1,35 +1,31 @@
 <h4>Time Your Slides</h4>
 
-<div class='form-group input-group-sm'>
-    {{#if deckView}}
+<div class="row">
+    <div class="col-md-12">
         <label>Slide Number</label>
+    </div>
+</div>
+
+<div class='row form-group input-group-sm'>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
         {{deck-controls deckView = deckView
-                        slide = newSequence.slide
                         setPlayer = 'setDeckPlayer'}}
-    {{/if}}
-</div>
+    </div>
 
-<div>
-    <label>Slide Starts At</label>
-    <em>{{format-seconds newSequence.start}}</em>
-</div>
-
-<div class='input-group input-group-sm sequence-start-input'>
-    {{input class = 'form-control'
-            value = newSequence.start
-            placeholder = 'seconds'}}
-    <span class="input-group-btn">
-        <button class="btn btn-default"
-                {{action 'setSequenceTime'}}>
-            Now
+    <div class="col-md-4">
+       <button type = 'button'
+                class = 'btn btn-success btn-sm'
+                {{action 'addSequence'}}>
+            Add Slide
         </button>
-    </span>
+    </div>
 </div>
 
-<br>
-<button type = 'button'
-        class = 'btn btn-success'
-        {{action 'addSequence'}}>
-    Add Slide
-</button>
-
+<div class="row">
+    <div class="col-md-12">
+        <span class="help-block">
+            Before pressing the <em>Add Slide</em> button, set your video to the time at which this slide will start.
+        </span>
+    </div>
+</div>

@@ -67,9 +67,11 @@
                 {{#tab-content tabName = 'slides'
                               activeTab = activeTab}}
                     <div class="row">
-                        <div class="col-md-4">
-                            {{partial 'new/_sequence_form'}}
-                        </div>
+                        {{#if deckView}}
+                            <div class="col-md-4">
+                                {{partial 'new/_sequence_form'}}
+                            </div>
+                        {{/if}}
 
                         {{#if firstSequence}}
                             <div class="col-md-7 col-md-offset-1">
