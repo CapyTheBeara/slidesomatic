@@ -35,35 +35,22 @@
     {{#if validUrls}}
         <section class="col-md-7 tabs">
             <div class="row">
-                <nav id='new-nav' class="navbar navbar-default">
-                    <ul class="nav navbar-nav">
-                        {{#tab-li tabName = 'video'
-                                  activeTab = activeTab
-                                  action = 'changeTab'}}
-                            <a>1. Video</a>
-                        {{/tab-li}}
+                <ul class="nav nav-tabs">
+                    {{#tab-li tabName = 'slides'
+                              activeTab = activeTab
+                              action = 'changeTab'}}
+                        <a>1. Slides</a>
+                    {{/tab-li}}
 
-                        {{#tab-li tabName = 'slides'
-                                  activeTab = activeTab
-                                  action = 'changeTab'}}
-                            <a>2. Slides</a>
-                        {{/tab-li}}
-
-                        {{#tab-li tabName = 'finish'
-                                  activeTab = activeTab
-                                  action = 'changeTab'}}
-                            <a>3. Finish</a>
-                        {{/tab-li}}
-                    </ul>
-                </nav>
+                    {{#tab-li tabName = 'finish'
+                              activeTab = activeTab
+                              action = 'changeTab'}}
+                        <a>2. Finish</a>
+                    {{/tab-li}}
+                </ul>
             </div>
 
             <div class="row">
-                {{#tab-content tabName = 'video'
-                              activeTab = activeTab}}
-                    {{partial 'new/_video_form'}}
-                {{/tab-content}}
-
                 {{#tab-content tabName = 'slides'
                               activeTab = activeTab}}
                     <div class="row">
@@ -80,21 +67,10 @@
                             </div>
                         {{/if}}
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Slides Address</label>
-                                {{input class='form-control'
-                                        value=deck.url}}
-                            </div>
-
-                        </div>
-                    </div>
                 {{/tab-content}}
 
                 {{#tab-content tabName = 'finish'
-                              activeTab = activeTab}}
+                               activeTab = activeTab}}
                     {{partial 'new/_urls'}}
                 {{/tab-content}}
             </div>

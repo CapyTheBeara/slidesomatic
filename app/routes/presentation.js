@@ -21,20 +21,20 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, model) {
-    this._super(controller, model);
+    this._super.apply(this, arguments);
     controller.set('controllers.sequences.showSeconds', false);
     controller.set('controllers.sequences.parent', controller);
   },
 
   renderTemplate: function(controller, model) {
+    this._super.apply(this, arguments);
+
     var sequencesController = this.controllerFor('sequences');
 
     sequencesController.setProperties({
       'presentation': model,
       'model': model.get('sequences')
     });
-
-    this._super();
 
     this.render('sequence/index', {
       outlet: 'sequences',

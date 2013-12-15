@@ -41,13 +41,13 @@ export default Video.extend({
         dataUrl = ytDataUrl.replace('VIDEO_ID', id),
         self = this;
 
-    if (!id) { return this.setError('Invalid YouTube URL'); }
+    if (!id) { return this.setInvalid('notFound'); }
+    this.setInvalid('pending');
 
     $.getJSON(dataUrl, function() {
-      self.set('error', null);
-      self.set('valid', true);
+      self.setValid();
     }).fail(function() {
-      self.setError('That video does not appear to exist');
+      self.setError('requestError');
     });
   }.observes('url')
 });

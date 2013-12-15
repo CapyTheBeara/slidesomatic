@@ -27,5 +27,21 @@ export default PresentationRoute.extend({
 
   deactivate: function() {
     this.controller.set('controllers.application.modalMode', false);
+  },
+
+  actions: {
+    addSequence: function() {
+      var newController = this.controllerFor('new'),
+          sequencesController = this.controllerFor('sequences'),
+          seq = newController.get('newSequence'),
+          nextSeq = this.store.createRecord('sequence');
+
+      seq.set('start', newController.getCurrentTime());
+      seq.set('slide', newController.getCurrentSlide());
+
+      sequencesController.pushObject(seq);
+      newController.set('newSequence', nextSeq);
+      newController.get('deckPlayer').next();
+    }
   }
 });

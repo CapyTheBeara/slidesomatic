@@ -97,7 +97,7 @@ form.sequence-new button {
 }
 
 #new-form input {
-    width: 200px;
+        width: 200px;
 }
 
 .deck-controls input {
@@ -112,6 +112,6 @@ form.sequence-new button {
     background-color: #F8F8FF;
 }
 
-#new-nav {
-    width: 251px;
+.finish-tab-content input.form-control {
+    cursor: pointer;
 }

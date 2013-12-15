@@ -25,7 +25,7 @@ export default PresentationController.extend({
   sequencePresent: Em.computed.bool('firstSequence'),
   needs: ['application'],
   deckView: null,
-  activeTab: 'video',
+  activeTab: 'slides',
 
   // TODO move to component
   deckValidationMsg: function() {
@@ -54,6 +54,7 @@ export default PresentationController.extend({
         url = this.get(type + 'Url'),
         deckUrl = this.get('deck.url');
 
+    this.set('urlError', null);
     if (!url || url === deckUrl) { return; }
 
     domain = domainName(url);
@@ -108,21 +109,6 @@ export default PresentationController.extend({
     setSequenceTime: function() {
       var start = this.getCurrentTime();
       this.set('newSequence.start', start);
-    },
-
-    addSequence: function() {
-      var seq = this.get('newSequence'),
-          model = this.get('model'),
-          nextSeq = this.store.createRecord('sequence', {
-            slide: seq.get('slide')
-          });
-
-      seq.set('start', this.getCurrentTime());
-      seq.set('slide', this.getCurrentSlide());
-
-      model.get('sequences').pushObject(seq);
-      this.set('newSequence', nextSeq);
-      this.get('deckPlayer').next();
     },
 
     scrubVideo: function(change) {

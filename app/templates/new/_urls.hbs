@@ -1,12 +1,30 @@
-<div>
-    Presentation URL: {{input value=url}}
-    <a target='_blank' {{bind-attr href='path'}}>Preview</a>
+<h4>View Your Presentation</h4>
 
-    <br>
-    Shortened URL:
-    {{#if shortUrl}}
-        {{input value=shortUrl}}
-    {{else}}
-        <button {{action 'shortenUrl'}}>Get is.gd URL</button>
-    {{/if}}
+<div class="form-group">
+    <label>Presentation Address</label>
+
+    {{input class = 'form-control'
+            readonly = 'readonly'
+            value = url}}
+
+    <a target='_blank' {{bind-attr href='path'}}>
+        View now
+    </a>
 </div>
+
+<div class="form-group">
+    <label>Shortened Address</label>
+
+    {{input class = 'form-control'
+            readonly = 'readonly'
+            value = shortUrl}}
+
+    <button type = 'button'
+            class = 'btn btn-success'
+            {{action 'shortenUrl'}}>
+        Get <em>is.gd</em> URL
+    </button>
+</div>
+
+
+
