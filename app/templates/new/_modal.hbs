@@ -8,7 +8,7 @@
                     focus-out = 'addDeck'
                     action = 'addDeck'}}
 
-            <span>{{deckValidationMsg}}</span>
+            {{validation-message validationState=deck.validationState}}
         </div>
 
         {{#if deck.valid}}
@@ -19,7 +19,7 @@
                         focus-out = 'addVideo'
                         action = 'addVideo'}}
 
-                <span>{{videoValidationMsg}}</span>
+            {{validation-message validationState=video.validationState}}
             </div>
         {{/if}}
 

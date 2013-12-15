@@ -9,13 +9,6 @@ function round(num) {
   return Math.round(num*10) / 10;
 }
 
-var validationMsg = {
-  pending: 'Fetching...',
-  valid: 'Got it!',
-  notFound: "Couldn't find that. Is the address correct?",
-  requestError: 'There was a problem contacting that site. Please try again later.'
-};
-
 export default PresentationController.extend({
   videoUrl: 'http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451',
   deckUrl: 'https://speakerdeck.com/jrallison/ember-components', // null,
@@ -25,22 +18,6 @@ export default PresentationController.extend({
   sequencePresent: Em.computed.bool('firstSequence'),
   needs: ['application'],
   activeTab: 'slides',
-
-  // TODO move to component
-  deckValidationMsg: function() {
-    return this.validationMsg('deck');
-  }.property('deck.validationState'),
-
-  // TODO implemnt validation msg in video models
-  videoValidationMsg: function() {
-    return this.validationMsg('video');
-  }.property('video.validationState'),
-
-  validationMsg: function(type) {
-    var state = this.get(type + '.validationState');
-    if (!state) { return; }
-    return validationMsg[state];
-  },
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -99,11 +76,6 @@ export default PresentationController.extend({
 
     changeTab: function(tab) {
       this.set('activeTab', tab);
-    },
-
-    setSequenceTime: function() {
-      var start = this.getCurrentTime();
-      this.set('newSequence.start', start);
     },
 
     scrubVideo: function(change) {
