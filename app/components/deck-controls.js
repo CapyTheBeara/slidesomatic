@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   seekNum: 1,
   slide: Em.computed.alias('deckView.slide'),
   useMixin: false,
+  deckPlayer: null,
 
   updateSeekNum: function() {
     this.set('seekNum', parseInt(this.get('slide'), 10));
@@ -19,7 +20,7 @@ export default Ember.Component.extend({
 
   didInsertElement: function() {
     this.addMixin();
-    this.sendAction('setPlayer', this);
+    this.set('deckPlayer', this);
   },
 
   addMixin: function() {

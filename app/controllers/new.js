@@ -24,7 +24,6 @@ export default PresentationController.extend({
   urlError: null,
   sequencePresent: Em.computed.bool('firstSequence'),
   needs: ['application'],
-  deckView: null,
   activeTab: 'slides',
 
   // TODO move to component
@@ -92,10 +91,6 @@ export default PresentationController.extend({
 
     addVideo: function() {
       this.addChild('video');
-    },
-
-    setDeckView: function(view) {
-      this.set('deckView', view);
     },
 
     deckViewError: function(msg) {

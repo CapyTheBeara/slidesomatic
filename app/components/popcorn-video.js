@@ -8,6 +8,7 @@ export default Ember.Component.extend({
   src: "",
   currentTime: 0,
   start: 0,
+  videoPlayer: null,
 
   didInsertElement: function() {
     var popcorn,
@@ -25,8 +26,6 @@ export default Ember.Component.extend({
     popcorn = Popcorn(video);
     popcorn.currentTime(start);
 
-    this.sendAction('setPlayer', popcorn);
-
     popcorn.on('timeupdate', function(evt){
       var last = self.get('currentTime'),
           current = round(popcorn.currentTime());
@@ -41,5 +40,7 @@ export default Ember.Component.extend({
       var time = round(popcorn.currentTime());
       self.sendAction('action', time);
     });
+
+    this.set('videoPlayer', popcorn);
   }
 });

@@ -1,4 +1,4 @@
-export default {
+export default Ember.Mixin.create({
   updatePlayerSlide: function() {
     var slide = this.get('slide'),
         deckView = this.get('deckView');
@@ -10,4 +10,4 @@ export default {
       deckView.previous();
     }
   }
-};
+});

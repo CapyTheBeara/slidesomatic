@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   alt: 'slide',
   docId: null,
   slide: 1,
+  deckView: null,
 
   updateSrc: function() {
     var self = this,
@@ -29,6 +30,6 @@ export default Ember.Component.extend({
   }.observes('slide', 'docId').on('init'),
 
   didInsertElement: function() {
-    this.sendAction('action', this);
+    this.set('deckView', this);
   }
 });

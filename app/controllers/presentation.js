@@ -1,8 +1,9 @@
 export default Ember.ObjectController.extend({
   time: null,
   currentSequence: null,
-  videoPlayer: null,
+  deckView: null,
   deckPlayer: null,
+  videoPlayer: null,
   needs: ['sequences'],
 
   updateSequence: function() {
@@ -33,13 +34,6 @@ export default Ember.ObjectController.extend({
   actions: {
     setTime: function(time) {
       this.set('time', time);
-    },
-    setVideoPlayer: function(player) {
-      this.set('videoPlayer', player);
-    },
-
-    setDeckPlayer: function(player) {
-      this.set('deckPlayer', player);
     },
 
     skipTo: function(time) {
