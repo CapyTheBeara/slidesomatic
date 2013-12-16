@@ -3,9 +3,12 @@ import slideshareMixin from 'appkit/components/deck-controls/slideshare';
 export default Ember.Component.extend({
   deckView: null,
   seekNum: 1,
-  slide: Em.computed.alias('deckView.slide'),
   useMixin: false,
   deckPlayer: null,
+
+  slide: function() {
+    return this.get('deckView.slide') || 1;
+  }.property('deckView.slide'),
 
   updateSeekNum: function() {
     this.set('seekNum', parseInt(this.get('slide'), 10));
@@ -13,10 +16,6 @@ export default Ember.Component.extend({
       this.updatePlayerSlide();  // couldn't get slide observer to work in mixin
     }
   }.observes('slide'),
-
-  currentSlide: function() {
-    return this.get('slide');
-  },
 
   didInsertElement: function() {
     this.addMixin();
