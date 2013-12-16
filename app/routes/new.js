@@ -8,7 +8,13 @@ export default PresentationRoute.extend({
       return this._super(params, queryParams);
     }
 
-    return this.store.createRecord('presentation');
+    var deck = this.store.createRecord('deck'),
+        video = this.store.createRecord('video');
+
+    return this.store.createRecord('presentation', {
+      deck: deck,
+      video: video
+    });
   },
 
   setupController: function(controller, model, queryParams) {

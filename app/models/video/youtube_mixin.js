@@ -1,15 +1,20 @@
-// http://www.youtube.com/watch?v=8GKmkD1pUG0
+// http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451
 
-import Video from 'appkit/models/video/video';
+import Video from 'appkit/models/video';
 
 var YTUrl = "http://www.youtube.com/watch?v=VIDEO_ID",
-    ytDataUrl = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc',
     regex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
 
-export default Video.extend({
-  type: 'youtube',
+export default Ember.Mixin.create({
   youtube: true,
+  baseUrl: 'http://www.youtube.com/',
   _url: '',
+  validationEndpoint: 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc',
+
+  validationUrl: function() {
+    var id = this.get('modelId');
+    return this.get('validationEndpoint').replace('VIDEO_ID', id);
+  }.property('modelId'),
 
   url: function(key, value) {
     if (arguments.length > 1) {
@@ -23,7 +28,7 @@ export default Video.extend({
     return this.get('_url');
   }.property(),
 
-  videoId: function(key, value) {
+  modelId: function(key, value) {
     if (arguments.length > 1) {
       this.set('url', YTUrl.replace('VIDEO_ID', value));
       return value;
@@ -34,20 +39,5 @@ export default Video.extend({
 
     var match = url.match(regex);
     return match && match[7].length === 11 && match[7];
-  }.property('url', 'start'),
-
-  validate: function() {
-    var id = this.get('videoId'),
-        dataUrl = ytDataUrl.replace('VIDEO_ID', id),
-        self = this;
-
-    if (!id) { return this.setInvalid('notFound'); }
-    this.setInvalid('pending');
-
-    $.getJSON(dataUrl, function() {
-      self.setValid();
-    }).fail(function() {
-      self.setError('requestError');
-    });
-  }.observes('url')
+  }.property('url', 'start')
 });

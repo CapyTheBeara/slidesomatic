@@ -4,7 +4,7 @@
         <div class='form-group'>
             {{input class = 'form-control'
                     placeholder = 'Slides URL'
-                    value = deckUrl
+                    value = deck.proxy.url
                     focus-out = 'addDeck'
                     action = 'addDeck'}}
 
@@ -15,7 +15,7 @@
             <div class='form-group'>
                 {{input class = 'form-control'
                         placeholder = 'Video URL'
-                        value = videoUrl
+                        value = video.proxy.url
                         focus-out = 'addVideo'
                         action = 'addVideo'}}
 

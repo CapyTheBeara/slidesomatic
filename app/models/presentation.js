@@ -3,17 +3,17 @@
 var DELIMITER = 'l';
 
 export default DS.Model.extend({
-  deck: DS.belongsTo('deck/deck'),
-  video: DS.belongsTo('video/video'),
+  deck: DS.belongsTo('deck'),
+  video: DS.belongsTo('video'),
   sequences: DS.hasMany('sequence'),
   sequencesUrlFrag: null,
 
   path: function() {
     var host = "#/show?",
-        did = 'did=' + this.get('deck.deckId'),
+        did = 'did=' + this.get('deck.modelId'),
         dtype = '&dtype=' + this.get('deck.type'),
         vtype = '&vtype=' + this.get('video.type'),
-        vid = "&vid=" + this.get('video.videoId'),
+        vid = "&vid=" + this.get('video.modelId'),
         seq = "&seq=" + this.get('encodedSequences'),
         url = [host, did, dtype, vtype, vid, seq].join('');
 

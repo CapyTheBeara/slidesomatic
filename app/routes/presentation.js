@@ -7,12 +7,12 @@ export default Ember.Route.extend({
         }),
 
         deck = this.store.createRecord('deck/' + queryParams.dtype, {
-          deckId: queryParams.did
+          modelId: queryParams.did
         }),
 
         video = this.store.createRecord('video/' + queryParams.vtype, {
-          start: presentation.get('firstSequence.start'),  // needs to be before videoId
-          videoId: queryParams.vid
+          start: presentation.get('firstSequence.start'),  // needs to be before modelId
+          modelId: queryParams.vid
         });
 
 
