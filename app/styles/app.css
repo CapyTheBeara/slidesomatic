@@ -115,3 +115,89 @@ form.sequence-new button {
 .finish-tab-content input.form-control {
     cursor: pointer;
 }
+
+/* http://hawkins.io/2013/07/ember-toggle-switch/ */
+.toggle-switch label {
+  font-size: 100%;
+  display: inline;
+}
+
+.toggle-switch.muted label {
+  color: #33333;
+}
+
+.toggle-switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.toggle-switch input[type="checkbox"] + div {
+  display: inline-block;
+  vertical-align: middle;
+  width: 3em;
+  height: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  margin: 0 .5em;
+  background: white;
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), transparent), -webkit-linear-gradient(0deg, #3d99f5 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  background-origin: border-box;
+  background-clip: border-box;
+  overflow: hidden;
+  -webkit-transition-duration: .4s;
+  -webkit-transition-property: padding, width, background-position, text-indent;
+  box-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.2) inset, 0 0.45em 0 0.1em rgba(0, 0, 0, 0.05) inset;
+  font-size: 130%;
+  /* change this and see how they adjust! */
+}
+
+.toggle-switch.large input[type="checkbox"] + div {
+  font-size: 170%;
+}
+
+.toggle-switch.xxlarge input[type="checkbox"] + div {
+  font-size: 190%;
+}
+
+.toggle-switch input[type="checkbox"]:checked + div {
+  padding-left: 2em;
+  background-position: 0 0;
+}
+
+.toggle-switch input[type="checkbox"] + div:before {
+  content: 'On';
+  text-align: left;
+  float: left;
+  width: 1.65em;
+  height: 1.65em;
+  margin: -.1em;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: inherit;
+  background: white;
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.2), transparent);
+  box-shadow: 0 0.1em 0.1em 0.1em rgba(255, 255, 255, 0.8) inset, 0 0 0.5em rgba(0, 0, 0, 0.3);
+  color: white;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+  text-indent: -2.5em;
+}
+
+.toggle-switch input[type="checkbox"]:active + div:before {
+  background-color: #eee;
+}
+
+.toggle-switch input[type="checkbox"] + div:before,
+.toggle-switch input[type="checkbox"] + div:after {
+  font-size: 60%;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+.toggle-switch input[type="checkbox"] + div:after {
+  content: 'Off';
+  text-align: left;
+  float: left;
+  text-indent: .5em;
+  text-shadow: none;
+}

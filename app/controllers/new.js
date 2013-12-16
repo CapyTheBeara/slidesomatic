@@ -11,8 +11,15 @@ export default PresentationController.extend({
   sequencePresent: Em.computed.bool('firstSequence'),
   needs: ['application'],
   activeTab: 'slides',
+  presentationMode: false,
 
   TESTING: Em.computed.alias('Ember.FOO_TESTING'),
+
+  updateSlide: function() {
+    if (this.get('presentationMode')) {
+      this._super();
+    }
+  }.observes('currentSequence'),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -53,14 +60,18 @@ export default PresentationController.extend({
       player.currentTime(round(time + change/5));
     },
 
+    changePresentationMode: function(value) {
+      this.set('presentationMode', value);
+    },
+
     addTestingUrls: function() {
       var deckProxy = this.get('deck.proxy'),
           videoProxy = this.get('video.proxy');
 
-      deckProxy.set('url', "https://speakerdeck.com/jrallison/ember-components");
+      deckProxy.set('url', "http://www.slideshare.net/tboyt/presentation-27430110");
       deckProxy.setKeys();
 
-      videoProxy.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
+      videoProxy.set('url', "http://www.youtube.com/watch?v=bzT0ezT-Jn8#t=3676");
       videoProxy.setKeys();
     }
   }

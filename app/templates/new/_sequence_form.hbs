@@ -7,8 +7,7 @@
 </div>
 
 <div class='row form-group input-group-sm'>
-    <div class="col-md-1"></div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-md-offset-1">
         {{deck-controls deckView = deckView
                         deckPlayer = deckPlayer}}
     </div>
@@ -26,6 +25,26 @@
     <div class="col-md-12">
         <span class="help-block">
             Before pressing the <em>Add Slide</em> button, set your video to the time at which this slide will start.
+        </span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <label>Presentation Mode</label>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        {{toggle-switch action='changePresentationMode'}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <span class="help-block">
+            Turning on <em>Presentation Mode</em> will cause the slides follow the current slide sequence.
         </span>
     </div>
 </div>
