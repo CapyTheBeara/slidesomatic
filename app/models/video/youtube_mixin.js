@@ -3,7 +3,7 @@
 import Video from 'appkit/models/video';
 
 var YTUrl = "http://www.youtube.com/watch?v=VIDEO_ID",
-    regex = /^.*(?:(?:youtu.be\/)|(?:v\/)|(?:\/u\/\w\/)|(?:embed\/)|(?:watch\?))\??v?=?([^#\&\?]*).*(?:(?:#t=)(\d*))/;
+    regex = /^.*(?:(?:youtu.be\/)|(?:v\/)|(?:\/u\/\w\/)|(?:embed\/)|(?:watch\?))\??v?=?([^#\&\?]*)[^#]*(?:(?:#t=)(\d*))?/;
 
 export default Ember.Mixin.create({
   youtube: true,
@@ -27,6 +27,7 @@ export default Ember.Mixin.create({
 
     var match = url.match(regex);
     if (match[2]) { this.set('start', match[2]); }
+    this.set('url', url.replace(/#t=\d+/, ''));
 
     return match && match[1].length === 11 && match[1];
   }.property('url')
