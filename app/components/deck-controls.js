@@ -24,8 +24,7 @@ export default Ember.Component.extend({
   },
 
   addMixin: function() {
-    var mixin,
-        ctor = this.constructor,
+    var ctor = this.constructor,
         tagName = this.get('deckView.tagName');
 
     if (tagName !== 'img') {
