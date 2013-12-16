@@ -8,18 +8,20 @@ var ModelProxy = Ember.ObjectProxy.extend({
     return value;
   },
 
-  set: function() {
+  setKeys: function() {
     var keys = Em.keys(this),
         content = this.get('content');
 
     keys.forEach(function(key) {
       content.set(key, this.get(key));
     }, this);
+
+    return this;
   },
 
   save: function() {
     this.set();
-    this.get('content').save();
+    return this.get('content').save();
   }
 });
 

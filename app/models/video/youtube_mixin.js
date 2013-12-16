@@ -3,7 +3,7 @@
 import Video from 'appkit/models/video';
 
 var YTUrl = "http://www.youtube.com/watch?v=VIDEO_ID",
-    regex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    regex = /^.*(?:(?:youtu.be\/)|(?:v\/)|(?:\/u\/\w\/)|(?:embed\/)|(?:watch\?))\??v?=?([^#\&\?]*).*(?:(?:#t=)(\d*))/;
 
 export default Ember.Mixin.create({
   youtube: true,
@@ -16,18 +16,6 @@ export default Ember.Mixin.create({
     return this.get('validationEndpoint').replace('VIDEO_ID', id);
   }.property('modelId'),
 
-  url: function(key, value) {
-    if (arguments.length > 1) {
-      var split = value.split('#t=');
-      if (split[1]) { this.set('start', split[1]); }
-
-      this.set('_url', split[0]);
-      return split[0];
-    }
-
-    return this.get('_url');
-  }.property(),
-
   modelId: function(key, value) {
     if (arguments.length > 1) {
       this.set('url', YTUrl.replace('VIDEO_ID', value));
@@ -38,6 +26,8 @@ export default Ember.Mixin.create({
     if (!url) { return undefined; }
 
     var match = url.match(regex);
-    return match && match[7].length === 11 && match[7];
-  }.property('url', 'start')
+    if (match[2]) { this.set('start', match[2]); }
+
+    return match && match[1].length === 11 && match[1];
+  }.property('url')
 });
