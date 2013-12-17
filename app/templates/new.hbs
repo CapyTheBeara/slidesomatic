@@ -13,27 +13,19 @@
     </div>
 {{/unless}}
 
-{{#if video.valid}}
-    <div class='row'>
-        {{popcorn-video id  = 'video-view'
-                        src = video.url
-                        start = video.start
-                        action = 'setTime'
-                        videoPlayer = videoPlayer}}
-
-        {{input-slider action='scrubVideo'}}
-    </div>
-{{/if}}
-
-<div class='row edit-bottom'>
-    {{#if deck.valid}}
-        <div class='col-md-5'>
-            {{partial 'new/_deck'}}
+{{#if validUrls}}
+    <div class="row">
+        <div class="col-md-12" id='video'>
+            {{outlet video}}
         </div>
-    {{/if}}
+    </div>
 
-    {{#if validUrls}}
-        <section class="col-md-7 tabs">
+    <div class="row">
+        <div class="col-md-5" id='deck'>
+            {{outlet deck}}
+        </div>
+
+        <div class="col-md-7 tabs">
             <div class="row">
                 <ul class="nav nav-tabs">
                     {{#tab-li tabName = 'slides'
@@ -42,7 +34,7 @@
                         <a>1. Slides</a>
                     {{/tab-li}}
 
-                    {{#tab-li tabName = 'finish'
+                    {{#tab-li tabName = 'links'
                               activeTab = activeTab
                               action = 'changeTab'}}
                         <a>2. Finish</a>
@@ -52,30 +44,22 @@
 
             <div class="row">
                 {{#tab-content tabName = 'slides'
-                              activeTab = activeTab}}
-                    <div class="row">
-                        {{#if deckView}}
-                            <div class="col-md-4">
-                                {{partial 'new/_sequence_form'}}
-                            </div>
-                        {{/if}}
+                               activeTab = activeTab}}
+                    <div class="col-md-4">
+                        {{partial 'new/_sequence_form'}}
+                    </div>
 
-                        {{#if firstSequence}}
-                            <div class="col-md-7 col-md-offset-1">
-                                <h4>Slide Sequence</h4>
-                                {{outlet sequences}}
-                            </div>
-                        {{/if}}
+                    <div class="col-md-7 col-md-offset-1">
+                        <h4>Slide Sequence</h4>
+                        {{partial 'sequence/index'}}
                     </div>
                 {{/tab-content}}
 
-                {{#tab-content tabName = 'finish'
+                {{#tab-content tabName = 'links'
                                activeTab = activeTab}}
                     {{partial 'new/_urls'}}
                 {{/tab-content}}
             </div>
-        </section>
-    {{/if}}
-</div>
-
-
+        </div>
+    </div>
+{{/if}}

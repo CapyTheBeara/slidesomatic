@@ -1,53 +1,44 @@
-import PresentationRoute from 'appkit/routes/presentation';
-
-export default PresentationRoute.extend({
-  name: 'new',
-
+export default Ember.Route.extend({
   model: function(params, queryParams) {
     if (queryParams.seq) {
-      return this._super(params, queryParams);
+// TODO
     }
 
-    var deck = this.store.createRecord('deck'),
-        video = this.store.createRecord('video');
-
     return this.store.createRecord('presentation', {
-      deck: deck,
-      video: video
+      deck: this.store.createRecord('deck'),
+      video: this.store.createRecord('video')
     });
   },
 
-  setupController: function(controller, model, queryParams) {
-    this._super(controller, model);
-
-    controller.set('newSequence', this.store.createRecord('sequence'));
-    controller.set('controllers.sequences.showSeconds', true);
-    controller.set('controllers.sequences.editMode', true);
-    controller.set('controllers.application.modalMode', true);
-
-    if (queryParams.seq) {
-      controller.set('videoUrl', model.get('video.url'));
-      controller.set('deckUrl', model.get('deck.url'));
-    }
+  setupController: function(controller, presentation) {
+    controller.set('model', presentation.get('sequences'));
+    controller.set('presentation', presentation);
+    this.controllerFor('application').set('modalMode', true);
   },
 
   deactivate: function() {
-    this.controller.set('controllers.application.modalMode', false);
+    this.controllerFor('application').set('modalMode', false);
   },
 
-  actions: {
-    addSequence: function() {
-      var newController = this.controllerFor('new'),
-          sequencesController = this.controllerFor('sequences'),
-          seq = newController.get('newSequence'),
-          nextSeq = this.store.createRecord('sequence');
+  renderTemplate: function(controller, presentation) {
+    var videoController = this.controllerFor('video'),
+        deckController = this.controllerFor('deck');
 
-      seq.set('start', newController.getCurrentTime());
-      seq.set('slide', newController.getCurrentSlide());
+    videoController.set('video', presentation.get('video'));
+    deckController.set('deck', presentation.get('deck'));
 
-      sequencesController.pushObject(seq);
-      newController.set('newSequence', nextSeq);
-      newController.get('deckPlayer').next();
-    }
+    this.render();
+
+    this.render('video', {
+      into: 'new',
+      outlet: 'video',
+      controller: videoController
+    });
+
+    this.render('deck', {
+      into: 'new',
+      outlet: 'deck',
+      controller: deckController
+    });
   }
 });

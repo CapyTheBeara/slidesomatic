@@ -1,25 +1,22 @@
-import PresentationController from 'appkit/controllers/presentation';
+var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json";
 
-function round(num) {
-  return Math.round(num*10) / 10;
-}
-
-export default PresentationController.extend({
-  newSequence: null,
-  validUrls: Em.computed.and('deck.valid', 'video.valid'),
-  urlError: null,
-  sequencePresent: Em.computed.bool('firstSequence'),
-  needs: ['application'],
+export default Ember.ArrayController.extend({
+  presentation: null,
+  itemController: 'sequence',
+  sortProperties: ['start'],
+  sortAscending: true,
+  currentSequence: null,
   activeTab: 'slides',
+  editMode: true,
+  showSeconds: true,
   presentationMode: false,
-
-  TESTING: Em.computed.alias('Ember.FOO_TESTING'),
-
-  updateSlide: function() {
-    if (this.get('presentationMode')) {
-      this._super();
-    }
-  }.observes('currentSequence'),
+  needs: ['deck', 'video', 'application'],
+  slideBinding: 'controllers.deck.slide',
+  timeBinding: 'controllers.video.time',
+  deckBinding: 'presentation.deck',
+  videoBinding: 'presentation.video',
+  shortUrl: null,
+  validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -27,13 +24,25 @@ export default PresentationController.extend({
     }
   }.observes('validUrls'),
 
-  getCurrentTime: function() {
-    return round(this.get('videoPlayer').currentTime());
-  },
+  updateSequence: function() {
+    if (!this.get('presentationMode')) { return; }
 
-  getCurrentSlide: function() {
-    return this.get('deckPlayer.slide');
-  },
+    var time = this.get('time'),
+        currentSequence = this.get('currentSequence'),
+
+        hit = this.get('content').filter(function(seq) {
+          if (seq.hasPassed(time)) { return true; }
+        }).get('lastObject');
+
+    if (!hit) { return this.set('currentSequence', this.get('content.firstObject')); }
+    if (!currentSequence || !currentSequence.eq(hit)) {
+      this.set('currentSequence', hit);
+    }
+  }.observes('time'),
+
+  updateSlide: function() {
+    this.set('slide', this.get('currentSequence.slide'));
+  }.observes('currentSequence'),
 
   actions: {
     addDeck: function() {
@@ -44,24 +53,43 @@ export default PresentationController.extend({
       this.get('video.proxy').setKeys();
     },
 
-    deckViewError: function(msg) {
-// TODO handle error
+    changePresentationMode: function(value) {
+      this.set('presentationMode', value);
     },
 
     changeTab: function(tab) {
       this.set('activeTab', tab);
     },
 
-    scrubVideo: function(change) {
-      var time = this.getCurrentTime(),
-          player = this.get('videoPlayer');
-
-      this.set('time', time);
-      player.currentTime(round(time + change/5));
+    skipTo: function(time) {
+      this.get('controllers.video').skipTo(time);
     },
 
-    changePresentationMode: function(value) {
-      this.set('presentationMode', value);
+    addSequence: function() {
+      var slide = this.get('slide'),
+
+          seq = this.store.createRecord('sequence', {
+            start: this.get('controllers.video').getCurrentTime(),
+            slide: slide
+          });
+
+      this.pushObject(seq);
+      this.set('slide', slide + 1);
+    },
+
+    shortenUrl: function() {
+      if (confirm('Are you finished?\n(Shortened URLs should only be obtained once you have finished adding all of your slide sequences.)')) {
+        var self = this,
+            url = this.get('presentation.url'),
+            opts = {
+              url: isGdUrl.replace('TARGET_URL', encodeURIComponent(url)),
+              dataType: 'jsonp'
+            };
+
+        $.ajax(opts).then(function(res) {
+          self.set('shortUrl', res.shorturl);
+        });
+      }
     },
 
     addTestingUrls: function() {

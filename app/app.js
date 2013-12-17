@@ -1,7 +1,6 @@
 import Resolver from 'resolver';
 
 Ember.FEATURES["query-params"] = true;
-Ember.FOO_TESTING = true;
 
 var App = Ember.Application.extend({
   LOG_ACTIVE_GENERATION: true,
