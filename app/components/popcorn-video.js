@@ -24,7 +24,7 @@ export default Ember.Component.extend({
     video.height = "100%";
 
     popcorn = Popcorn(video);
-    popcorn.currentTime(start);
+    popcorn.play(start);
 
     popcorn.on('timeupdate', function(evt){
       var last = self.get('currentTime'),

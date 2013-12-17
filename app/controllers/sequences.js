@@ -5,17 +5,59 @@ export default Ember.ArrayController.extend({
   itemController: 'sequence',
   sortProperties: ['start'],
   sortAscending: true,
-  // currentSequence: null,
+  currentSequence: null,
   activeTab: 'slides',
   editMode: true,
   showSeconds: true,
-  needs: ['deck'],
-  slide: Em.computed.alias('controllers.deck.slide'),
+  presentationMode: false,
+  needs: ['deck', 'video'],
+  slideBinding: 'controllers.deck.slide',
+  timeBinding: 'controllers.video.time',
   shortUrl: null,
+
+  updateSequence: function() {
+    if (!this.get('presentationMode')) { return; }
+
+    var time = this.get('time'),
+        currentSequence = this.get('currentSequence'),
+
+        hit = this.get('content').filter(function(seq) {
+          if (seq.hasPassed(time)) { return true; }
+        }).get('lastObject');
+
+    if (!hit) { return this.set('currentSequence', this.get('content.firstObject')); }
+    if (!currentSequence || !currentSequence.eq(hit)) {
+      this.set('currentSequence', hit);
+    }
+  }.observes('time'),
+
+  updateSlide: function() {
+    this.set('slide', this.get('currentSequence.slide'));
+  }.observes('currentSequence'),
 
   actions: {
     changeTab: function(tab) {
       this.set('activeTab', tab);
+    },
+
+    changePresentationMode: function(value) {
+      this.set('presentationMode', value);
+    },
+
+    skipTo: function(time) {
+      this.get('controllers.video').skipTo(time);
+    },
+
+    addSequence: function() {
+      var slide = this.get('slide'),
+
+          seq = this.store.createRecord('sequence', {
+            start: this.get('controllers.video').getCurrentTime(),
+            slide: slide
+          });
+
+      this.pushObject(seq);
+      this.set('slide', slide + 1);
     },
 
     shortenUrl: function() {
@@ -32,18 +74,5 @@ export default Ember.ArrayController.extend({
         });
       }
     }
-
-    // updateSequence: function(time) {
-    //   var currentSequence = this.get('currentSequence'),
-
-    //       hit = this.filter(function(seq) {
-    //         if (seq.hasPassed(time)) { return true; }
-    //       }).get('lastObject');
-
-    //   if (!hit) { return false; }
-    //   if (!currentSequence || !currentSequence.eq(hit)) {
-    //     this.set('currentSequence', hit);
-    //   }
-    // }
   }
 });

@@ -11,6 +11,10 @@ export default Ember.ObjectController.extend({
     return round(this.get('player').currentTime());
   },
 
+  skipTo: function(time) {
+    this.get('player').play(time);
+  },
+
   actions: {
     setTime: function(time) {
       this.set('time', time);

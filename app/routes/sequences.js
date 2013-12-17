@@ -48,20 +48,5 @@ export default Ember.Route.extend({
       into: 'sequences',
       controller: deckController
     });
-  },
-
-  actions: {
-    addSequence: function() {
-      var deckController = this.get('deckController'),
-          slide = deckController.get('slide'),
-
-          seq = this.store.createRecord('sequence', {
-            start: this.get('videoController').getCurrentTime(),
-            slide: slide
-          });
-
-      this.get('sequencesController').pushObject(seq);
-      deckController.set('slide', slide + 1);
-    }
   }
 });
