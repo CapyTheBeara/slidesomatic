@@ -1,0 +1,10 @@
+{{#if deck.slideshare}}
+    {{slidedeck-deck docId = deck.docId
+                     sendSelf = 'setDeckView'}}
+{{/if}}
+
+{{#if deck.speakerdeck}}
+    {{speakerdeck-deck docId = deck.docId
+                       sendSelf = 'setDeckView'
+                       imgError = 'handleError'}}
+{{/if}}

@@ -9,12 +9,15 @@ export default Ember.Component.extend({
   alt: 'slide',
   docId: null,
   slide: 1,
-  deckView: null,
 
   updateSrc: function() {
+    var docId = this.get('docId'),
+        slide = this.get('slide');
+
+    if (!docId || !slide) { return; }
+
     var self = this,
-        num = this.get('slide') - 1,
-        src = endpoint.replace('DOC_ID', this.get('docId')),
+        src = endpoint.replace('DOC_ID', docId),
         img = $('<img>');
 
     img.on('load', function() {
@@ -25,11 +28,11 @@ export default Ember.Component.extend({
         self.sendAction('deckViewError', 'There was an error getting that slide. (It might not exist.)');
       });
 
-    src = src.replace('NUMBER', num);
+    src = src.replace('NUMBER', slide-1);
     img.attr('src', src);
   }.observes('slide', 'docId').on('init'),
 
   didInsertElement: function() {
-    this.set('deckView', this);
+    this.sendAction('sendSelf', this);
   }
 });

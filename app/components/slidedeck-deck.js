@@ -18,7 +18,6 @@ function swfLoadEvent(fn, e){
 export default Ember.Component.extend({
   elementId: "slide-player",
   docId: null,
-  deckView: null,
 
   didInsertElement: function() {
     var self = this,
@@ -32,7 +31,7 @@ export default Ember.Component.extend({
         var view = document.getElementById(id);
         view.next(); // get rid of bouncing arrow
         view.previous();
-        self.set('deckView', view);
+        self.sendAction('sendSelf', view);
       }, e);
     });
   }

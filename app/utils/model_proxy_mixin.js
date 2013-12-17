@@ -20,7 +20,7 @@ var ModelProxy = Ember.ObjectProxy.extend({
   },
 
   save: function() {
-    this.set();
+    this.setKeys();
     return this.get('content').save();
   }
 });
