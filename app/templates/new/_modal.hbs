@@ -1,41 +1,39 @@
 <div class="row">
-    <form>
-        <h4>Copy and paste the website addresses here</h4>
+    <h4>Copy and paste the website addresses here</h4>
+    <div class='form-group'>
+        {{input class = 'form-control'
+                placeholder = 'Slides URL'
+                value = deck.proxy.url
+                focus-out = 'addDeck'
+                action = 'addDeck'}}
+
+        {{validation-message validationState=deck.validationState}}
+    </div>
+
+    {{#if deck.valid}}
         <div class='form-group'>
             {{input class = 'form-control'
-                    placeholder = 'Slides URL'
-                    value = deck.proxy.url
-                    focus-out = 'addDeck'
-                    action = 'addDeck'}}
+                    placeholder = 'Video URL'
+                    value = video.proxy.url
+                    focus-out = 'addVideo'
+                    action = 'addVideo'}}
 
-            {{validation-message validationState=deck.validationState}}
+        {{validation-message validationState=video.validationState}}
         </div>
+    {{/if}}
 
-        {{#if deck.valid}}
-            <div class='form-group'>
-                {{input class = 'form-control'
-                        placeholder = 'Video URL'
-                        value = video.proxy.url
-                        focus-out = 'addVideo'
-                        action = 'addVideo'}}
+    {{#if urlError}}
+        <span class="alert alert-danger">
+            {{urlError}}
+        </span>
+    {{/if}}
 
-            {{validation-message validationState=video.validationState}}
-            </div>
-        {{/if}}
+    <div class='form-group'>
+        <button class='btn btn-default' type='submit'>Go</button>
+    </div>
 
-        {{#if urlError}}
-            <span class="alert alert-danger">
-                {{urlError}}
-            </span>
-        {{/if}}
-
-        <div class='form-group'>
-            <button class='btn btn-default' type='submit'>Go</button>
-        </div>
-
-        <div class="form-group">
-            <a class='btn btn-default' {{action 'addTestingUrls'}}>TESTING</a>
-        </div>
-    </form>
+    <div class="form-group">
+        <a class='btn btn-default' {{action 'addTestingUrls'}}>TESTING</a>
+    </div>
 </div>
 

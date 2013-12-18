@@ -7,8 +7,10 @@ export default Ember.Controller.extend({
     var slide = this.get('slide'),
         tagName = this.get('deckView.tagName');
 
+
     if (tagName !== 'img') {  // slideshare
-      return this.get('deckView').jumpTo(slide);
+      var deckView = this.get('deckView');
+      return deckView && deckView.jumpTo(slide);
     }
 
     this.set('deckView.slide', slide);  // speakerdeck

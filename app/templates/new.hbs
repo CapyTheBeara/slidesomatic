@@ -21,11 +21,11 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5" id='deck'>
+        <div class="col-md-6" id='deck'>
             {{outlet deck}}
         </div>
 
-        <div class="col-md-7 tabs">
+        <div class="col-md-6 tabs">
             <div class="row">
                 <ul class="nav nav-tabs">
                     {{#tab-li tabName = 'slides'
@@ -45,11 +45,11 @@
             <div class="row">
                 {{#tab-content tabName = 'slides'
                                activeTab = activeTab}}
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         {{partial 'new/_sequence_form'}}
                     </div>
 
-                    <div class="col-md-7 col-md-offset-1">
+                    <div class="col-md-7 sequences-column">
                         <h4>Slide Sequence</h4>
                         {{partial 'sequence/index'}}
                     </div>
@@ -57,7 +57,21 @@
 
                 {{#tab-content tabName = 'links'
                                activeTab = activeTab}}
-                    {{partial 'new/_urls'}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{partial 'new/_urls'}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    {{link-to 'Home' 'index' class='btn btn-primary'}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 {{/tab-content}}
             </div>
         </div>

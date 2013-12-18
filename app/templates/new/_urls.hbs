@@ -7,7 +7,9 @@
             readonly = 'readonly'
             value = presentation.url}}
 
-    <a target='_blank' {{bind-attr href='presentation.path'}}>
+    <a target='_blank'
+       class='btn btn-default btn-success'
+       {{bind-attr href='presentation.path'}}>
         View now
     </a>
 </div>
@@ -19,11 +21,9 @@
             readonly = 'readonly'
             value = shortUrl}}
 
-    <button type = 'button'
-            class = 'btn btn-success'
-            {{action 'shortenUrl'}}>
+    <a {{action 'shortenUrl'}}>
         Get <em>is.gd</em> URL
-    </button>
+    </a>
 </div>
 
 

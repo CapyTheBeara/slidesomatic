@@ -1,0 +1,23 @@
+<div class="table-responsive1 sequences-table scroll">
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Slide</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {{#each}}
+            <tr {{bind-attr class='isPast:success'}}>
+                <td>
+                    <a href="#" {{action 'skipTo' start}}>
+                        {{format-seconds start}}
+                    </a>
+                </td>
+                <td>{{unbound slide}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
