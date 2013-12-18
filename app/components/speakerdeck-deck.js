@@ -3,7 +3,7 @@ var endpoint = "https://speakerd.s3.amazonaws.com/presentations/DOC_ID/slide_NUM
 
 export default Ember.Component.extend({
   tagName: 'img',
-  elementId: 'slide-player',
+  elementId: 'deck-player',
   attributeBindings: ['src', 'alt'],
   src: null,
   alt: 'slide',

@@ -1,39 +1,34 @@
-<div class="left-bar fl">
-{{#if deck.valid}}
-    {{#if deck.slideshare}}
-        {{slidedeck-deck docId = deck.docId
-                         action = 'setDeckPlayer'}}
-    {{/if}}
+{{#if validUrls }}
+    <div class="row">
+        <div class="col-md-9" id='deck-player-wrapper'>
+            {{outlet deck}}
+        </div>
 
-    {{#if deck.speakerdeck}}
-        {{speakerdeck-deck class='view-slides'
-                           docId = deck.docId
-                           action = 'setDeckPlayer'}}
-    {{/if}}
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    {{outlet video}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{partial 'sequence/index'}}
+                </div>
+            </div>
+
+            <div class="row">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        {{link-to 'Edit' 'new'}}
+                    </li>
+                    <li>
+                        {{link-to 'Home' 'index'}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{{else}}
+    Fetching presentation...
 {{/if}}
-</div>
-
-<div class='right-bar fr'>
-    <div class='sm-player'>
-        {{popcorn-video id  = 'video-view'
-                        src = video.url
-                        start = video.start
-                        action = 'setTime'
-                        setPlayer = 'setVideoPlayer'}}
-    </div>
-
-    <div class="details fl">
-        {{outlet sequences}}
-    </div>
-
-    <nav class="fr">
-        <ul>
-            <li>
-                {{link-to 'Edit' 'new'}}
-            </li>
-            <li>
-                {{link-to 'Home' 'index'}}
-            </li>
-        </ul>
-    </nav>
-</div>

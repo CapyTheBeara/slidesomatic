@@ -2,7 +2,7 @@ function round(num) {
   return Math.round(num*10) / 10;
 }
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   video: null,
   player: null,
   time: null,

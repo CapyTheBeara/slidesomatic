@@ -4,4 +4,6 @@
                 action = 'setTime'
                 videoPlayer = player}}
 
-{{input-slider action='scrub'}}
+{{#if editMode}}
+    {{input-slider action='scrub'}}
+{{/if}}

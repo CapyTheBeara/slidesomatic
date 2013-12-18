@@ -17,6 +17,7 @@ export default PresentationRoute.extend({
   setupController: function(controller, presentation) {
     this._super.apply(this, arguments);
     this.controllerFor('application').set('modalMode', true);
+    this.controllerFor('video').set('editMode', true);
   },
 
   deactivate: function() {

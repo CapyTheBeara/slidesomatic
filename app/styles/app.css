@@ -24,24 +24,31 @@ body {
     background-color: #55468F;
 }
 
-.left-bar {
-    height: 98%;
-    width: 75%;
+.container.presentation {
+ margin: 0;
+ padding: 0;
+ width: 100%;
 }
 
-.right-bar {
-    width: 25%;
+.presentation #deck-player-wrapper,
+.presentation #deck-player {
+  height: 100%;
+}
+
+.presentation #video-view {
+  height: 200px;
+}
+
+.new #deck-player {
+    height: 370px;
+}
+
+.new #video-view {
+    height: 300px;
 }
 
 .input-slider {
     width: 100%;
-}
-
-#slide-player {
-    height: 370px;
-}
-#video-view {
-    height: 300px;
 }
 
 .start-time-form input {

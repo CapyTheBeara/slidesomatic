@@ -16,7 +16,7 @@ function swfLoadEvent(fn, e){
 }
 
 export default Ember.Component.extend({
-  elementId: "slide-player",
+  elementId: "deck-player",
   docId: null,
 
   didInsertElement: function() {

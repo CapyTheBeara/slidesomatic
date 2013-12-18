@@ -1,14 +1,17 @@
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   deck: null,
   deckView: null,
   slide: 1,
 
   slideDidChange: function() {
-    var tagName = this.get('deckView.tagName');
+    var slide = this.get('slide'),
+        tagName = this.get('deckView.tagName');
 
-    if (tagName !== 'img') {  // slideshare player
-      this.get('deckView').jumpTo(this.get('slide'));
+    if (tagName !== 'img') {  // slideshare
+      return this.get('deckView').jumpTo(slide);
     }
+
+    this.set('deckView.slide', slide);  // speakerdeck
   }.observes('slide'),
 
   actions: {
