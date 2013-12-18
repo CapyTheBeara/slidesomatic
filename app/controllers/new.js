@@ -1,48 +1,20 @@
+import PresentationController from 'appkit/controllers/presentation';
+
 var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json";
 
-export default Ember.ArrayController.extend({
-  presentation: null,
-  itemController: 'sequence',
-  sortProperties: ['start'],
-  sortAscending: true,
-  currentSequence: null,
+export default PresentationController.extend({
   activeTab: 'slides',
   editMode: true,
   showSeconds: true,
   presentationMode: false,
   needs: ['deck', 'video', 'application'],
-  slideBinding: 'controllers.deck.slide',
-  timeBinding: 'controllers.video.time',
-  deckBinding: 'presentation.deck',
-  videoBinding: 'presentation.video',
   shortUrl: null,
-  validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
       this.set('controllers.application.modalMode', false);
     }
   }.observes('validUrls'),
-
-  updateSequence: function() {
-    if (!this.get('presentationMode')) { return; }
-
-    var time = this.get('time'),
-        currentSequence = this.get('currentSequence'),
-
-        hit = this.get('content').filter(function(seq) {
-          if (seq.hasPassed(time)) { return true; }
-        }).get('lastObject');
-
-    if (!hit) { return this.set('currentSequence', this.get('content.firstObject')); }
-    if (!currentSequence || !currentSequence.eq(hit)) {
-      this.set('currentSequence', hit);
-    }
-  }.observes('time'),
-
-  updateSlide: function() {
-    this.set('slide', this.get('currentSequence.slide'));
-  }.observes('currentSequence'),
 
   actions: {
     addDeck: function() {
@@ -59,10 +31,6 @@ export default Ember.ArrayController.extend({
 
     changeTab: function(tab) {
       this.set('activeTab', tab);
-    },
-
-    skipTo: function(time) {
-      this.get('controllers.video').skipTo(time);
     },
 
     addSequence: function() {

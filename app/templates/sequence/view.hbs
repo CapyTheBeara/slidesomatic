@@ -5,7 +5,7 @@
         </a>
     </div>
 
-    {{#if controllers.sequences.showSeconds}}
+    {{#if parentController.showSeconds}}
     <div class='td col2'>
         {{start}}
     </div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class='td col4'>
-        {{#if controllers.sequences.editMode}}
+        {{#if parentController.editMode}}
         <button {{action 'edit'}}>Edit</button>
         {{/if}}
     </div>

@@ -1,7 +1,7 @@
 export default Ember.ObjectController.extend({
-  needs: ['sequences'],
+  parentController: null,
   isEditing: false,
-  currentSequence: Em.computed.alias('controllers.sequences.currentSequence'),
+  currentSequence: Em.computed.alias('parentController.currentSequence'),
 
   isPast: function() {
     return this.get('start') < this.get('currentSequence.start');
@@ -19,7 +19,7 @@ export default Ember.ObjectController.extend({
 
     destroy: function() {
       if (confirm('Remove this sequence?')) {
-        this.get('controllers.sequences').removeObject(this);
+        this.get('parentController').removeObject(this);
       }
     }
   }

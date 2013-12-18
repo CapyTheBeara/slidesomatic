@@ -1,7 +1,11 @@
-export default Ember.Route.extend({
+import PresentationRoute from 'appkit/routes/presentation';
+
+export default PresentationRoute.extend({
+  name: 'new',
+
   model: function(params, queryParams) {
     if (queryParams.seq) {
-// TODO
+      return this._super.apply(this, arguments);
     }
 
     return this.store.createRecord('presentation', {
@@ -11,34 +15,11 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, presentation) {
-    controller.set('model', presentation.get('sequences'));
-    controller.set('presentation', presentation);
+    this._super.apply(this, arguments);
     this.controllerFor('application').set('modalMode', true);
   },
 
   deactivate: function() {
     this.controllerFor('application').set('modalMode', false);
-  },
-
-  renderTemplate: function(controller, presentation) {
-    var videoController = this.controllerFor('video'),
-        deckController = this.controllerFor('deck');
-
-    videoController.set('video', presentation.get('video'));
-    deckController.set('deck', presentation.get('deck'));
-
-    this.render();
-
-    this.render('video', {
-      into: 'new',
-      outlet: 'video',
-      controller: videoController
-    });
-
-    this.render('deck', {
-      into: 'new',
-      outlet: 'deck',
-      controller: deckController
-    });
   }
 });

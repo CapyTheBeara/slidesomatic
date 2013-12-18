@@ -1,43 +1,40 @@
-export default Ember.ObjectController.extend({
-  time: null,
+export default Ember.ArrayController.extend({
+  presentation: null,
   currentSequence: null,
-  deckView: null,
-  deckPlayer: null,
-  videoPlayer: null,
-  needs: ['sequences'],
+  itemController: 'sequence',
+  sortProperties: ['start'],
+  sortAscending: true,
+  presentationMode: true,
+  needs: ['deck', 'video'],
+  deckBinding: 'presentation.deck',
+  videoBinding: 'presentation.video',
+  slideBinding: 'controllers.deck.slide',
+  timeBinding: 'controllers.video.time',
+  validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   updateSequence: function() {
-    var deckPlayer, slide,
-        time = this.get('time'),
-        currentSequence = this.get('currentSequence'),
-        seqs = this.get('sequences'),
+    if (!this.get('presentationMode')) { return; }
 
-        hit = seqs.filter(function(seq) {
+    var time = this.get('time'),
+        currentSequence = this.get('currentSequence'),
+
+        hit = this.get('content').filter(function(seq) {
           if (seq.hasPassed(time)) { return true; }
         }).get('lastObject');
 
-    if (!hit) { return false; }
+    if (!hit) { return this.set('currentSequence', this.get('content.firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
       this.set('currentSequence', hit);
     }
   }.observes('time'),
 
   updateSlide: function() {
-    var deckPlayer = this.get('deckPlayer'),
-        slide = parseInt(this.get('currentSequence.slide'), 10);
-
-    if (deckPlayer) {
-      deckPlayer.jumpTo(slide);
-    }
+    this.set('slide', this.get('currentSequence.slide'));
   }.observes('currentSequence'),
 
   actions: {
-    setTime: function(time) {
-      this.set('time', time);
-    },
-
     skipTo: function(time) {
-      this.get('videoPlayer').play(time);
+      this.get('controllers.video').skipTo(time);
     }
   }
 });
