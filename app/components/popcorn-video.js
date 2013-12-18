@@ -24,7 +24,19 @@ export default Ember.Component.extend({
     video.height = "100%";
 
     popcorn = Popcorn(video);
-    popcorn.play(start);
+
+    // hack - prevent needing to click play twice
+    // needed to hack popcorn to return the YT player
+    var fixFirstPlay = window.setInterval(function() {
+      var player = popcorn.media.__player;
+
+      if (player && player.playVideo) {
+        popcorn.play(start);
+        player.playVideo();
+        player.pauseVideo();
+        window.clearInterval(fixFirstPlay);
+      }
+    }, 100);
 
     popcorn.on('timeupdate', function(evt){
       var last = self.get('currentTime'),
@@ -39,6 +51,10 @@ export default Ember.Component.extend({
     popcorn.on('seeked', function(evt) {
       var time = round(popcorn.currentTime());
       self.sendAction('action', time);
+    });
+
+    popcorn.on('error', function(evt) {
+      console.log('popcorn error:', evt);
     });
 
     this.set('videoPlayer', popcorn);

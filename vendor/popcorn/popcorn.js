@@ -3206,7 +3206,7 @@
       impl.networkState = self.NETWORK_LOADING;
       self.dispatchEvent( "loadstart" );
       self.dispatchEvent( "progress" );
-
+self.__player = player;
       // Queue a get duration call so we'll have duration info
       // and can dispatch durationchange.
       getDuration();
