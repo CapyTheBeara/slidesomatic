@@ -1,32 +1,24 @@
 /* jshint newcap: false */
 
-function round(num) {
-  return Math.round(num*10) / 10;
-}
+import PopcornMediaComponent from 'appkit/components/popcorn-media';
 
-export default Ember.Component.extend({
-  video: null,
-  currentTime: 0,
-  videoPlayer: null,
+export default PopcornMediaComponent.extend({
+  elementCTOR: Popcorn.HTMLYouTubeVideoElement,
 
-  didInsertElement: function() {
-    var popcorn,
-        self = this,
-        url = this.get('video.url'),
+  src: function() {
+    var url = this.get('media.url'),
         split = url.split('#t='),
-        src = split[0] + '&controls=2',
-        start = this.get('video.start') || split[1] || 0,
-        id = "#" + this.get('elementId'),
-        video = Popcorn.HTMLYouTubeVideoElement(id),
-        $el = $(id);
+        start = this.get('media.start') || split[1] || 0;
 
-    video.src = src;
-    video.width = "100%";
-    video.height = "100%";
+    this.set('start', start);
+    return split[0] + '&controls=2';
+  }.property('media.url'),
 
-    popcorn = Popcorn(video);
+  didInsertElementHook: function() {
+    var start = this.get('start'),
+        popcorn = this.get('popcorn');
 
-    // hack - prevent needing to click play twice
+    // Youtube hack - prevent needing to click play twice
     // needed to hack popcorn to return the YT player
     var fixFirstPlay = window.setInterval(function() {
       var player = popcorn.media.__player;
@@ -38,26 +30,5 @@ export default Ember.Component.extend({
         window.clearInterval(fixFirstPlay);
       }
     }, 100);
-
-    popcorn.on('timeupdate', function(evt){
-      var last = self.get('currentTime'),
-          current = round(popcorn.currentTime());
-
-      if (last !== current) {
-        self.set('currentTime', current);
-        self.sendAction('action', current);
-      }
-    });
-
-    popcorn.on('seeked', function(evt) {
-      var time = round(popcorn.currentTime());
-      self.sendAction('action', time);
-    });
-
-    popcorn.on('error', function(evt) {
-      console.log('popcorn error:', evt);
-    });
-
-    this.set('videoPlayer', popcorn);
   }
 });
