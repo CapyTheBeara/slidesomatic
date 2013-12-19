@@ -18,7 +18,7 @@ export default PresentationController.extend({
 
   actions: {
     addDeck: function() {
-      this.get('deck.proxy').setKeys();
+      this.get('deck').validate();
     },
 
     addVideo: function() {
@@ -64,10 +64,10 @@ export default PresentationController.extend({
       var deckProxy = this.get('deck.proxy'),
           videoProxy = this.get('video.proxy');
 
-      deckProxy.set('url', "http://www.slideshare.net/tboyt/presentation-27430110");
+      deckProxy.set('url', "https://speakerdeck.com/jrallison/ember-components");
       deckProxy.setKeys();
 
-      videoProxy.set('url', "http://www.youtube.com/watch?v=bzT0ezT-Jn8#t=3676");
+      videoProxy.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
       videoProxy.setKeys();
     }
   }

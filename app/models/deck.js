@@ -1,56 +1,59 @@
-import ValidationMixin from 'appkit/utils/validation_mixin';
-import ModelProxyMixin from 'appkit/utils/model_proxy_mixin';
+import SlideshareValidator from 'appkit/models/validators/slideshare';
+import SpeakerdeckValidator from 'appkit/models/validators/speakerdeck';
 
-import SpeakerdeckMixin from 'appkit/models/deck/speakerdeck_mixin';
-import SlideshareMixin from 'appkit/models/deck/slideshare_mixin';
+var attr = DS.attr,
+    urlRegex = /^http(?:s?):\/\/(?:w*\.?)(.+)\.(?:com|net)\/([^\?]*)/,
+    validators = {
+      slideshare: SlideshareValidator,
+      speakerdeck: SpeakerdeckValidator
+    };
 
-var attr = DS.attr;
-
-export default DS.Model.extend(ValidationMixin, ModelProxyMixin, {
+export default DS.Model.extend({
   url: attr(),
   docId: attr(),
   presentation: DS.belongsTo('presentation'),
 
-  validationRegex: Ember.required(),
-  yqlEndpoint: "http://query.yahooapis.com/v1/public/yql?q=YQL_QUERY&format=json",
-  validationResponse: undefined,
+  validationState: null, // 'pending', 'notFound', 'requestError', 'valid'
 
-  mixins: {
-    speakerdeck: SpeakerdeckMixin,
-    slideshare: SlideshareMixin
-  },
+  valid: function() {
+    return this.get('validationState') === 'valid';
+  }.property('validationState'),
 
-  validationUrl: function() {
-    var id = this.get('modelId'),
-        yql = this.get('yql').replace('DECK_ID', encodeURIComponent(id));
-    return this.get('yqlEndpoint').replace('YQL_QUERY', yql);
-  }.property('modelId'),
+  urlMatch: function() {
+    return this.get('url').match(urlRegex);
+  }.property('url'),
 
-  // this is the external id in the user entered URL
-  modelId: function(key, value) {
-    if (arguments.length > 1) {
-      this.set('url', this.get('baseUrl') + value);
-      return value;
-    }
+  domainRoot: function() {  // ie. 'slideshare'
+    var match = this.get('urlMatch');
+    return match && match[1];
+  }.property('urlMatch'),
 
-    var url = this.get('url'),
-        domain = this.get('domain');
+  slideshare: function() {
+    return this.get('domainRoot') === 'slideshare';
+  }.property('domainRoot'),
 
-    if (!url) { return; }
-    return url.split(domain + "/")[1];
-  }.property('baseUrl'),
+  speakerdeck: function() {
+    return this.get('domainRoot') === 'speakerdeck';
+  }.property('domainRoot'),
 
-  setValidationStatus: function() {
-    var result = this.get('validationResponse');
+  externalId: function() {  // ie. 'tboyt/presentation-27430110'
+    var match = this.get('urlMatch');
+    return match && match[2];
+  }.property('urlMatch'),
 
-    if (!result) { return this.setInvalid('notFound'); }
+  validator: function() {
+    var type = this.get('domainRoot');
+    if (!type) { return; }
 
-    var docId = result.match(this.get('validationRegex'))[1];
+    var validator = validators[type];
+    if (!validator) { return; }
 
-    if (docId) {
-      this.set('docId', docId);
-      this.setValid();
-    }
-    else { this.setInvalid('notFound'); }
-  }.observes('validationResponse')
+    return validator.create({ content: this });
+  }.property('domainRoot'),
+
+  validate: function() {
+    var validator = this.get('validator');
+    if (!validator) { return this.set('validationState', 'notFound'); }
+    validator.run();
+  }
 });
