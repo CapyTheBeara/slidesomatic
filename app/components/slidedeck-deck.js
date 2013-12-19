@@ -3,8 +3,11 @@ var endpoint = "http://static.slidesharecdn.com/swf/ssplayer2.swf";
 // http://learnswfobject.com/advanced-topics/executing-javascript-when-the-swf-has-finished-loading/
 function swfLoadEvent(fn, e){
   if (typeof fn !== "function") { return false; }
-  var initialTimeout = window.setTimeout(function (){
+
+  var initialInteval = window.setInterval(function (){
     if(typeof e.ref.PercentLoaded !== "undefined" && e.ref.PercentLoaded()){
+      window.clearInterval(initialInteval);
+
       var loadCheckInterval = window.setInterval(function (){
         if(e.ref.PercentLoaded() === 100){
           fn();
@@ -12,7 +15,7 @@ function swfLoadEvent(fn, e){
         }
       }, 1500);
     }
-  }, 200);
+  }, 100);
 }
 
 export default Ember.Component.extend({
@@ -27,11 +30,12 @@ export default Ember.Component.extend({
         flashvars = { doc : this.get('docId'), startSlide : 1, rel : 0 };
 
     swfobject.embedSWF(endpoint, id, "100%", "100%", "8", null, flashvars, params, atts, function(e) {
+      var view = document.getElementById(id);
+      self.sendAction('sendSelf', view);
+
       swfLoadEvent(function() {
-        var view = document.getElementById(id);
         view.next(); // get rid of bouncing arrow
         view.previous();
-        self.sendAction('sendSelf', view);
       }, e);
     });
   }

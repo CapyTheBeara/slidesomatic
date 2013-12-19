@@ -9,7 +9,7 @@
 
         <tbody>
         {{#each}}
-            <tr {{bind-attr class='isPast:success'}}>
+            <tr {{bind-attr class='isPast:past'}}>
                 <td>
                     <a href="#" {{action 'skipTo' start}}>
                         {{format-seconds start}}

@@ -95,8 +95,8 @@ form.sequence-new button {
   border-left: 1px solid #ddd;
 }
 
-.new .sequences-table .tr.past {
-    background-color: #CFFAD0;
+.sequences-table .past {
+    background-color: #ECF0F1;
 }
 
 .new .sequences-table .th,
