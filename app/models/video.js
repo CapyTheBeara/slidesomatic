@@ -1,15 +1,15 @@
-import ValidationMixin from 'appkit/utils/validation_mixin';
-import ModelProxyMixin from 'appkit/utils/model_proxy_mixin';
+import ValidationMixin from 'appkit/models/validators/validation_mixin';
 
-import YoutubeMixin from 'appkit/models/video/youtube_mixin';
+import YoutubeValidator from 'appkit/models/validators/youtube';
 
 var attr = DS.attr;
 
-export default DS.Model.extend(ValidationMixin, ModelProxyMixin, {
-  start: attr('number', { defaultValue: 0 }),
+export default DS.Model.extend(ValidationMixin, {
+  url: attr(),
+  start: attr(),
   presentation: DS.belongsTo('presentation'),
 
-  mixins: {
-    youtube: YoutubeMixin
+  validators: {
+    youtube: YoutubeValidator
   }
 });

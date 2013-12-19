@@ -1,7 +1,14 @@
-export default Ember.Controller.extend({
-  deck: null,
+export default Ember.ObjectController.extend({
   deckView: null,
   slide: 1,
+
+  slideshare: function() {
+    return this.get('domainRoot') === 'slideshare';
+  }.property('domainRoot'),
+
+  speakerdeck: function() {
+    return this.get('domainRoot') === 'speakerdeck';
+  }.property('domainRoot'),
 
   slideDidChange: function() {
     var slide = this.get('slide'),

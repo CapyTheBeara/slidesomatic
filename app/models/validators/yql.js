@@ -1,40 +1,55 @@
+var endpoint = "http://query.yahooapis.com/v1/public/yql?q=YQL_QUERY&format=json",
+    idRegex = /(?:com|net)\/([^\?]*)/;
+
 export default Ember.ObjectProxy.extend({
   content: null,  // Deck
-  status: Em.computed.alias('content.validationState'),
+  state: Em.computed.alias('content.validationState'),
   response: undefined,
-  endpoint: "http://query.yahooapis.com/v1/public/yql?q=YQL_QUERY&format=json",
+
+  externalId: function() {  // ie. 'tboyt/presentation-27430110'
+    var match = this.get('url').match(idRegex);
+    return match && match[1];
+  }.property('url'),
+
+  endpoint: function() {
+    var id = this.get('externalId'),
+        yql = this.get('yql').replace('EXTERNAL_ID', encodeURIComponent(id));
+
+    return endpoint.replace('YQL_QUERY', yql);
+  }.property('externalId'),
 
   run: function() {
-    this.set('status', 'pending');
+    this.set('state', 'pending');
 
-    var id = this.get('externalId'),
-        yql = this.get('yql').replace('EXTERNAL_ID', encodeURIComponent(id)),
-        endpoint = this.get('endpoint').replace('YQL_QUERY', yql);
-
-    return $.getJSON(endpoint,
-      this.get('success')(this)
-    ).fail(
-      this.get('fail')(this)
-    );
+    return $.getJSON(this.get('endpoint'))
+      .done( this.get('success')(this) )
+      .fail( this.get('fail')(this) );
   },
 
   responseDidChange: function() {
     var result = this.get('response');
-    if (!result) { return this.set('status', 'notFound'); }
+    if (!result) { return this.set('state', 'notFound'); }
 
     var docId = result.match(this.get('validationRegex'))[1];
 
     if (docId) {
       this.set('docId', docId);
-      this.set('status', 'valid');
+      this.set('state', 'valid');
     }
-    else { this.set('status', 'notFound'); }
+    else { this.set('state', 'notFound'); }
   }.observes('response'),
+
+  success: function(self) {
+    return function(response) {
+      // process response in child class
+      self.set('state', 'valid');
+    };
+  },
 
   fail: function(self) {
     return function(res) {
       console.log('External validation request failure', res);
-      self.set('status', 'requestError');
+      self.set('state', 'requestError');
     };
   }
 });

@@ -5,16 +5,17 @@ function round(num) {
 }
 
 export default Ember.Component.extend({
-  src: "",
+  video: null,
   currentTime: 0,
-  start: 0,
   videoPlayer: null,
 
   didInsertElement: function() {
     var popcorn,
         self = this,
-        src = this.get('src') + '&controls=2',
-        start = this.get('start'),
+        url = this.get('video.url'),
+        split = url.split('#t='),
+        src = split[0] + '&controls=2',
+        start = this.get('video.start') || split[1] || 0,
         id = "#" + this.get('elementId'),
         video = Popcorn.HTMLYouTubeVideoElement(id),
         $el = $(id);

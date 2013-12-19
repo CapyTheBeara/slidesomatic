@@ -16,6 +16,8 @@ export default Ember.Route.extend({
             url: queryParams.video
           });
 
+      deck.validate();
+      video.validate();
       presentation.setProperties({ deck: deck, video: video });
       return presentation;
     }
@@ -33,7 +35,7 @@ export default Ember.Route.extend({
         deckController = this.controllerFor('deck');
 
     videoController.set('video', presentation.get('video'));
-    deckController.set('deck', presentation.get('deck'));
+    deckController.set('content', presentation.get('deck'));
 
     this.render();
 

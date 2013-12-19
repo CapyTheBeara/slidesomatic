@@ -32,7 +32,7 @@ module.exports = {
     // No need to debounce
     debounceDelay: 0,
     // When we don't have inotify
-    interval: 5007,
+    interval: 1000,
     livereload: Helpers.isPackageAvailable("connect-livereload")
   }
 };

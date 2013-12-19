@@ -30,7 +30,6 @@ body {
 }
 
 .container.presentation {
- margin: 0;
  padding: 0 20px 0 0;
  width: 100%;
 }
@@ -58,6 +57,10 @@ body {
   height: 360px;
   overflow-y: scroll;
   margin: 10px 0;
+}
+
+.new #deck {
+  height: 396px;
 }
 
 .new #deck-player {
