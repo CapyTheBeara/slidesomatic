@@ -28,19 +28,21 @@ export default Ember.ObjectProxy.extend({
   },
 
   responseDidChange: function() {
-    var result = this.get('response');
+    var response = this.get('response');
 
-    if (result === undefined) { return; }
-    if (result === null) { return this.set('state', 'notFound'); }
-
-    var docId = result.match(this.get('validationRegex'))[1];
-
-    if (docId) {
-      this.set('docId', docId);
-      this.set('state', 'valid');
-    }
+    if (response === undefined) { return; }
+    if (response === null) { return this.set('state', 'notFound'); }
+    if (this.isValid(response)) { this.set('state', 'valid'); }
     else { this.set('state', 'notFound'); }
   }.observes('response'),
+
+  isValid: function(response) {
+    var docId = response.match(this.get('validationRegex'))[1];
+    if (!docId) { return false; }
+
+    this.set('docId', docId);
+    return true;
+  },
 
   success: function(self) {
     return function(response) {

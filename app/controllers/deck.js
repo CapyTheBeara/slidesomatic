@@ -1,14 +1,10 @@
+var equal = Em.computed.equal;
+
 export default Ember.ObjectController.extend({
   deckView: null,
   slide: 1,
-
-  slideshare: function() {
-    return this.get('domainRoot') === 'slideshare';
-  }.property('domainRoot'),
-
-  speakerdeck: function() {
-    return this.get('domainRoot') === 'speakerdeck';
-  }.property('domainRoot'),
+  slideshare: equal('domainRoot', 'slideshare'),
+  speakerdeck: equal('domainRoot', 'speakerdeck'),
 
   slideDidChange: function() {
     var slide = this.get('slide'),

@@ -1,7 +1,16 @@
-{{popcorn-video id  = 'video-view'
-                media = video
-                action = 'setTime'
-                mediaPlayer = player}}
+{{#if youtube}}
+    {{popcorn-video id  = 'video-view'
+                    media = content
+                    action = 'setTime'
+                    mediaPlayer = player}}
+{{/if}}
+
+{{#if soundcloud}}
+    {{popcorn-media id='audio-view'
+                    media = content
+                    action = 'setTime'
+                    mediaPlayer = player}}
+{{/if}}
 
 {{#if editMode}}
     {{input-slider action='scrub'}}

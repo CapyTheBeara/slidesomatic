@@ -2,11 +2,14 @@ function round(num) {
   return Math.round(num*10) / 10;
 }
 
-export default Ember.Controller.extend({
-  video: null,
+var equal = Em.computed.equal;
+
+export default Ember.ObjectController.extend({
   player: null,
   time: null,
   editMode: false,
+  youtube: equal('domainRoot', 'youtube'),
+  soundcloud: equal('domainRoot', 'soundcloud'),
 
   getCurrentTime: function() {
     return round(this.get('player').currentTime());

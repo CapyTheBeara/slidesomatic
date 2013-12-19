@@ -1,6 +1,7 @@
 import ValidationMixin from 'appkit/models/validators/validation_mixin';
 
 import YoutubeValidator from 'appkit/models/validators/youtube';
+import SoundcloudValidator from 'appkit/models/validators/soundcloud';
 
 var attr = DS.attr;
 
@@ -10,6 +11,7 @@ export default DS.Model.extend(ValidationMixin, {
   presentation: DS.belongsTo('presentation'),
 
   validators: {
-    youtube: YoutubeValidator
+    youtube: YoutubeValidator,
+    soundcloud: SoundcloudValidator
   }
 });

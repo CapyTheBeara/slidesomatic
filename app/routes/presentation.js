@@ -35,7 +35,7 @@ export default Ember.Route.extend({
     var videoController = this.controllerFor('video'),
         deckController = this.controllerFor('deck');
 
-    videoController.set('video', presentation.get('video'));
+    videoController.set('content', presentation.get('video'));
     deckController.set('content', presentation.get('deck'));
 
     this.render();

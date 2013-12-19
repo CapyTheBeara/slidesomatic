@@ -8,11 +8,9 @@ export default Ember.Component.extend({
   media: null,
   currentTime: 0,
   mediaPlayer: null,
-  popcorn: null,
+  popcorn: Em.computed.alias('mediaPlayer'),
   start: 0,
-
-  // src: Em.computed.alias('media.url'),
-  src: 'https://soundcloud.com/armadamusic/armin-van-buuren-shivers',
+  src: Em.computed.alias('media.url'),
   elementCTOR: Popcorn.HTMLSoundCloudAudioElement,
 
   element: function() {
@@ -29,7 +27,6 @@ export default Ember.Component.extend({
   didInsertElement: function() {
     var popcorn = Popcorn(this.get('element'));
     this.set('popcorn', popcorn);
-    this.set('mediaPlayer', popcorn);
 
     this.setEventHandlers();
     this.didInsertElementHook();
