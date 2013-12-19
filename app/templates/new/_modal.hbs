@@ -4,7 +4,6 @@
         {{input class = 'form-control'
                 placeholder = 'Slides URL'
                 value = deck.url
-                focus-out = 'addDeck'
                 action = 'addDeck'}}
 
         {{validation-message validationState=deck.validationState}}
@@ -15,7 +14,6 @@
             {{input class = 'form-control'
                     placeholder = 'Video URL'
                     value = video.url
-                    focus-out = 'addVideo'
                     action = 'addVideo'}}
 
         {{validation-message validationState=video.validationState}}

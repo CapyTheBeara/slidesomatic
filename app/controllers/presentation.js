@@ -10,8 +10,8 @@ export default Ember.ArrayController.extend({
   needs: ['deck', 'video'],
   deck: alias('presentation.deck'),
   video: alias('presentation.video'),
-  slide: alias('controllers.deck.slide'),
-  time: alias('controllers.video.time'),
+  slideBinding: 'controllers.deck.slide',
+  timeBinding: 'controllers.video.time',
   validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   updateSequence: function() {
@@ -20,11 +20,11 @@ export default Ember.ArrayController.extend({
     var time = this.get('time'),
         currentSequence = this.get('currentSequence'),
 
-        hit = this.get('content').filter(function(seq) {
-          if (seq.hasPassed(time)) { return true; }
+        hit = this.filter(function(seq) {
+          if (seq.get('start') <= time) { return true; }
         }).get('lastObject');
 
-    if (!hit) { return this.set('currentSequence', this.get('content.firstObject')); }
+    if (!hit) { return this.set('currentSequence', this.get('firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
       this.set('currentSequence', hit);
     }

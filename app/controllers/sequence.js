@@ -7,6 +7,10 @@ export default Ember.ObjectController.extend({
     return this.get('start') < this.get('currentSequence.start');
   }.property('currentSequence'),
 
+  eq: function(seq) {
+    return this.get('start') === seq.get('start');
+  },
+
   actions: {
     edit: function() {
       this.toggleProperty('isEditing');
