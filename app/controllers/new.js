@@ -4,8 +4,6 @@ var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json"
 
 export default PresentationController.extend({
   activeTab: 'slides',
-  editMode: true,
-  showSeconds: true,
   presentationMode: false,
   needs: ['deck', 'video', 'application'],
   shortUrl: null,
@@ -58,6 +56,14 @@ export default PresentationController.extend({
           self.set('shortUrl', res.shorturl);
         });
       }
+    },
+
+    submitUrls: function() {
+      var deck = this.get('deck'),
+          video = this.get('video');
+
+      if (deck.get('url')) { deck.validate(); }
+      if (video.get('url')) { video.validate(); }
     },
 
     addTestingUrls: function() {

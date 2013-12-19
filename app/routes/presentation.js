@@ -2,25 +2,26 @@ export default Ember.Route.extend({
   name: 'presentation',
 
   model: function(params, queryParams) {
-    if (queryParams.seq) {
-      var presentation = this.store.createRecord('presentation', {
-            sequencesUrlFrag: queryParams.seq
-          }),
-
-          deck = this.store.createRecord('deck', {
-            url: queryParams.deck
-          }),
-
-          video = this.store.createRecord('video', {
-            start: presentation.get('firstSequence.start'),
-            url: queryParams.video
-          });
-
-      deck.validate();
-      video.validate();
-      presentation.setProperties({ deck: deck, video: video });
-      return presentation;
+    if (!queryParams.video || !queryParams.deck) {
+      return this.transitionTo('new', { queryParams: queryParams });
     }
+
+    var args = queryParams.seq ? {sequencesUrlFrag: queryParams.seq} : {},
+        presentation = this.store.createRecord('presentation', args),
+
+        deck = this.store.createRecord('deck', {
+          url: queryParams.deck
+        }),
+
+        video = this.store.createRecord('video', {
+          start: presentation.get('firstSequence.start') || 0,
+          url: queryParams.video
+        });
+
+    deck.validate();
+    video.validate();
+    presentation.setProperties({ deck: deck, video: video });
+    return presentation;
   },
 
   setupController: function(controller, presentation) {

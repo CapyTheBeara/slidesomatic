@@ -20,6 +20,7 @@ export default Ember.ObjectProxy.extend({
 
   run: function() {
     this.set('state', 'pending');
+    this.set('response', undefined);
 
     return $.getJSON(this.get('endpoint'))
       .done( this.get('success')(this) )
@@ -28,7 +29,9 @@ export default Ember.ObjectProxy.extend({
 
   responseDidChange: function() {
     var result = this.get('response');
-    if (!result) { return this.set('state', 'notFound'); }
+
+    if (result === undefined) { return; }
+    if (result === null) { return this.set('state', 'notFound'); }
 
     var docId = result.match(this.get('validationRegex'))[1];
 

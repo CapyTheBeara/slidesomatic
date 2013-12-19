@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   video: null,
   player: null,
   time: null,
+  editMode: false,
 
   getCurrentTime: function() {
     return round(this.get('player').currentTime());

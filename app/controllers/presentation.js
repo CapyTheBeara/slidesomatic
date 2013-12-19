@@ -1,3 +1,5 @@
+var alias = Em.computed.alias;
+
 export default Ember.ArrayController.extend({
   presentation: null,
   currentSequence: null,
@@ -6,10 +8,10 @@ export default Ember.ArrayController.extend({
   sortAscending: true,
   presentationMode: true,
   needs: ['deck', 'video'],
-  deckBinding: 'presentation.deck',
-  videoBinding: 'presentation.video',
-  slideBinding: 'controllers.deck.slide',
-  timeBinding: 'controllers.video.time',
+  deck: alias('presentation.deck'),
+  video: alias('presentation.video'),
+  slide: alias('controllers.deck.slide'),
+  time: alias('controllers.video.time'),
   validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   updateSequence: function() {

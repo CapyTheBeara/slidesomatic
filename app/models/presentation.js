@@ -6,13 +6,16 @@ export default DS.Model.extend({
   deck: DS.belongsTo('deck'),
   video: DS.belongsTo('video'),
   sequences: DS.hasMany('sequence'),
-  sequencesUrlFrag: null,
+  sequencesUrlFrag: undefined,
 
   path: function() {
-    var route = "#/show?",
-        deck = 'deck=' + encodeURIComponent(this.get('deck.url')),
-        video = '&video=' + encodeURIComponent(this.get('video.url')),
-        seq = "&seq=" + this.get('encodedSequences');
+    var deckUrl = this.get('deck.url'),
+        videoUrl = this.get('video.url'),
+        encodedSequences = this.get('encodedSequences'),
+        route = "#/show?",
+        deck = deckUrl ? 'deck=' + encodeURIComponent(deckUrl) : '',
+        video = videoUrl ? '&video=' + encodeURIComponent(videoUrl) : '',
+        seq = encodedSequences ? "&seq=" + encodedSequences : '';
 
     return [route, deck, video, seq].join('');
   }.property('deck.url', 'video.url', 'encodedSequences'),

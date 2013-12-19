@@ -7,7 +7,10 @@ export default Ember.Mixin.create({
   }.property('validationState'),
 
   domainRoot: function() {  // ie. 'slideshare'
-    var match = this.get('url').match(this.get('urlRegex'));
+    var url = this.get('url');
+    if (!url) { return; }
+
+    var match = url.match(this.get('urlRegex'));
     return match && match[1];
   }.property('urlMatch'),
 

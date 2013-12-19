@@ -5,19 +5,15 @@
         </a>
     </div>
 
-    {{#if parentController.showSeconds}}
     <div class='td col2'>
         {{start}}
     </div>
-    {{/if}}
 
     <div class='td col3'>
         {{slide}}
     </div>
 
     <div class='td col4'>
-        {{#if parentController.editMode}}
         <button {{action 'edit'}}>Edit</button>
-        {{/if}}
     </div>
 </div>
