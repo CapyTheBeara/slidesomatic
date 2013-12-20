@@ -2,15 +2,17 @@
 
 <div class="row">
     <div class="col-md-12">
-        <label>Slide Number</label>
+        <label>
+            Slide Number
+            <span class='hint--right' data-hint="Before pressing the 'Add Slide' button, set your video to slide's start time.">
+                <span class="glyphicon glyphicon-info-sign">
+                </span>
+            </span>
+        </label>
     </div>
 </div>
 
 <div class='row form-group input-group-sm'>
-    <div class="col-md-6 col-md-offset-1">
-        {{deck-controls slide=slide}}
-    </div>
-
     <div class="col-md-4">
        <button type = 'button'
                 class = 'btn btn-success btn-sm'
@@ -18,32 +20,26 @@
             Add Slide
         </button>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <span class="help-block">
-            Before pressing the <em>Add Slide</em> button, set your video to slide's start time.
-        </span>
+    <div class="col-md-6 col-md-offset-1">
+        {{deck-controls slide=slide}}
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <label>Presentation Mode</label>
+        <label>
+            Presentation Mode
+            <span class='hint--right' data-hint="Turning on Presentation Mode will cause the slides to follow the slide sequence.">
+                <span class="glyphicon glyphicon-info-sign">
+                </span>
+            </span>
+        </label>
     </div>
 </div>
 
 <div class="row ">
     <div class="col-md-12">
         {{toggle-switch action='changePresentationMode'}}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <span class="help-block">
-            Turning on <em>Presentation Mode</em> will cause the slides follow the slide sequence.
-        </span>
     </div>
 </div>

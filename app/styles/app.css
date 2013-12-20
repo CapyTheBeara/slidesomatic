@@ -17,6 +17,15 @@ body {
   font-size: 2.5em;
 }
 
+.index footer {
+  border-top: 1px solid #ecf0f1;
+  padding-top: 10px;
+}
+
+.container.index footer img {
+  height: 50px;
+}
+
 .index .pitch {
   background-color: #FFEFD5;
 }
@@ -30,7 +39,7 @@ body {
     height: 100%;
     width: 100%;
     z-index: 10;
-    background-color: #2C3E50;
+    background-color: #FFEFD5;
 }
 
 .container.presentation {
@@ -63,7 +72,7 @@ body {
 }
 
 #new-form .modal-content {
-  background-color: #FFEFD5;
+  background-color: #ecf0f1;
 }
 
 .new #deck {
@@ -316,3 +325,6 @@ input[type='range']::-webkit-slider-thumb {
   background-color: #aaa;
 }
 
+.hint:after, [data-hint]:after {
+  font-size: 14px;
+}

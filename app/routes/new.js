@@ -29,5 +29,6 @@ export default PresentationRoute.extend({
 
   deactivate: function() {
     this.controllerFor('application').set('modalMode', false);
+    this.controllerFor('video').set('editMode', false);
   }
 });

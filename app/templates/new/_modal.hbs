@@ -1,8 +1,8 @@
 <div class="row">
-    <h4>Copy and paste the website addresses here</h4>
+    <h4>Paste the website address here</h4>
     <div class='form-group'>
         {{input class = 'form-control'
-                placeholder = 'Slides URL'
+                placeholder = 'Slides Website Address'
                 value = deck.url
                 action = 'addDeck'}}
 
@@ -12,7 +12,7 @@
     {{#if deck.valid}}
         <div class='form-group'>
             {{input class = 'form-control'
-                    placeholder = 'Video URL'
+                    placeholder = 'Video Website Address'
                     value = video.url
                     action = 'addVideo'}}
 
@@ -27,11 +27,11 @@
     {{/if}}
 
     <div class='form-group'>
-        <button class='btn btn-default' {{action 'submitUrls'}}>Go</button>
+        <button class='btn btn-success' {{action 'submitUrls'}}>Go</button>
     </div>
-
+{{!--
     <div class="form-group">
         <a class='btn btn-default' {{action 'addTestingUrls'}}>TESTING</a>
-    </div>
+    </div> --}}
 </div>
 

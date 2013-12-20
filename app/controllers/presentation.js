@@ -36,7 +36,8 @@ export default Ember.ArrayController.extend({
 
   actions: {
     skipTo: function(time) {
-      this.get('controllers.video').skipTo(time);
+      var play = this.get('presentationMode');
+      this.get('controllers.video').skipTo(time, play);
     }
   }
 });

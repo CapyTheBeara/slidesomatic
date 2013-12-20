@@ -33,14 +33,16 @@ export default PresentationController.extend({
 
     addSequence: function() {
       var slide = this.get('slide'),
+          videoController = this.get('controllers.video'),
 
           seq = this.store.createRecord('sequence', {
-            start: this.get('controllers.video').getCurrentTime(),
+            start: videoController.getCurrentTime(),
             slide: slide
           });
 
       this.pushObject(seq);
       this.set('slide', slide + 1);
+      videoController.resetScrubbers();
     },
 
     shortenUrl: function() {
@@ -71,7 +73,8 @@ export default PresentationController.extend({
           video = this.get('video');
 
       deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
-      video.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
+      // video.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
+      video.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
 
       deck.validate();
       video.validate();

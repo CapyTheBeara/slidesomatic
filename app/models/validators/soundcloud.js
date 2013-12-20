@@ -1,3 +1,5 @@
+/* jshint eqeqeq: false */
+
 import yqlValidator from 'appkit/models/validators/yql';
 
 export default yqlValidator.extend({
