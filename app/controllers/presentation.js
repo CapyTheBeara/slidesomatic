@@ -7,12 +7,11 @@ export default Ember.ArrayController.extend({
   sortProperties: ['start'],
   sortAscending: true,
   presentationMode: true,
-  needs: ['deck', 'video'],
-  deck: alias('presentation.deck'),
-  video: alias('presentation.video'),
-  slideBinding: 'presentation.deck.slide',
-  timeBinding: 'presentation.video.time',
-  validUrls: Em.computed.and('deck.valid', 'video.valid'),
+  needs: ['video'],
+  validUrls: Em.computed.and('presentation.deck.valid',
+                             'presentation.video.valid'),
+  timeBinding: 'playback.time',
+  slideBinding: 'playback.slide',
 
   updateSequence: function() {
     if (!this.get('presentationMode')) { return; }

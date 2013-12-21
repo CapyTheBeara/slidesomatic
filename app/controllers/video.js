@@ -5,7 +5,7 @@ function round(num) {
 var equal = Em.computed.equal;
 
 export default Ember.ObjectController.extend({
-  player: null,
+  player: Em.computed.alias('playback.mediaPlayer'),
   editMode: false,
   youtube: equal('domainRoot', 'youtube'),
   soundcloud: equal('domainRoot', 'soundcloud'),
@@ -31,10 +31,6 @@ export default Ember.ObjectController.extend({
   },
 
   actions: {
-    setTime: function(time) {
-      this.set('time', time);
-    },
-
     scrubHigh: function(change) {
       var player = this.get('player'),
           time = this.getCurrentTime();

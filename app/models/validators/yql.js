@@ -2,7 +2,8 @@ var endpoint = "http://query.yahooapis.com/v1/public/yql?q=YQL_QUERY&format=json
     idRegex = /(?:com|net)\/([^\?]*)/;
 
 export default Ember.ObjectProxy.extend({
-  content: null,  // Deck
+  content: null,
+  response: null,
   state: Em.computed.alias('content.validationState'),
   firstIndexBinding: 'content.firstIndex',
   imgEndpointBinding: 'content.imgEndpoint',
@@ -28,13 +29,16 @@ export default Ember.ObjectProxy.extend({
       .fail( this.get('fail')(this) );
   },
 
-  imgEndpointDidChange: function() {
-    var endpoint = this.get('imgEndpoint');
+  responseDidChange: function() {
+    var endpoint = this.get('response');
 
+    if (endpoint) { return this.set('state', 'valid'); }
     if (endpoint === undefined) { return; }
-    if (endpoint === null) { return this.set('state', 'notFound'); }
-    if (endpoint) { this.set('state', 'valid'); }
-    else { this.set('state', 'notFound'); }
+    return this.set('state', 'notFound');
+  }.observes('response'),
+
+  imgEndpointDidChange: function() {
+    this.set('response', true);
   }.observes('imgEndpoint'),
 
   success: function(self) {

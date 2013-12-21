@@ -3,6 +3,9 @@ import PresentationController from 'appkit/controllers/presentation';
 var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json";
 
 export default PresentationController.extend({
+  // presentation set in route
+  deck: Em.computed.alias('presentation.deck'),
+  video: Em.computed.alias('presentation.video'),
   activeTab: 'slides',
   presentationMode: false,
   needs: ['deck', 'video', 'application'],
@@ -32,7 +35,7 @@ export default PresentationController.extend({
     },
 
     addSequence: function() {
-      var slide = this.get('slide'),
+      var slide = this.get('playback.slide'),
           videoController = this.get('controllers.video'),
 
           seq = this.store.createRecord('sequence', {
@@ -41,7 +44,7 @@ export default PresentationController.extend({
           });
 
       this.pushObject(seq);
-      this.set('slide', slide + 1);
+      this.set('playback.slide', slide + 1);
       videoController.resetScrubbers();
     },
 

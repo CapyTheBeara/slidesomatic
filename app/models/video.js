@@ -10,8 +10,6 @@ export default DS.Model.extend(ValidationMixin, {
   start: attr(),
   presentation: DS.belongsTo('presentation'),
 
-  time: null, // pass through for playback time
-
   validators: {
     youtube: YoutubeValidator,
     soundcloud: SoundcloudValidator

@@ -8,12 +8,8 @@ export default yqlValidator.extend({
   success: function(self) {
     return function(obj) {
       var statusCode = obj.query.results && obj.query.results.resources.status;
-      self.set('response', statusCode);
+      self.set('response', statusCode == 200);
     };
-  },
-
-  isValid: function(response) {
-    return response == 200;
   }
 });
 

@@ -5,13 +5,14 @@ export default Ember.Component.extend({
   alt: 'slide',
   src: null,
   firstIndex: null,
+  slideBinding: 'playback.slide',
 
   updateSrc: function() {
     var slide = this.get('slide');
     if (!slide) { return; }
 
     var self = this,
-        _slide = this.get('slide') + this.get('firstIndex'),
+        _slide = slide + this.get('firstIndex'),
         src = this.get('imgEndpoint').replace('NUMBER', _slide - 1),
         img = $('<img>');
 
@@ -24,9 +25,5 @@ export default Ember.Component.extend({
       });
 
     img.attr('src', src);
-  }.observes('slide', 'imgEndpoint').on('init'),
-
-  didInsertElement: function() {
-    this.sendAction('sendSelf', this);
-  }
+  }.observes('slide', 'imgEndpoint').on('init')
 });

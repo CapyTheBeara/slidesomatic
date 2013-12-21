@@ -6,12 +6,11 @@ function round(num) {
 
 export default Ember.Component.extend({
   media: null,
-  currentTime: 0,
-  mediaPlayer: null,
-  popcorn: Em.computed.alias('mediaPlayer'),
   start: 0,
   src: Em.computed.alias('media.url'),
   elementCTOR: Popcorn.HTMLSoundCloudAudioElement,
+  timeBinding: 'playback.time',
+  popcorn: Em.computed.alias('playback.mediaPlayer'),
 
   element: function() {
     var id = "#" + this.get('elementId'),
@@ -37,18 +36,17 @@ export default Ember.Component.extend({
         self = this;
 
     popcorn.on('timeupdate', function(evt){
-      var last = self.get('currentTime'),
+      var last = self.get('time'),
           current = round(popcorn.currentTime());
 
       if (last !== current) {
-        self.set('currentTime', current);
-        self.sendAction('action', current);
+        self.set('time', current);
       }
     });
 
     popcorn.on('seeked', function(evt) {
       var time = round(popcorn.currentTime());
-      self.sendAction('action', time);
+      self.set('time', time);
     });
 
     popcorn.on('error', function(evt) {
