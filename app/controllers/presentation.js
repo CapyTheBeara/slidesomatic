@@ -10,8 +10,8 @@ export default Ember.ArrayController.extend({
   needs: ['deck', 'video'],
   deck: alias('presentation.deck'),
   video: alias('presentation.video'),
-  slideBinding: 'controllers.deck.slide',
-  timeBinding: 'controllers.video.time',
+  slideBinding: 'presentation.deck.slide',
+  timeBinding: 'presentation.video.time',
   validUrls: Em.computed.and('deck.valid', 'video.valid'),
 
   updateSequence: function() {

@@ -7,8 +7,10 @@ var attr = DS.attr;
 
 export default DS.Model.extend(ValidationMixin, {
   url: attr(),
-  docId: attr(),
   presentation: DS.belongsTo('presentation'),
+  imgEndpoint: null,  // for the slide image
+  firstIndex: 0,
+  slide: 1,
 
   validators: {
     slideshare: SlideshareValidator,

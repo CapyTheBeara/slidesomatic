@@ -2,22 +2,16 @@ var equal = Em.computed.equal;
 
 export default Ember.ObjectController.extend({
   deckView: null,
-  slide: 1,
-  slideshare: equal('domainRoot', 'slideshare'),
-  speakerdeck: equal('domainRoot', 'speakerdeck'),
+  slideBinding: 'content.slide',
 
   slideDidChange: function() {
     var slide = this.get('slide'),
-        tagName = this.get('deckView.tagName');
+        deckView = this.get('deckView');
 
-
-    if (tagName !== 'img') {  // slideshare
-      var deckView = this.get('deckView');
-      return deckView && deckView.jumpTo(slide);
+    if (deckView) {
+      this.set('deckView.slide', slide);
     }
-
-    this.set('deckView.slide', slide);  // speakerdeck
-  }.observes('slide'),
+  }.observes('slide', 'deckView'),
 
   actions: {
     setDeckView: function(view) {

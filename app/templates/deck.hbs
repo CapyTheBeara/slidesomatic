@@ -1,10 +1,4 @@
-{{#if slideshare}}
-    {{slidedeck-deck docId = docId
-                     sendSelf = 'setDeckView'}}
-{{/if}}
-
-{{#if speakerdeck}}
-    {{speakerdeck-deck docId = docId
-                       sendSelf = 'setDeckView'
-                       imgError = 'handleError'}}
-{{/if}}
+{{slide-image imgEndpoint = imgEndpoint
+              firstIndex = firstIndex
+              sendSelf = 'setDeckView'
+              imgError = 'handleError'}}
