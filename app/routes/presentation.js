@@ -25,9 +25,11 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, presentation) {
-    controller.set('model', presentation.get('sequences'));
-    controller.set('presentation', presentation);
-    this.controllerFor('sequence').set('parentController', controller);
+    controller.setProperties({
+      model: presentation.get('sequences'),
+      presentation: presentation
+    });
+
     this.controllerFor('application').set('wrapperClass', this.get('name'));
   },
 

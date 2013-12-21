@@ -15,7 +15,8 @@ export default PopcornMediaComponent.extend({
   }.property('media.url'),
 
   didInsertElementHook: function() {
-    var start = this.get('start'),
+    var count = 0,
+        start = this.get('start'),
         popcorn = this.get('popcorn');
 
     // Youtube hack - prevent needing to click play twice
@@ -23,7 +24,9 @@ export default PopcornMediaComponent.extend({
     var fixFirstPlay = window.setInterval(function() {
       var player = popcorn.media.__player;
 
-      if (player && player.playVideo) {
+      count++;
+      if (count > 40) { window.clearInterval(fixFirstPlay); }
+      else if (player && player.playVideo) {
         popcorn.play(start);
         player.playVideo();
         player.pauseVideo();

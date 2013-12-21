@@ -4,12 +4,19 @@ var endpoint = "http://static.slidesharecdn.com/swf/ssplayer2.swf";
 function swfLoadEvent(fn, e){
   if (typeof fn !== "function") { return false; }
 
+  var count = 0;
+
   var initialInteval = window.setInterval(function (){
-    if(typeof e.ref.PercentLoaded !== "undefined" && e.ref.PercentLoaded()){
+    count++;
+
+    if(count > 40 || typeof e.ref.PercentLoaded !== "undefined" && e.ref.PercentLoaded()){
       window.clearInterval(initialInteval);
 
+      var _count = 0;
       var loadCheckInterval = window.setInterval(function (){
-        if(e.ref.PercentLoaded() === 100){
+        _count++;
+        if (_count > 5) { window.clearInterval(loadCheckInterval); }
+        else if(e.ref.PercentLoaded() === 100){
           fn();
           window.clearInterval(loadCheckInterval);
         }

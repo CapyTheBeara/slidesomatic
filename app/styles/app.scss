@@ -104,18 +104,20 @@ form.sequence-new button {
     width: 140px;
 }
 
-.new .sequences-table {
-  height: 188px;
-  overflow-y: scroll;
-  margin-left: 10px;
-}
+.new {
+  .sequences-table {
+    height: 188px;
+    overflow-y: scroll;
+    margin-left: 10px;
 
-.new .sequences-column {
-  border-left: 1px solid #ddd;
-}
+    .past {
+      background-color: #ECF0F1;
+    }
+  }
 
-.sequences-table .past {
-    background-color: #ECF0F1;
+  .sequences-column {
+    border-left: 1px solid #ddd;
+  }
 }
 
 .new .sequences-table .th,
