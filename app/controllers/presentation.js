@@ -33,6 +33,13 @@ export default Ember.ArrayController.extend({
     this.set('slide', this.get('currentSequence.slide'));
   }.observes('currentSequence'),
 
+  updateScrollTop: function() {  // is this a good thing?
+    if (this.get('presentationMode')) {
+      var index = this.indexOf(this.get('currentSequence'));
+      $('.sequences-table').animate({ scrollTop: 38*(index+1) });  // need to smaple for for height?
+    }
+  }.observes('currentSequence'),
+
   actions: {
     skipTo: function(time) {
       var play = this.get('presentationMode');
