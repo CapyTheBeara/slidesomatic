@@ -54,5 +54,9 @@ export default Ember.Component.extend({
     });
   },
 
+  willDestroyElement: function() {
+    this.get('popcorn').destroy();
+  },
+
   didInsertElementHook: Ember.K
 });
