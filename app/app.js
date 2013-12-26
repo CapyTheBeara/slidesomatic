@@ -36,7 +36,7 @@ Ember.Application.initializer({
     application.inject('component:slide-image', 'playback', 'playback:current');
     application.inject('controller:presentation', 'playback', 'playback:current');
     application.inject('controller:new', 'playback', 'playback:current');
-    application.inject('controller:video', 'playback', 'playback:current');
+    application.inject('controller:media', 'playback', 'playback:current');
   }
 });
 

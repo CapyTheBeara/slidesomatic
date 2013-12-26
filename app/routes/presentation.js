@@ -2,25 +2,25 @@ export default Ember.Route.extend({
   name: 'presentation',
 
   model: function(params, queryParams) {
-    if (!queryParams.video || !queryParams.deck) {
+    if (!queryParams.m || !queryParams.d) {
       return this.transitionTo('new', { queryParams: queryParams });
     }
 
-    var args = queryParams.seq ? {sequencesUrlFrag: queryParams.seq} : {},
+    var args = queryParams.s ? {sequencesUrlFrag: queryParams.s} : {},
         presentation = this.store.createRecord('presentation', args),
 
         deck = this.store.createRecord('deck', {
-          url: queryParams.deck
+          routeId: queryParams.d
         }),
 
-        video = this.store.createRecord('video', {
+        media = this.store.createRecord('media', {
           start: presentation.get('firstSequence.start') || 0,
-          url: queryParams.video
+          routeId: queryParams.m
         });
 
     deck.validate();
-    video.validate();
-    presentation.setProperties({ deck: deck, video: video });
+    media.validate();
+    presentation.setProperties({ deck: deck, media: media });
     return presentation;
   },
 
@@ -34,18 +34,18 @@ export default Ember.Route.extend({
   },
 
   renderTemplate: function(controller, presentation) {
-    var videoController = this.controllerFor('video'),
+    var mediaController = this.controllerFor('media'),
         deckController = this.controllerFor('deck');
 
-    videoController.set('content', presentation.get('video'));
+    mediaController.set('content', presentation.get('media'));
     deckController.set('content', presentation.get('deck'));
 
     this.render();
 
-    this.render('video', {
+    this.render('media', {
       into: this.get('name'),
-      outlet: 'video',
-      controller: videoController
+      outlet: 'media',
+      controller: mediaController
     });
 
     this.render('deck', {

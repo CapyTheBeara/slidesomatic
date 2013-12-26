@@ -1,19 +1,14 @@
 // http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451
 
-import Media from 'appkit/models/media/media';
+import MediaQuery from 'appkit/models/media/media_query';
 
 // TODO - gdata sends bad request error for non-existent
 // video ID. Swtich to YQL?
-var endpoint = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc',
-    idRegex = /watch\?v=([^#]+)/;
+var endpoint = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc';
 
-export default Media.extend({
+export default MediaQuery.extend({
   domain: 'http://www.youtube.com/watch?v=',
-
-  externalId: function() {
-    var match = this.get('url').match(idRegex);
-    return match && match[1];
-  }.property('url'),
+  idRegex: /watch\?v=([^#]+)/,
 
   endpoint: function() {
     return endpoint.replace('VIDEO_ID', this.get('externalId'));

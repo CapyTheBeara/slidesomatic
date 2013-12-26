@@ -1,5 +1,5 @@
-var Router = Ember.Router.extend(), // ensure we don't share routes between all Router instances
-    params = ['deck', 'video', 'seq'];
+var Router = Ember.Router.extend(),
+    params = ['d', 'm', 's', 'v'];  // d=deck, m=media, s=sequences, v=version
 
 Router.map(function() {
   this.route('presentation', { path: '/show', queryParams: params });

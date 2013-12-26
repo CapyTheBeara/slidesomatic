@@ -1,5 +1,5 @@
 <div class="row">
-    <h4>Paste the website address here</h4>
+    <h4>Copy and paste your website address here</h4>
     <div class='form-group'>
         {{input class = 'form-control'
                 placeholder = 'Slides Website Address'
@@ -7,31 +7,41 @@
                 action = 'addDeck'}}
 
         {{validation-message validationState=deck.validationState}}
+
+        <span class="help-block">
+            You can use one of these slide hosting sites:
+            <ul class='list-unstyled list-inline'>
+                <li>
+                    <a href="http://www.slideshare.net">
+                        SlideShare
+                    </a>
+                </li>
+                <li>
+                    <a href="https://speakerdeck.com/">
+                        Speaker Deck
+                    </a>
+                </li>
+            </ul>
+        </span>
     </div>
 
     {{#if deck.valid}}
         <div class='form-group'>
             {{input class = 'form-control'
-                    placeholder = 'Video Website Address'
-                    value = video.url
+                    placeholder = 'Video or Audio Website Address'
+                    value = media.url
                     action = 'addVideo'}}
 
-        {{validation-message validationState=video.validationState}}
+        {{validation-message validationState=media.validationState}}
         </div>
-    {{/if}}
-
-    {{#if urlError}}
-        <span class="alert alert-danger">
-            {{urlError}}
-        </span>
     {{/if}}
 
     <div class='form-group'>
         <button class='btn btn-success' {{action 'submitUrls'}}>Go</button>
     </div>
-{{!--
+
     <div class="form-group">
         <a class='btn btn-default' {{action 'addTestingUrls'}}>TESTING</a>
-    </div> --}}
+    </div>
 </div>
 

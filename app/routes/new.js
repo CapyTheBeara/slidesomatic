@@ -4,23 +4,23 @@ export default PresentationRoute.extend({
   name: 'new',
 
   model: function(params, queryParams) {
-    if (queryParams.seq && queryParams.video && queryParams.deck) {
+    if (queryParams.s && queryParams.m && queryParams.d) {
       return this._super.apply(this, arguments);
     }
 
-    var deckArgs = queryParams.deck ? {url: queryParams.deck} : {},
-        videoArgs = queryParams.video ? {url: queryParams.video} : {};
+    var deckArgs = queryParams.d ? {url: queryParams.d} : {},
+        mediaArgs = queryParams.m ? {url: queryParams.m} : {};
 
     return this.store.createRecord('presentation', {
       deck: this.store.createRecord('deck', deckArgs),
-      video: this.store.createRecord('video', videoArgs)
+      media: this.store.createRecord('media', mediaArgs)
     });
   },
 
   setupController: function(controller, presentation) {
     this._super.apply(this, arguments);
     this.controllerFor('application').set('modalMode', true);
-    this.controllerFor('video').set('editMode', true);
+    this.controllerFor('media').set('editMode', true);
 
     if (presentation.get('deck.url')) {
       controller.send('submitUrls');
@@ -29,6 +29,6 @@ export default PresentationRoute.extend({
 
   deactivate: function() {
     this.controllerFor('application').set('modalMode', false);
-    this.controllerFor('video').set('editMode', false);
+    this.controllerFor('media').set('editMode', false);
   }
 });

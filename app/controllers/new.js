@@ -5,10 +5,10 @@ var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json"
 export default PresentationController.extend({
   // presentation set in route
   deck: Em.computed.alias('presentation.deck'),
-  video: Em.computed.alias('presentation.video'),
+  media: Em.computed.alias('presentation.media'),
   activeTab: 'slides',
   presentationMode: false,
-  needs: ['deck', 'video', 'application'],
+  needs: ['deck', 'media', 'application'],
   shortUrl: null,
 
   toggleModal: function() {
@@ -23,7 +23,7 @@ export default PresentationController.extend({
     },
 
     addVideo: function() {
-      this.get('video').validate();
+      this.get('media').validate();
     },
 
     changePresentationMode: function(value) {
@@ -36,16 +36,16 @@ export default PresentationController.extend({
 
     addSequence: function() {
       var slide = this.get('playback.slide'),
-          videoController = this.get('controllers.video'),
+          mediaController = this.get('controllers.media'),
 
           seq = this.store.createRecord('sequence', {
-            start: videoController.getCurrentTime(),
+            start: mediaController.getCurrentTime(),
             slide: slide
           });
 
       this.pushObject(seq);
       this.set('playback.slide', slide + 1);
-      videoController.resetScrubbers();
+      mediaController.resetScrubbers();
     },
 
     shortenUrl: function() {
@@ -65,22 +65,22 @@ export default PresentationController.extend({
 
     submitUrls: function() {
       var deck = this.get('deck'),
-          video = this.get('video');
+          media = this.get('media');
 
       if (deck.get('url')) { deck.validate(); }
-      if (video.get('url')) { video.validate(); }
+      if (media.get('url')) { media.validate(); }
     },
 
     addTestingUrls: function() {
       var deck = this.get('deck'),
-          video = this.get('video');
+          media = this.get('media');
 
       deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
-      // video.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
-      video.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
+      media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
+      // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
 
       deck.validate();
-      video.validate();
+      media.validate();
     }
   }
 });

@@ -7,9 +7,9 @@ export default Ember.ArrayController.extend({
   sortProperties: ['start'],
   sortAscending: true,
   presentationMode: true,
-  needs: ['video'],
+  needs: ['media'],
   validUrls: Em.computed.and('presentation.deck.valid',
-                             'presentation.video.valid'),
+                             'presentation.media.valid'),
   timeBinding: 'playback.time',
   slideBinding: 'playback.slide',
 
@@ -43,7 +43,7 @@ export default Ember.ArrayController.extend({
   actions: {
     skipTo: function(time) {
       var play = this.get('presentationMode');
-      this.get('controllers.video').skipTo(time, play);
+      this.get('controllers.media').skipTo(time, play);
     }
   }
 });
