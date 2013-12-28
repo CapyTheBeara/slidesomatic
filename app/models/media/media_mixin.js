@@ -36,7 +36,7 @@ export default Ember.Mixin.create({
     if (value) {
       this.set('domainRoot', domainRootMap[value.charAt(0)]);
       this.set('externalId', value.slice(1));
-      return this;
+      return value;
     }
 
     var domainRoot = this.get('domainRoot'),

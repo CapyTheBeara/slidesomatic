@@ -25,5 +25,9 @@ export default Ember.Component.extend({
       });
 
     img.attr('src', src);
-  }.observes('slide', 'imgEndpoint').on('init')
+  }.observes('slide', 'imgEndpoint').on('init'),
+
+  willDestroyElement: function() {
+    this.set('playback.slide', 1);
+  }
 });

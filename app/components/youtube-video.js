@@ -10,21 +10,32 @@ function loadPlayerAPI() {
 }
 
 
-var STATE, poll, pollerInterval,
+var STATE, pollInterval,
+    apiReady = false,
+    clearInterval = window.clearInterval,
     domain = window.location.protocol === "file:" ? "*" :
-        window.location.protocol + "//" + window.location.host;
+        window.location.protocol + "//" + window.location.host,
+    endpoint = "http://www.youtube.com/embed/EXTERNAL_ID?enablejsapi=1&start=START&origin=" + domain;
 
 export default Ember.Component.extend({
   tagName: 'iframe',
-  elementId: 'youtube-video',
+  elementId: 'youtube-player',
   attributeBindings: ['type', 'width', 'height', 'src'],
   type: 'text/html',
   width: 640,
   height: 390,
-  src: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=" + domain,
+  media: null,
   player: null,
   playerState: null,
-  time: 0,
+  playerReady: false,
+  playerError: null,
+  timeBinding: 'playback.time',
+  elementInserted: false,
+
+  src: function() {
+    return endpoint.replace('EXTERNAL_ID', this.get('media.externalId'))
+                   .replace('START', this.get('media.start') || 0);
+  }.property('url'),
 
   init: function() {
     var self = this;
@@ -32,74 +43,88 @@ export default Ember.Component.extend({
     loadPlayerAPI();
 
     window.onYouTubeIframeAPIReady = function() {
+      apiReady = true;
+      self.setPlayer();
+
       STATE = {
         unstarted: -1,
-        ended: YT.PlayerState.ENDED,
-        playing: YT.PlayerState.PLAYING,
-        paused: YT.PlayerState.PAUSED,
-        buffering: YT.PlayerState.BUFFERING,
-        cued: YT.PlayerState.CUED
+        ended: YT.PlayerState.ENDED,  // 0
+        playing: YT.PlayerState.PLAYING,  // 1
+        paused: YT.PlayerState.PAUSED,  // 2
+        buffering: YT.PlayerState.BUFFERING,  // 3
+        cued: YT.PlayerState.CUED  // 5
       };
-
-      self.set('player', new YT.Player('youtube-video', {
-          events: {
-            onReady: self.onPlayerReady(self),
-            onStateChange: self.onPlayerStateChange(self),
-            onError: self.onError(self)
-          }
-        })
-      );
     };
   },
 
-  onPlayerReady: function(self) {
-    return function() {
+  setPlayer: function() {
+    if (!apiReady || !this.get('elementInserted')) { return; }
 
+    this.set('player', new YT.Player(this.get('elementId'), {
+        events: {
+          onReady: this.onPlayerReady(this),
+          onStateChange: this.onPlayerStateChange(this),
+          onError: this.onError(this)
+        }
+      })
+    );
+
+    this.set('playback.mediaPlayer', this);
+  }.observes('elementInserted'),
+
+  onPlayerReady: function(self) {
+    return function(evt) {
+      self.set('playerReady', true);
     };
   },
 
   onPlayerStateChange: function(self) {
     return function(evt) {
-      var state = evt.data;
-      self.set('playerState', state);
-    };
-  }.observes('playerState'),
-
-  _getCurrentTime: function(self) {
-    return function() {
-      var time = self.get('player').getCurrentTime();
-      self.set('time', time);
-console.log(time);
+      self.set('playerState', evt.data);
     };
   },
-
-  getCurrentTime: function() {
-    return this._getCurrentTime(this)();
-  },
-
-  checkPlaying: function() {
-    var state = this.get('playerState');
-    poll = poll || this._getCurrentTime(this);
-
-    if (state === STATE.playing) {
-      pollerInterval = window.setInterval(poll, 250);
-    } else {
-      window.clearInterval(pollerInterval);
-    }
-  }.observes('playerState'),
-
-  checkBuffering: function() {
-    if (this.get('playerState') === STATE.buffering) {
-      Ember.run.later(this, function() {
-        this._getCurrentTime(this)();
-      }, 250);  // hm... player takes some time to update
-    }
-  }.observes('playerState'),
 
   onError: function(self) {
-    return function() {
-
+    return function(evt) {
+      self.set('playerError', evt.data);
     };
+  },
+
+  currentTime: function(seconds) {
+    var player = this.get('player');
+    if (!seconds) { return player.getCurrentTime(); }
+    player.seekTo(seconds);
+  },
+
+  play: function(seconds) {
+    var player = this.get('player');
+    if (seconds) { player.seekTo(seconds); }
+    player.playVideo();
+  },
+
+  playerStateDidChange: function() {
+    var state = this.get('playerState'),
+        poll = this._updateTime(this);
+console.log(state);
+    if (state === STATE.playing) {
+      pollInterval = window.setInterval(poll, 250);
+    }
+    else { clearInterval(pollInterval); }
+  }.observes('playerState'),
+
+  _updateTime: function(self) {
+    return function() {
+      self.set('time', self.currentTime());
+    };
+  },
+
+  didInsertElement: function() {
+    this.set('elementInserted', true);
+  },
+
+  willDestroyElement: function() {
+    clearInterval(pollInterval);
+    this.get('player').destroy();
+    this.set('elementInserted', false);
   }
 });
-

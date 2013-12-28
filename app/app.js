@@ -32,7 +32,7 @@ Ember.Application.initializer({
   initialize: function(container, application) {
     container.register('playback:current', Playback);
     application.inject('component:popcorn-media', 'playback', 'playback:current');
-    application.inject('component:popcorn-video', 'playback', 'playback:current');
+    application.inject('component:youtube-video', 'playback', 'playback:current');
     application.inject('component:slide-image', 'playback', 'playback:current');
     application.inject('controller:presentation', 'playback', 'playback:current');
     application.inject('controller:new', 'playback', 'playback:current');

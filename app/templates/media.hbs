@@ -1,18 +1,16 @@
-{{#if youtube}}
-    {{popcorn-video id  = 'media-view'
-                    media = content}}
-{{/if}}
+<div id="media-view">
+  {{#if youtube}}
+      {{youtube-video media = content}}
+  {{/if}}
 
-{{#if soundcloud}}
-    {{popcorn-media id = 'audio-view'
-                    media = content}}
-{{/if}}
+  {{#if soundcloud}}
+      {{popcorn-media id = 'audio-view'
+                      media = content}}
+  {{/if}}
+</div>
 
 {{#if editMode}}
-    {{input-slider value  = scrubHighValue
-                   action ='scrubHigh'}}
-    {{input-slider value  = scrubMediumValue
-                   action ='scrubMedium'}}
-    {{input-slider value  = scrubLowValue
-                   action ='scrubLow'}}
+    {{input-slider action ='scrubHigh'}}
+    {{input-slider action ='scrubMedium'}}
+    {{input-slider action ='scrubLow'}}
 {{/if}}
