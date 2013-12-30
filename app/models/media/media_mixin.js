@@ -2,12 +2,14 @@ import Slideshare from 'appkit/models/media/slideshare';
 import Speakerdeck from 'appkit/models/media/speakerdeck';
 import Youtube from 'appkit/models/media/youtube';
 import Soundcloud from 'appkit/models/media/soundcloud';
+import Vimeo from 'appkit/models/media/vimeo';
 
 var domainRootMap = [
   'speakerdeck',
   'slideshare',
   'youtube',
-  'soundcloud'
+  'soundcloud',
+  'vimeo'
 ];
 
 export default Ember.Mixin.create({
@@ -19,7 +21,8 @@ export default Ember.Mixin.create({
     speakerdeck: Speakerdeck,
     slideshare: Slideshare,
     youtube: Youtube,
-    soundcloud: Soundcloud
+    soundcloud: Soundcloud,
+    vimeo: Vimeo
   },
 
   valid: function() {

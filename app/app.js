@@ -31,11 +31,11 @@ Ember.Application.initializer({
   name: 'playbackInitializer',
   initialize: function(container, application) {
     container.register('playback:current', Playback);
-    application.inject('component:popcorn-media', 'playback', 'playback:current');
+    application.inject('component:soundcloud-audio', 'playback', 'playback:current');
     application.inject('component:youtube-video', 'playback', 'playback:current');
+    application.inject('component:vimeo-video', 'playback', 'playback:current');
     application.inject('component:slide-image', 'playback', 'playback:current');
-    application.inject('controller:presentation', 'playback', 'playback:current');
-    application.inject('controller:new', 'playback', 'playback:current');
+    application.inject('route', 'playback', 'playback:current');
     application.inject('controller:media', 'playback', 'playback:current');
   }
 });

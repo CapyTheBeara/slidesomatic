@@ -1,16 +1,22 @@
 <div id="media-view">
   {{#if youtube}}
-      {{youtube-video media = content}}
+    {{youtube-video media=content}}
+  {{/if}}
+
+  {{#if vimeo}}
+    {{vimeo-video media=content}}
   {{/if}}
 
   {{#if soundcloud}}
-      {{popcorn-media id = 'audio-view'
-                      media = content}}
+    {{soundcloud-audio media=content}}
   {{/if}}
 </div>
 
 {{#if editMode}}
-    {{input-slider action ='scrubHigh'}}
-    {{input-slider action ='scrubMedium'}}
-    {{input-slider action ='scrubLow'}}
+  {{input-slider value = scrubHighValue
+                 action = 'scrubHigh'}}
+  {{input-slider value = scrubMediumValue
+                 action = 'scrubMedium'}}
+  {{input-slider value = scrubLowValue
+                 action = 'scrubLow'}}
 {{/if}}
