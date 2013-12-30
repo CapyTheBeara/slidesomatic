@@ -9,6 +9,10 @@ export default Ember.ObjectController.extend({
   editMode: false,
   youtube: equal('domainRoot', 'youtube'),
   soundcloud: equal('domainRoot', 'soundcloud'),
+  vimeo: equal('domainRoot', 'vimeo'),
+  scrubHighValue: 50,
+  scrubMediumValue: 50,
+  scrubLowValue: 50,
 
   getCurrentTime: function() {
     return round(this.get('player').currentTime());
@@ -21,7 +25,9 @@ export default Ember.ObjectController.extend({
   },
 
   resetScrubbers: function() {
-    $('input[type=range]').val(50);
+    this.set('scrubHighValue', 50);
+    this.set('scrubMediumValue', 50);
+    this.set('scrubLowValue', 50);
     $('input[type=range]').first().focus();
   },
 

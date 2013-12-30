@@ -27,7 +27,8 @@ export default Ember.Route.extend({
   setupController: function(controller, presentation) {
     controller.setProperties({
       model: presentation.get('sequences'),
-      presentation: presentation
+      presentation: presentation,
+      playback: this.get('playback')
     });
 
     this.controllerFor('application').set('wrapperClass', this.get('name'));
@@ -53,5 +54,9 @@ export default Ember.Route.extend({
       outlet: 'deck',
       controller: deckController
     });
+  },
+
+  deactivate: function() {
+    this.controllerFor('presentation').set('playback', null);
   }
 });
