@@ -20,6 +20,8 @@ export default MediaQuery.extend({
     if (!response) { return this.set('validationState', 'notFound'); }
     this.set('validationState', 'valid');
 
-    this.set('start', this.get('url').match(this.get('idRegex'))[2]);
+    var start = this.get('url').match(this.get('idRegex'))[2] ||
+                this.get('presentation.firstSequence.start') || 0;
+    this.set('start', start);
   }
 });

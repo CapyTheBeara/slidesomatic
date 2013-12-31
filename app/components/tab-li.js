@@ -10,5 +10,9 @@ export default Ember.Component.extend({
 
   click: function() {
     this.sendAction('action', this.get('tabName'));
+  },
+
+  touchStart: function() {
+    this.sendAction('action', this.get('tabName'));
   }
 });

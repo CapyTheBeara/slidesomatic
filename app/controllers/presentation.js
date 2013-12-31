@@ -17,6 +17,9 @@ export default Ember.ArrayController.extend({
   fullVideo: false,
   animation: null,
 
+  activeTab: 'sequences',
+  deckUrl: alias('presentation.deck.url'),
+  mediaUrl: alias('presentation.media.url'),
   validUrls: Em.computed.and('presentation.deck.valid',
                              'presentation.media.valid'),
   timeBinding: 'playback.time',
@@ -87,6 +90,10 @@ export default Ember.ArrayController.extend({
     skipTo: function(time) {
       var play = this.get('presentationMode');
       this.get('controllers.media').skipTo(time, play);
+    },
+
+    changeTab: function(tab) {
+      this.set('activeTab', tab);
     }
   }
 });

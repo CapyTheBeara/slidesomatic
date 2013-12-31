@@ -11,7 +11,8 @@ export default PresentationController.extend({
   needs: ['deck', 'media', 'application'],
   shortUrl: null,
   maxSeqs: function() {
-    return Math.floor((2000 - this.get('presentation.url.length')) / 5);
+    var base = this.get('presentation.url').split('&s=')[0];
+    return Math.floor((2000 - base.length) / 5);
   }.property(),
 
   toggleModal: function() {
@@ -53,10 +54,6 @@ export default PresentationController.extend({
 
     changePresentationMode: function(value) {
       this.set('presentationMode', value);
-    },
-
-    changeTab: function(tab) {
-      this.set('activeTab', tab);
     },
 
     addSequence: function() {
