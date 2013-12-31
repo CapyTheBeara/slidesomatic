@@ -1,3 +1,5 @@
+import Playback from 'appkit/utils/playback';
+
 export default Ember.Route.extend({
   name: 'presentation',
 
@@ -57,6 +59,6 @@ export default Ember.Route.extend({
   },
 
   deactivate: function() {
-    this.controllerFor('presentation').set('playback', null);
+    this.controllerFor('presentation').set('playback', Playback.create());
   }
 });

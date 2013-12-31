@@ -1,4 +1,5 @@
 import PresentationRoute from 'appkit/routes/presentation';
+import Playback from 'appkit/utils/playback';
 
 export default PresentationRoute.extend({
   name: 'new',
@@ -28,11 +29,8 @@ export default PresentationRoute.extend({
   },
 
   deactivate: function() {
-    this.controllerFor('new').set('playback', null);
+    this.controllerFor('new').set('playback', Playback.create());
     this.controllerFor('application').set('modalMode', false);
-    this.controllerFor('media').setProperties({
-      playback: null,
-      editMode: false
-    });
+    this.controllerFor('media').set('editMode', false);
   }
 });

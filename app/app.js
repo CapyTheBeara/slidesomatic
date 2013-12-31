@@ -1,4 +1,5 @@
 import Resolver from 'resolver';
+import Playback from 'appkit/utils/playback';
 
 Ember.FEATURES["query-params"] = true;
 
@@ -21,11 +22,6 @@ Ember.RSVP.configure('onerror', function(error) {
   }
 });
 
-var Playback = Ember.Object.extend({
-  time: 0,
-  slide: 1,
-  mediaPlayer: null
-});
 
 Ember.Application.initializer({
   name: 'playbackInitializer',
