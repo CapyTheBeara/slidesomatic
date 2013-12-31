@@ -1,42 +1,85 @@
-var alias = Em.computed.alias;
+import FullVideoAnimation from 'appkit/utils/full_video_animation';
+
+var alias = Em.computed.alias,
+    MODE_START = 4094,
+    rowHeight;
 
 export default Ember.ArrayController.extend({
-  presentation: null,
-  currentSequence: null,
   itemController: 'sequence',
   sortProperties: ['start'],
   sortAscending: true,
-  presentationMode: true,
   needs: ['media'],
+
+  presentation: null,
+  presentationMode: true,
+  currentSequence: null,
+  currentMode: null,
+  fullVideo: false,
+  animation: null,
+
   validUrls: Em.computed.and('presentation.deck.valid',
                              'presentation.media.valid'),
   timeBinding: 'playback.time',
   slideBinding: 'playback.slide',
 
   updateSequence: function() {
-    if (!this.get('presentationMode')) { return; }
-
     var time = this.get('time'),
         currentSequence = this.get('currentSequence'),
 
         hit = this.filter(function(seq) {
           if (seq.get('start') <= time) { return true; }
-        }).get('lastObject');
+        }).get('lastObject'),
 
+        mode = this.filter(function(seq) {
+          if (seq.get('slide') >= MODE_START && seq.get('start') <= time) {
+            return true;
+          }
+        }).get('lastObject.slide');
+
+    if (mode) { this.set('currentMode', mode); }
     if (!hit) { return this.set('currentSequence', this.get('firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
       this.set('currentSequence', hit);
     }
   }.observes('time'),
 
-  updateSlide: function() {
-    this.set('slide', this.get('currentSequence.slide'));
+  currentSequenceDidChange: function() {
+    var slide = this.get('currentSequence.slide');
+    if (!this.get('presentationMode') || slide >= MODE_START) { return; }
+    this.set('slide', slide);
   }.observes('currentSequence'),
 
-  updateScrollTop: function() {  // is this a good thing?
+  currentModeDidChange: function() {
+    switch(this.get('currentMode')) {
+      case 4094:
+        this.set('fullVideo', true);
+        break;
+      case 4095:
+        this.set('fullVideo', false);
+        break;
+    }
+  }.observes('currentMode'),
+
+  fullVideoDidChange: function() {
+    if (!this.get('presentationMode')) { return; }
+    var fullVideo = this.get('fullVideo');
+
+    if (fullVideo) {
+      var anim = FullVideoAnimation.create({ selector: '#media-view' });
+      this.set('animation', anim);
+      anim.expand();
+    } else if (fullVideo === false) {
+      this.get('animation').contract();
+    }
+  }.observes('fullVideo'),
+
+  updateScrollTop: function() {
     if (this.get('presentationMode')) {
+      rowHeight = $('.sequences-table tr:first').height() - 1;
+      if (!rowHeight) { return; }
+
       var index = this.indexOf(this.get('currentSequence'));
-      $('.sequences-table').animate({ scrollTop: 38*(index+1) });  // need to smaple for for height?
+      $('.sequences-table').animate({ scrollTop: rowHeight*(index - 2) });
     }
   }.observes('currentSequence'),
 

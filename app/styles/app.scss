@@ -61,22 +61,26 @@ body {
   width: 100%;
 }
 
-.presentation #media-view {
-  height: 200px;
+.presentation {
+  #media-view {
+    height: 200px;
+    position: relative;
+    z-index: 10;
+  }
 }
 
-.presentation .sequences-table {
-  height: 360px;
-  overflow-y: scroll;
-  margin: 10px 0;
-}
+#new-form {
+  .modal-dialog {
+    padding-top: 4%
+  }
 
-#new-form .modal-content {
-  background-color: #ecf0f1;
+ .modal-content {
+    background-color: #ecf0f1;
+  }
 }
 
 .new #deck {
-  height: 396px;
+  height: 315px;
 }
 
 .new #deck-player {
@@ -104,54 +108,23 @@ form.sequence-new button {
     width: 140px;
 }
 
-.new {
-  .sequences-table {
-    height: 188px;
-    overflow-y: scroll;
-    margin-left: 10px;
+.sequences-table {
+  height: 360px;
+  overflow-y: scroll;
+  margin: 10px 0;
 
-    .past {
-      background-color: #ECF0F1;
-    }
+  .past {
+    background-color: #ECF0F1;
   }
 
-  .sequences-column {
-    border-left: 1px solid #ddd;
+  tr:hover:not(:first-child) {
+    background-color: #3498DB;
+    cursor: pointer;
   }
 }
 
-.new .sequences-table .th,
-.new .sequences-table .td {
-    float: left;
-}
-
-.new .sequences-table .col1,
-.new .sequences-table .col2,
-.new .sequences-table .col2 input {
-    width: 70px;
-}
-
-.new .sequences-table .col3,
-.new .sequences-table .col3 input {
-    width: 50px;
-}
-
-.modal {
-    display: block;
-}
-
-#new-form {
-    width: 500px;
-    height: 500px;
-    margin: auto;
-}
-
-#new-form .modal-content {
-    padding: 30px 60px 30px 60px;
-}
-
-#new-form input {
-        width: 200px;
+.new .sequences-table {
+  height: 225px;
 }
 
 .deck-controls input {

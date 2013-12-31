@@ -10,12 +10,37 @@ export default PresentationController.extend({
   presentationMode: false,
   needs: ['deck', 'media', 'application'],
   shortUrl: null,
+  maxSeqs: function() {
+    return Math.floor((2000 - this.get('presentation.url.length')) / 5);
+  }.property(),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
       this.set('controllers.application.modalMode', false);
     }
   }.observes('validUrls'),
+
+  _addSequence: function(slide) {
+    var seq, start,
+        mediaController = this.get('controllers.media'),
+        currentTime = mediaController.getCurrentTime(),
+        startExists = this.findBy('start', currentTime);
+
+    if (startExists) {
+      alert("Sorry, you can't have a slide or full screen mode set at the same time. Please set a different time.");
+      return;
+    }
+
+    seq = this.store.createRecord('sequence', {
+      start: currentTime,
+      slide: slide
+    });
+
+    this.pushObject(seq);
+    mediaController.resetScrubbers();
+    return true;
+  },
+
 
   actions: {
     addDeck: function() {
@@ -35,17 +60,17 @@ export default PresentationController.extend({
     },
 
     addSequence: function() {
-      var slide = this.get('playback.slide'),
-          mediaController = this.get('controllers.media'),
+      if (this._addSequence(this.get('playback.slide'))) {
+        this.set('playback.slide', this.get('slide') + 1);
+      }
+    },
 
-          seq = this.store.createRecord('sequence', {
-            start: mediaController.getCurrentTime(),
-            slide: slide
-          });
-
-      this.pushObject(seq);
-      this.set('playback.slide', slide + 1);
-      mediaController.resetScrubbers();
+    toggleFullVideo: function() {
+      if (!this.get('fullVideo')) {
+        this._addSequence(4094);
+      } else {
+        this._addSequence(4095);
+      }
     },
 
     shortenUrl: function() {
@@ -78,7 +103,7 @@ export default PresentationController.extend({
       deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
       media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
       // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
-
+      // media.set('url', 'http://vimeo.com/76153146');
       deck.validate();
       media.validate();
     }
