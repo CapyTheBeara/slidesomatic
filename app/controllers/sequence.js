@@ -2,7 +2,7 @@ export default Ember.ObjectController.extend({
   parentController: null,
   isEditing: false,
   currentSequence: Em.computed.alias('parentController.currentSequence'),
-
+  presentationMode: Em.computed.alias('parentController.presentationMode'),
   isPast: function() {
     return this.get('start') < this.get('currentSequence.start');
   }.property('currentSequence'),

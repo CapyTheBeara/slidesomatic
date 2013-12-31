@@ -4,18 +4,31 @@
             <tr>
                 <th>Time</th>
                 <th>Slide</th>
+                {{#unless presentationMode}}
+                    <th></th>
+                {{/unless}}
             </tr>
         </thead>
 
         <tbody>
         {{#each}}
-            <tr {{bind-attr class='isPast:past'}}>
+            <tr {{action 'skipTo' start}}
+                {{bind-attr class='isPast:past'}}>
                 <td>
-                    <a href="#" {{action 'skipTo' start}}>
-                        {{format-seconds start}}
-                    </a>
+                    {{#if presentationMode}}
+                        {{format-seconds start false}}
+                    {{else}}
+                        {{format-seconds start true}}
+                    {{/if}}
                 </td>
-                <td>{{unbound slide}}</td>
+                <td>
+                    {{format-slide slide}}
+                </td>
+                {{#unless presentationMode}}
+                    <td>
+                        <a class='btn btn-danger btn-xs' {{action 'destroy'}}>Remove</a>
+                    </td>
+                {{/unless}}
             </tr>
         {{/each}}
         </tbody>
