@@ -50,8 +50,16 @@
                     </div>
 
                     <div class="col-md-7 sequences-column">
-                        <h4>Slide Sequence</h4>
-                        {{partial 'sequence/index'}}
+                        <h4>
+                            Presentation Sequence
+                            <small>
+                                <span class="badge">
+                                    {{length}}
+                                </span>
+                                / {{maxSeqs}}
+                            </small>
+                        </h4>
+                        {{partial 'sequence/table'}}
                     </div>
                 {{/tab-content}}
 

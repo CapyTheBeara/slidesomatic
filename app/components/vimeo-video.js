@@ -47,6 +47,7 @@ export default MediaBaseComponent.extend({
   },
 
   _seekTo: function(seconds) {
+    if (seconds === 0) { seconds = 0.01; }  // vimeo doesn't accept 0
     player('seekTo', seconds);
   },
 
