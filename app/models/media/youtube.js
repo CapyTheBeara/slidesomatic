@@ -8,7 +8,7 @@ var endpoint = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=jsonc
 
 export default MediaQuery.extend({
   domain: 'http://www.youtube.com/watch?v=',
-  idRegex: /watch\?v=([^#]+)/,
+  idRegex: /watch\?v=([^#|&]+)(?:#t=(.+))?/,
 
   endpoint: function() {
     return endpoint.replace('VIDEO_ID', this.get('externalId'));
@@ -19,5 +19,7 @@ export default MediaQuery.extend({
 
     if (!response) { return this.set('validationState', 'notFound'); }
     this.set('validationState', 'valid');
+
+    this.set('start', this.get('url').match(this.get('idRegex'))[2]);
   }
 });

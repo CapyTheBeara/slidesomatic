@@ -1,9 +1,3 @@
-import Slideshare from 'appkit/models/media/slideshare';
-import Speakerdeck from 'appkit/models/media/speakerdeck';
-import Youtube from 'appkit/models/media/youtube';
-import Soundcloud from 'appkit/models/media/soundcloud';
-import Vimeo from 'appkit/models/media/vimeo';
-
 var domainRootMap = [
   'speakerdeck',
   'slideshare',
@@ -16,14 +10,6 @@ export default Ember.Mixin.create({
   externalId: null,
   validationState: null,  // 'pending', 'invalidUrl', 'notSupported', 'requestError', 'valid'
   urlRegex: /^http(?:s?):\/\/(?:w*\.?)(.+)\.(?:com|net)/,
-
-  mediaTypes: {
-    speakerdeck: Speakerdeck,
-    slideshare: Slideshare,
-    youtube: Youtube,
-    soundcloud: Soundcloud,
-    vimeo: Vimeo
-  },
 
   valid: function() {
     return this.get('validationState') === 'valid';
