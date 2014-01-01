@@ -1,4 +1,3 @@
-import ModelProxyMixin from 'appkit/utils/model_proxy_mixin';
 import base64 from 'appkit/utils/base64';
 
 function int(num) {
@@ -7,7 +6,7 @@ function int(num) {
 
 var attr = DS.attr;
 
-export default DS.Model.extend(ModelProxyMixin, {
+export default DS.Model.extend({
   start: attr('number'),
   slide: attr('number'),
   urlFrag: null,
