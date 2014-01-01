@@ -1,8 +1,7 @@
 export default Ember.ObjectController.extend({
-  parentController: null,
-  isEditing: false,
   currentSequence: Em.computed.alias('parentController.currentSequence'),
   presentationMode: Em.computed.alias('parentController.presentationMode'),
+
   isPast: function() {
     return this.get('start') < this.get('currentSequence.start');
   }.property('currentSequence'),
@@ -12,15 +11,6 @@ export default Ember.ObjectController.extend({
   },
 
   actions: {
-    edit: function() {
-      this.toggleProperty('isEditing');
-    },
-
-    save: function() {
-      this.get('proxy').save();
-      this.toggleProperty('isEditing');
-    },
-
     destroy: function() {
       if (confirm('Remove this sequence?')) {
         this.get('parentController').removeObject(this);
