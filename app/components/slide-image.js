@@ -16,9 +16,5 @@ export default Ember.Component.extend({
         src = this.get('imgEndpoint').replace('NUMBER', _slide - 1);
 
     this.set('src', src);
-  }.observes('slide', 'imgEndpoint').on('init'),
-
-  willDestroyElement: function() {
-    this.set('playback.slide', 1);
-  }
+  }.observes('slide', 'imgEndpoint').on('init')
 });

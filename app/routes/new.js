@@ -29,7 +29,7 @@ export default PresentationRoute.extend({
   },
 
   deactivate: function() {
-    this.controllerFor('new').set('playback', Playback.create());
+    this._super();
     this.controllerFor('application').set('modalMode', false);
     this.controllerFor('media').set('editMode', false);
   }

@@ -27,6 +27,8 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, presentation) {
+    this.get('playback').reset();
+
     controller.setProperties({
       model: presentation.get('sequences'),
       presentation: presentation,
@@ -59,6 +61,9 @@ export default Ember.Route.extend({
   },
 
   deactivate: function() {
-    this.controllerFor('presentation').set('playback', Playback.create());
+    // still need a playback if leaving the page while controller
+    // is trying to set a property on playback
+    // Otherwise will get error and break transition
+    this.controllerFor(this.get('name')).set('playback', Playback.create());
   }
 });

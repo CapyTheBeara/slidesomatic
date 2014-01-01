@@ -49,9 +49,5 @@ export default Ember.Component.extend({
 
   _getTime: function() {
     return this.get('time');
-  },
-
-  willDestroyElement: function() {
-    this.set('playback.time', 0);
   }
 });
