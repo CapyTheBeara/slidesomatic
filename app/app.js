@@ -30,9 +30,9 @@ Ember.Application.initializer({
     application.inject('component:soundcloud-audio', 'playback', 'playback:current');
     application.inject('component:youtube-video', 'playback', 'playback:current');
     application.inject('component:vimeo-video', 'playback', 'playback:current');
-    application.inject('component:slide-image', 'playback', 'playback:current');
     application.inject('route', 'playback', 'playback:current');
     application.inject('controller:media', 'playback', 'playback:current');
+    application.inject('controller:deck', 'playback', 'playback:current');
   }
 });
 

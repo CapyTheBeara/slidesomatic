@@ -11,7 +11,8 @@
     "console",
     "confirm",
     "Popcorn",
-    "swfobject"
+    "swfobject",
+    "alert"
   ],
   "node" : false,
   "browser" : false,

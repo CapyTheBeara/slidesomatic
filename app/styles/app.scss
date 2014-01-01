@@ -53,11 +53,11 @@ body {
 }
 
 .presentation #deck-player-wrapper,
-.presentation img#deck-player {
+.presentation img.deck-player {
   height: 100%;
 }
 
-.presentation img#deck-player {
+.presentation img.deck-player {
   width: 100%;
 }
 
@@ -83,7 +83,7 @@ body {
   height: 315px;
 }
 
-.new #deck-player {
+.new img.deck-player {
   width: 100%;
   height: 100%;
 }
