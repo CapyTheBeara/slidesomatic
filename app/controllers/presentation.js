@@ -29,6 +29,19 @@ export default Ember.ArrayController.extend({
       return this.indexOf(this.get('currentSequence'));
   }.property('currentSequence'),
 
+  nextSlide: function() {
+    var currentSeqIndex = this.get('currentSequenceIndex'),
+        nextSlideSeq = this.find(function(seq, i) {
+          if (i > currentSeqIndex && seq.get('slide') < MODE_START ) {
+            return true;
+          }
+        });
+
+    if (nextSlideSeq) {
+      return nextSlideSeq.get('slide');
+    }
+  }.property('currentSequenceIndex'),
+
   updateSequence: function() {
     var time = this.get('time'),
         currentSequence = this.get('currentSequence'),
@@ -52,13 +65,13 @@ export default Ember.ArrayController.extend({
 
   currentSequenceDidChange: function() {
     var slide = this.get('currentSequence.slide'),
-        nextSequence = this.objectAt(this.get('currentSequenceIndex') + 1);
+        nextSlide = this.get('nextSlide');
 
     if (!this.get('presentationMode') || slide >= MODE_START) { return; }
     this.set('slide', slide);
 
-    if (nextSequence) {
-      this.set('playback.nextSlide', nextSequence.get('slide'));
+    if (nextSlide) {
+      this.set('playback.nextSlide', nextSlide);
     }
   }.observes('currentSequence'),
 

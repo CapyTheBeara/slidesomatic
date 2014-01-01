@@ -1,12 +1,39 @@
 export default Ember.Component.extend({
   tagName: 'img',
-  classNames: ['deck-player'],
+  classNameBindings: ['staticClassName', 'hidden:hide:show'],
+  staticClassName: 'deck-player',
   attributeBindings: ['src', 'alt'],
   alt: 'slide',
   src: null,
   imgEndpoint: null,
   firstIndex: null,
   slide: null,
+
+  slideDidChange: function() {
+    var slide = this.get('slide'),
+        hidden = this.get('hidden'),
+        pSlide = this.get('playback.slide'),
+        pNextSlide = this.get('playback.nextSlide');
+
+    if (slide === pSlide) {
+      return this.set('hidden', false);
+    }
+
+    if (!hidden) {
+      Ember.run.next(this, function() {
+        this.set('slide', pNextSlide);
+      });
+      return this.set('hidden', true);
+    }
+
+    if (!slide) {
+      return this.set('slide', pNextSlide);
+    }
+
+    this.set('slide', pSlide);
+    this.set('hidden', false);
+
+  }.observes('playback.slide').on('init'),
 
   updateSrc: function() {
     var slide = this.get('slide');
