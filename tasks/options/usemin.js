@@ -1,3 +1,6 @@
 module.exports = {
-  html: ['dist/index.html'],
+  html: ['dist/a/index.html'],
+  options: {
+    basedir: 'dist/'
+  }
 };

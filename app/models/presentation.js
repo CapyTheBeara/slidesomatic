@@ -8,7 +8,7 @@ export default DS.Model.extend({
     var deckId = this.get('deck.routeId'),
         mediaId = this.get('media.routeId'),
         encodedSequences = this.get('encodedSequences'),
-        route = "#/show?",
+        route = "#/?",
         version = 'v=1',
         deck = deckId ? '&d=' + encodeURIComponent(deckId) : '',
         media = mediaId ? '&m=' + encodeURIComponent(mediaId) : '',

@@ -12,24 +12,6 @@ body {
     position: relative;
 }
 
-.container.index .jumbotron {
-  text-align: center;
-  font-size: 2.5em;
-}
-
-.index footer {
-  border-top: 1px solid #ecf0f1;
-  padding-top: 10px;
-}
-
-.container.index footer img {
-  height: 50px;
-}
-
-.index .pitch {
-  background-color: #FFEFD5;
-}
-
 .container.overlay:after {
     content: '';
     display: block;
@@ -53,11 +35,11 @@ body {
 }
 
 .presentation #deck-player-wrapper,
-.presentation img.deck-player {
+.presentation .deck-player {
   height: 100%;
 }
 
-.presentation img.deck-player {
+.presentation .deck-player {
   width: 100%;
 }
 
@@ -83,7 +65,7 @@ body {
   height: 315px;
 }
 
-.new img.deck-player {
+.new .deck-player {
   width: 100%;
   height: 100%;
 }
