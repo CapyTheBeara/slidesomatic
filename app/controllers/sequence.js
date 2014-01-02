@@ -12,7 +12,7 @@ export default Ember.ObjectController.extend({
 
   actions: {
     destroy: function() {
-      if (confirm('Remove this sequence?')) {
+      if (confirm('Remove this time point?')) {
         this.get('parentController').removeObject(this);
       }
     }

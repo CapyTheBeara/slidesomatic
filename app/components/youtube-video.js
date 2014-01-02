@@ -7,7 +7,7 @@ var STATE, pollInterval,
     clearInterval = window.clearInterval,
     domain = window.location.protocol === "file:" ? "*" :
         window.location.protocol + "//" + window.location.host,
-    endpoint = "http://www.youtube.com/embed/EXTERNAL_ID?enablejsapi=1&start=START&origin=" + domain;
+    endpoint = "http://www.youtube.com/embed/EXTERNAL_ID?enablejsapi=1&start=START&showinfo=0&autohide=1&origin=" + domain;
 
 export default MediaBaseComponent.extend({
   elementId: 'youtube-video',

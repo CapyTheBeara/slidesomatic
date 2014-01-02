@@ -14,6 +14,7 @@ var url, contentWindow, listener,
 
 export default MediaBaseComponent.extend({
   elementId: 'vimeo-video',
+
   player: function() { return this; }.property(),
 
   src: function() {
@@ -30,19 +31,26 @@ export default MediaBaseComponent.extend({
       var data = JSON.parse(evt.data);
 
       if (data.event) {
-        return self['_' + data.event](data.data);
+        return self[data.event + 'Event'](data.data);
       }
     };
   },
 
-  _ready: function(data) {
+  readyEvent: function(data) {
     var iframe = this.$();
     url = iframe.attr('src').split('?')[0];
     contentWindow = iframe[0].contentWindow;
     player('addEventListener', 'playProgress');
+    player('addEventListener', 'play');
   },
 
-  _playProgress: function(data) {
+  playEvent: function(data) {
+    var start = this.get('media.start');
+    if (start > 1) { this._seekTo(start); }  // first play
+    this.playEvent = Ember.K;
+  },
+
+  playProgressEvent: function(data) {
     this.set('time', data.seconds);
   },
 
