@@ -3,7 +3,8 @@ var domainRootMap = [
   'slideshare',
   'youtube',
   'soundcloud',
-  'vimeo'
+  'vimeo',
+  'google'
 ];
 
 export default Ember.Mixin.create({
@@ -18,7 +19,10 @@ export default Ember.Mixin.create({
   domainRoot: function() {  // ie. 'slideshare'
     var url = this.get('url');
     var match = url.match(this.get('urlRegex'));
-    return match && match[1];
+    if (!match || !match[1]) { return; }
+
+    var split = match[1].split('.');
+    return split[split.length-1];
   }.property('url'),
 
   routeId: function(key, value) {

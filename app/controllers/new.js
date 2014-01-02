@@ -97,7 +97,8 @@ export default PresentationController.extend({
       var deck = this.get('deck'),
           media = this.get('media');
 
-      deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
+      // deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
+      deck.set('url', 'https://docs.google.com/presentation/d/1e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA/edit?pli=1');
       media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
       // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
       // media.set('url', 'http://vimeo.com/76153146');
