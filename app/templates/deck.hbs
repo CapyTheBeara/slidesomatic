@@ -1,14 +1,20 @@
-{{#if iframe}}
-    {{slide-iframe endpoint = imgEndpoint
-                   firstIndex = firstIndex
-                   playback = playback}}
-{{else}}
-    {{slide-image endpoint = imgEndpoint
-                  firstIndex = firstIndex
-                  playback = playback}}
+<div {{bind-attr class=":deck-wrapper siteMode:hide"}}>
+  {{#if iframe}}
+      {{slide-iframe endpoint = imgEndpoint
+                     firstIndex = firstIndex
+                     playback = playback}}
+  {{else}}
+      {{slide-image endpoint = imgEndpoint
+                    firstIndex = firstIndex
+                    playback = playback}}
 
-    {{slide-image endpoint = imgEndpoint
-                  firstIndex = firstIndex
-                  playback = playback
-                  hidden = true}}
-{{/if}}
+      {{slide-image endpoint = imgEndpoint
+                    firstIndex = firstIndex
+                    playback = playback
+                    hidden = true}}
+  {{/if}}
+</div>
+
+<div {{bind-attr class=":deck-wrapper siteMode:show:hide"}}>
+  <iframe class='deck-player' {{bind-attr src=site}} frameborder="0">.</iframe>
+</div>

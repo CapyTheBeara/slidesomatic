@@ -1,21 +1,28 @@
+var SITE_DELIMETER = '+';
+
 export default DS.Model.extend({
   deck: DS.belongsTo('deck'),
   media: DS.belongsTo('media'),
   sequences: DS.hasMany('sequence'),
+
   sequencesUrlFrag: undefined,
+  sitesFrag: undefined,
 
   path: function() {
     var deckId = this.get('deck.routeId'),
         mediaId = this.get('media.routeId'),
         encodedSequences = this.get('encodedSequences'),
+        encodedSites = this.get('encodedSites'),
+
         route = "#/?",
         version = 'v=1',
         deck = deckId ? '&d=' + encodeURIComponent(deckId) : '',
         media = mediaId ? '&m=' + encodeURIComponent(mediaId) : '',
-        seq = encodedSequences ? "&s=" + encodedSequences : '';
+        seq = encodedSequences ? "&s=" + encodedSequences : '',
+        sites = encodedSites ? "&u=" + encodedSites : '';
 
-    return [route, version, deck, media, seq].join('');
-  }.property('deck.url', 'media.url', 'encodedSequences'),
+    return [route, version, deck, media, seq, sites].join('');
+  }.property('deck.url', 'media.url', 'encodedSequences', 'encodedSites'),
 
   url: function() {
     return window.location.host + "/" + this.get('path');
@@ -26,8 +33,16 @@ export default DS.Model.extend({
   }.property('sequences.@each.start'),
 
   encodedSequences: function() {
-    return this.get('sequences').mapBy('encoded').join('');
+    return this.get('sequences')
+               .filterBy('isNotOnSite')
+               .mapBy('encoded').join('');
   }.property('sequences.@each.encoded'),
+
+  encodedSites: function() {
+    return this.get('sequences')
+               .filterBy('isOnSite')
+               .mapBy('encoded').join(SITE_DELIMETER);
+  }.property('sequences.@each.isOnSite'),
 
   sequencesUrlFragDidChange: function() {
     var self = this,
@@ -38,5 +53,16 @@ export default DS.Model.extend({
         });
 
     this.get('sequences').pushObjects(seqs);
-  }.observes('sequencesUrlFrag')
+  }.observes('sequencesUrlFrag'),
+
+  sitesFragDidChange: function() {
+    var frags = this.get('sitesFrag'),
+        self = this,
+
+        seqs = frags.split(SITE_DELIMETER).map(function(frag) {
+          return self.store.createRecord('sequence', { siteFrag: frag });
+        });
+
+    this.get('sequences').pushObjects(seqs);
+  }.observes('sitesFrag')
 });

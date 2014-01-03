@@ -8,8 +8,11 @@ export default Ember.Route.extend({
       return this.transitionTo('new', { queryParams: queryParams });
     }
 
-    var args = queryParams.s ? {sequencesUrlFrag: queryParams.s} : {},
-        presentation = this.store.createRecord('presentation', args),
+    var args = {};
+    if (queryParams.s) { args.sequencesUrlFrag = queryParams.s; }
+    if (queryParams.u) { args.sitesFrag = queryParams.u; }
+
+    var presentation = this.store.createRecord('presentation', args),
 
         deck = this.store.createRecord('deck', {
           routeId: queryParams.d

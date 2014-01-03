@@ -1,6 +1,5 @@
 import PresentationController from 'appkit/controllers/presentation';
-
-var isGdUrl = "http://is.gd/create.php?format=simple&url=TARGET_URL&format=json";
+import shortenUrl from 'appkit/utils/shorten_url';
 
 export default PresentationController.extend({
   // presentation set in route
@@ -10,10 +9,12 @@ export default PresentationController.extend({
   presentationMode: false,
   needs: ['deck', 'media', 'application'],
   shortUrl: null,
+  site: '',
+
   maxSeqs: function() {
-    var base = this.get('presentation.url').split('&s=')[0];
+    var base = this.get('presentation.url').replace(/&s=[^&]*/, '');
     return Math.floor((2000 - base.length) / 5);
-  }.property(),
+  }.property('presentation.url'),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -21,22 +22,21 @@ export default PresentationController.extend({
     }
   }.observes('validUrls'),
 
-  _addSequence: function(slide) {
-    var seq, start,
+  _addSequence: function(slide, site) {
+    var seq, start, args,
         mediaController = this.get('controllers.media'),
         currentTime = mediaController.getCurrentTime(),
         startExists = this.findBy('start', currentTime);
 
     if (startExists) {
-      alert("Sorry, you can't have a slide or full screen mode set at the same time. Please set a different time.");
+      alert("Sorry, you've already set this time. Please set a different time.");
       return;
     }
 
-    seq = this.store.createRecord('sequence', {
-      start: currentTime,
-      slide: slide
-    });
+    args = { start: currentTime, slide: slide };
+    if (site) { args.site = site; }
 
+    seq = this.store.createRecord('sequence', args);
     this.pushObject(seq);
     mediaController.resetScrubbers();
     return true;
@@ -62,6 +62,16 @@ export default PresentationController.extend({
       }
     },
 
+    addSite: function() {
+      var url = this.get('site');
+      // TODO validate url
+      this._addSequence(null, url);
+    },
+
+    removeSite: function() {
+      this._addSequence(4093);
+    },
+
     toggleFullVideo: function() {
       if (!this.get('fullVideo')) {
         this._addSequence(4094);
@@ -73,14 +83,10 @@ export default PresentationController.extend({
     shortenUrl: function() {
       if (confirm('Are you finished?\n(Shortened URLs should only be obtained once you have finished adding all of your slide sequences.)')) {
         var self = this,
-            url = this.get('presentation.url'),
-            opts = {
-              url: isGdUrl.replace('TARGET_URL', encodeURIComponent(url)),
-              dataType: 'jsonp'
-            };
+            url = this.get('presentation.url');
 
-        $.ajax(opts).then(function(res) {
-          self.set('shortUrl', res.shorturl);
+        shortenUrl(url).then(function(res) {
+          self.set('shortUrl', res.url);
         });
       }
     },

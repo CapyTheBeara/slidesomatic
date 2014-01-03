@@ -34,7 +34,7 @@ body {
   height: 100%;
 }
 
-.presentation #deck-player-wrapper,
+.presentation .deck-wrapper,
 .presentation .deck-player {
   height: 100%;
 }
@@ -61,7 +61,7 @@ body {
   }
 }
 
-.new #deck {
+.new .deck-wrapper {
   height: 315px;
 }
 

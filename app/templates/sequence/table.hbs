@@ -13,7 +13,7 @@
         <tbody>
         {{#each}}
             <tr {{action 'skipTo' start}}
-                {{bind-attr class='isPast:past'}}>
+                {{bind-attr class='isPastSequence:past'}}>
                 <td>
                     {{#if presentationMode}}
                         {{format-seconds start false}}
@@ -22,7 +22,7 @@
                     {{/if}}
                 </td>
                 <td>
-                    {{format-slide slide}}
+                    {{format-slide this}}
                 </td>
                 {{#unless presentationMode}}
                     <td>

@@ -1,9 +1,7 @@
 import FullVideoAnimation from 'appkit/utils/full_video_animation';
 
 var alias = Em.computed.alias,
-    MODE_START = 4094,
-    MODE_FULL_VIDEO_ON = 4094,
-    MODE_FULL_VIDEO_OFF = 4095,
+    MODE_START = 4092,
     rowHeight;
 
 export default Ember.ArrayController.extend({
@@ -15,8 +13,7 @@ export default Ember.ArrayController.extend({
   presentation: null,
   presentationMode: true,
   currentSequence: null,
-  currentMode: null,
-  fullVideo: false,
+  videoMode: false,
   animation: null,
 
   activeTab: 'sequences',
@@ -26,9 +23,11 @@ export default Ember.ArrayController.extend({
                              'presentation.media.valid'),
   timeBinding: 'playback.time',
   slideBinding: 'playback.slide',
+  siteBinding: 'playback.site',
+  siteModeBinding: 'playback.siteMode',
 
   currentSequenceIndex: function() {
-      return this.indexOf(this.get('currentSequence'));
+    return this.indexOf(this.get('currentSequence'));
   }.property('currentSequence'),
 
   nextSlide: function() {
@@ -49,17 +48,24 @@ export default Ember.ArrayController.extend({
         currentSequence = this.get('currentSequence'),
 
         hit = this.filter(function(seq) {
-          if (seq.get('start') <= time) { return true; }
+          if (seq.isPast(time)) { return true; }
         }).get('lastObject'),
 
-        mode = this.filter(function(seq) {
-          if (seq.get('slide') >= MODE_START && seq.get('start') <= time) {
-            return true;
-          }
-        }).get('lastObject.slide');
+        videoSeq = this.filter(function(seq) {
+          if (seq.isPastVideo(time)) { return true; }
+        }).get('lastObject'),
 
-    if (mode) { this.set('currentMode', mode);}
-    else { this.set('currentMode', MODE_FULL_VIDEO_OFF); }
+        siteSeq = this.filter(function(seq) {
+          if (seq.isPastSite(time)) { return true; }
+        }).get('lastObject');
+
+    if (videoSeq && videoSeq.get('isOn')) { this.set('videoMode', true); }
+    else { this.set('videoMode', false); }
+
+    if (siteSeq && siteSeq.get('isOn')) {
+      this.setProperties({ siteMode: true, site: siteSeq.get('site')});
+    }
+    else { this.set('siteMode', false); }
 
     if (!hit) { return this.set('currentSequence', this.get('firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
@@ -79,29 +85,19 @@ export default Ember.ArrayController.extend({
     }
   }.observes('currentSequence'),
 
-  currentModeDidChange: function() {
-    switch(this.get('currentMode')) {
-      case MODE_FULL_VIDEO_ON:
-        this.set('fullVideo', true);
-        break;
-      case MODE_FULL_VIDEO_OFF:
-        this.set('fullVideo', false);
-        break;
-    }
-  }.observes('currentMode'),
-
-  fullVideoDidChange: function() {
+  videoModeDidChange: function() {
     if (!this.get('presentationMode')) { return; }
-    var fullVideo = this.get('fullVideo');
 
-    if (fullVideo) {
+    if (this.get('videoMode')) {
       var anim = FullVideoAnimation.create({ selector: '#media-view' });
       this.set('animation', anim);
       anim.expand();
-    } else if (fullVideo === false) {
-      this.get('animation').contract();
+    } else {
+      var _anim = this.get('animation');
+      if (!_anim) { return; }
+      _anim.contract();
     }
-  }.observes('fullVideo'),
+  }.observes('videoMode'),
 
   updateScrollTop: function() {
     if (this.get('presentationMode')) {

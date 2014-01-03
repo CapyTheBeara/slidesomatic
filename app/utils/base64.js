@@ -1,5 +1,6 @@
 var base64 = function(value) {
   if (typeof(value) === 'number') {
+    if (isNaN(value)) { throw new Error("base64 doesn't accept NaN"); }
     return base64.getChars(value, '');
   }
 
