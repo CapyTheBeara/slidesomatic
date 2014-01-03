@@ -2,6 +2,8 @@ import FullVideoAnimation from 'appkit/utils/full_video_animation';
 
 var alias = Em.computed.alias,
     MODE_START = 4094,
+    MODE_FULL_VIDEO_ON = 4094,
+    MODE_FULL_VIDEO_OFF = 4095,
     rowHeight;
 
 export default Ember.ArrayController.extend({
@@ -56,7 +58,9 @@ export default Ember.ArrayController.extend({
           }
         }).get('lastObject.slide');
 
-    if (mode) { this.set('currentMode', mode); }
+    if (mode) { this.set('currentMode', mode);}
+    else { this.set('currentMode', MODE_FULL_VIDEO_OFF); }
+
     if (!hit) { return this.set('currentSequence', this.get('firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
       this.set('currentSequence', hit);
@@ -77,10 +81,10 @@ export default Ember.ArrayController.extend({
 
   currentModeDidChange: function() {
     switch(this.get('currentMode')) {
-      case 4094:
+      case MODE_FULL_VIDEO_ON:
         this.set('fullVideo', true);
         break;
-      case 4095:
+      case MODE_FULL_VIDEO_OFF:
         this.set('fullVideo', false);
         break;
     }

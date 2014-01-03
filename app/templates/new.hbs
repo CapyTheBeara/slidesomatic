@@ -39,6 +39,12 @@
                               action = 'changeTab'}}
                         <a>2. Finish</a>
                     {{/tab-li}}
+
+                    <li class="disabled">
+                        <a>
+                            {{format-seconds playback.time false}}
+                        </a>
+                    </li>
                 </ul>
             </div>
 

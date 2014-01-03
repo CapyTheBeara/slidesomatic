@@ -12,6 +12,8 @@ var STATE, pollInterval,
 export default MediaBaseComponent.extend({
   elementId: 'youtube-video',
   apiScript: 'https://www.youtube.com/iframe_api',
+  attributeBindings: ['allowfullscreen'],
+  allowfullscreen: 1,
   playerState: null,
   playerReady: false,
   playerError: null,
