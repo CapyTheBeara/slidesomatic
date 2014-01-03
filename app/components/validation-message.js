@@ -1,6 +1,7 @@
 var validationMsg = {
   pending: 'Fetching',
   valid: 'Got it!',
+  validationSkipped: 'Cannot validate this address. Please proceed. If it does not work, make sure that it is correct.',
   invalidUrl: 'Is that a valid address?',
   notSupported: "That website isn't supported at the moment.",
   requestError: 'There was a problem contacting that site. Please try again later.'

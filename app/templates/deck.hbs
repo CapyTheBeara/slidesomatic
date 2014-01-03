@@ -1,10 +1,14 @@
-{{slide-image type = domainRoot
-              imgEndpoint = imgEndpoint
-              firstIndex = firstIndex
-              playback = playback}}
+{{#if iframe}}
+    {{slide-iframe endpoint = imgEndpoint
+                   firstIndex = firstIndex
+                   playback = playback}}
+{{else}}
+    {{slide-image endpoint = imgEndpoint
+                  firstIndex = firstIndex
+                  playback = playback}}
 
-{{slide-image type = domainRoot
-              imgEndpoint = imgEndpoint
-              firstIndex = firstIndex
-              playback = playback
-              hidden = true}}
+    {{slide-image endpoint = imgEndpoint
+                  firstIndex = firstIndex
+                  playback = playback
+                  hidden = true}}
+{{/if}}

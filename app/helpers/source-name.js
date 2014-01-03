@@ -3,7 +3,9 @@ var map = {
   slideshare: 'SlideShare',
   youtube: 'YouTube',
   soundcloud: 'SoundCloud',
-  vimeo: 'Vimeo'
+  vimeo: 'Vimeo',
+  google: 'Google Drive',
+  slid: 'Slid.es'
 };
 
 export default Ember.Handlebars.makeBoundHelper(function(root) {

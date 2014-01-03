@@ -1,7 +1,7 @@
 var endpoint = "http://query.yahooapis.com/v1/public/yql?q=YQL_QUERY&format=json";
 export default Ember.ObjectProxy.extend({
   response: undefined,
-  idRegex: /(?:com|net)\/([^\?]*)/,
+  idRegex: /(?:com|net|es)\/((?:[^\/]*)\/(?:[^\/\?]*))/,
 
   url: function() {
     var contentUrl = this.get('content.url');

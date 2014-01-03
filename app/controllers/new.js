@@ -98,7 +98,8 @@ export default PresentationController.extend({
           media = this.get('media');
 
       // deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
-      deck.set('url', 'https://docs.google.com/presentation/d/1e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA/edit?pli=1');
+      deck.set('url', 'https://docs.google.com/presentation/d/1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI/edit?pli=1#slide=id.g177d510c8_0342');
+      // deck.set('url', 'http://slid.es/jonathangoldman/reducecomputed/');
       media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
       // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
       // media.set('url', 'http://vimeo.com/76153146');

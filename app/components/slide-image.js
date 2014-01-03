@@ -1,22 +1,11 @@
-export default Ember.Component.extend({
-  classNameBindings: ['staticClassName', 'hidden:hide:show'],
-  staticClassName: 'deck-player',
-  attributeBindings: ['src', 'alt'],
-  alt: 'slide',
-  src: null,
-  imgEndpoint: null,
-  firstIndex: null,
-  type: null,
-  slide: null,
+import SlideIframe from 'appkit/components/slide-iframe';
 
-  init: function() {
-    if (this.get('type') === 'google') {
-      this.set('tagName', 'iframe');
-    } else {
-      this.set('tagName', 'img');
-    }
-    this._super();
-  },
+export default SlideIframe.extend({
+  tagName: 'img',
+  classNameBindings: ['hidden:hide:show'],
+  attributeBindings: ['alt'],
+  alt: 'slide',
+  slide: null,
 
   slideDidChange: function() {
     var slide = this.get('slide'),
@@ -45,15 +34,5 @@ export default Ember.Component.extend({
     this.set('slide', pSlide);
     this.set('hidden', false);
 
-  }.observes('playback.slide').on('init'),
-
-  updateSrc: function() {
-    var slide = this.get('slide');
-    if (!slide) { return; }
-
-    var _slide = slide + this.get('firstIndex'),
-        src = this.get('imgEndpoint').replace('NUMBER', _slide - 1);
-
-    this.set('src', src);
-  }.observes('slide', 'imgEndpoint').on('init')
+  }.observes('playback.slide').on('init')
 });

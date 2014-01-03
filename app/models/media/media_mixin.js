@@ -4,16 +4,18 @@ var domainRootMap = [
   'youtube',
   'soundcloud',
   'vimeo',
-  'google'
+  'google',
+  'slid'
 ];
 
 export default Ember.Mixin.create({
   externalId: null,
-  validationState: null,  // 'pending', 'invalidUrl', 'notSupported', 'requestError', 'valid'
-  urlRegex: /^http(?:s?):\/\/(?:w*\.?)(.+)\.(?:com|net)/,
+  validationState: null,  // 'pending', 'invalidUrl', 'notSupported', 'requestError', 'valid', 'notValidated'
+  urlRegex: /^http(?:s?):\/\/(?:w*\.?)(.+)\.(?:com|net|es)/,
 
   valid: function() {
-    return this.get('validationState') === 'valid';
+    var state = this.get('validationState');
+    return state === 'valid' || state === 'validationSkipped';
   }.property('validationState'),
 
   domainRoot: function() {  // ie. 'slideshare'
