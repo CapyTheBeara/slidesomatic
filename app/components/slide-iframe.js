@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   src: null,
   endpoint: null,
   firstIndex: null,
-  slideBinding: 'playback.slide',
+  slide: null,
 
   updateSrc: function() {
     var slide = this.get('slide');

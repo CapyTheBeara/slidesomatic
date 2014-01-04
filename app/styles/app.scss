@@ -93,6 +93,7 @@ form.sequence-new button {
 .sequences-table {
   height: 360px;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin: 10px 0;
 
   .past {
@@ -102,6 +103,12 @@ form.sequence-new button {
   tr:hover:not(:first-child) {
     background-color: #3498DB;
     cursor: pointer;
+  }
+
+  .sequence-slide {
+    max-width: 180px;
+    margin-right: -25px;
+    overflow-x: scroll;
   }
 }
 
