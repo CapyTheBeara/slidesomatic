@@ -7,20 +7,155 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="assets/21fbb1f8.app.min.css">
-
-  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
-
-  <script src="assets/9f264d24.vendor.min.js"></script>
-
-  <script src="assets/2effca8c.app.min.js"></script>
-
+  <link rel="stylesheet" href="/assets/bootswatch.css">
+  <style>
+/*    .upper{background-color:#1A242F}*/
+    h1{color:#ecf0f1;}
+    .jumbotron{text-align:center;font-size:2.5em;}
+    .pitch {background-color:#ecf0f1;}
+    footer {border-top:1px solid #ecf0f1;padding-top:10px;}
+    footer img {height:50px;}
+.upper {
+background: #1A242F;
+background: -moz-linear-gradient(top, #1A242F 0%, #394047 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1A242F), color-stop(100%,#394047));
+background: -webkit-linear-gradient(top, #1A242F 0%,#394047 100%);
+background: -o-linear-gradient(top, #1A242F 0%,#394047 100%);
+background: -ms-linear-gradient(top, #1A242F 0%,#394047 100%);
+background: linear-gradient(top, #1A242F 0%,#394047 100%);
+}
+  </style>
 </head>
+
 <body>
-  <script>
-    window.App = require('appkit/app')["default"].create();
-  </script>
+<div class='upper'>
+    <div class="container">
+        <header class='page-header'>
+            <h1>Slides-O-Matic <small>Sync up a slide deck to video or audio</small></h1>
+            <span class="label label-warning text-primary">Alpha Testing</span>
+        </header>
+    </div>
+
+    <section class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="jumbotron">
+                <p>Because your presentation is more<br> than just your slides</p>
+                <p>
+                    <a href='a/#/new' class='btn btn-success btn-default active'>Create A Presentation</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class='container'>
+    <section class="row pitch">
+        <div class="col-md-4">
+            <h3>Present in Style</h3>
+            <p>You've spent a lot of effort on your presentation. You even recorded it. Don't just post your slides. Share them the way you intended.</p>
+            <p>Want to use another website as an interactive slide? No problem.</p>
+        </div>
+        <div class="col-md-4">
+            <h3>Fast & Easy</h3>
+            <p>No user account or login is required. Use a video or audio file and slide deck that you've already uploaded to another site. After you time your slides to your media, you get a link that you can use to view your presentation or edit it later.</p>
+        </div>
+
+        <div class="col-md-4">
+            <h3>Media</h3>
+            <p>
+                For slides, you can use
+                <a href="https://speakerdeck.com/">Speaker Deck</a>
+                ,
+                <a href="http://www.slideshare.net/">SlideShare</a>
+                ,
+                <a href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">Google Drive</a>
+                , or
+                <a href="http://slid.es/">Slid.es</a>.
+                <br>
+                <em>(Limited support for Slid.es.)</em>
+            </p>
+
+            <p>For videos, you can use
+                <a href='http://www.youtube.com/'>YouTube</a>
+                or
+                <a href="https://vimeo.com/">Vimeo</a>.
+            </p>
+
+            <p>Want to add sound instead of video? Use <a href="https://soundcloud.com/">SoundCloud</a>.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Examples</h2>
+            </div>
+
+            <div class="col-md-6 thumbnail">
+                <a href='a/#/?v=1&d=0brandonsatrom%2Fsecrets-of-awesome-javascript-api-design&m=2QlQm786MClE&s=010000206k0309Y040AK050Ae060C2070Dm080FK090Fo0A0Ic0B0Lk0C0PA0D0Qk0E0SI0F0WW0G0g-0H0iY0I0qC0J0to0K0xE0L1540M16o0N1BK0O1HQ0P1TS0Q1V00R1cq0S1fU0T1fe0U1js0V1oY0W1va0X1vu0Y26E0Z26Y0a2EW0b2Eq0c2Gs0d2H00e2LO0f2LY0g2O-0h2Su0i2W00j2Zm0l2mu0n2nq0o2qy0p2ra0q2w60r30g0s33U0t38e0u37i0v3AM0w3Bw0x3FC0y3KW0z3QI0-3RE0_3Vm103Y6113ZW123bO133d6143gY153hK163iu173kS183li193qi1A3sQ1B3v41C3vs1D3yM1E3yq1F3_y1G44e1H46q1I48E1J49A1K4Ey1L4FQ1M4GC1N4Ka1O4Mm1P4PG1R4Si1S4U61T4Uu1V4YK1X4YU1Y4bI1Z4ek1a4fM1b4fg1c4iy1d4kW1e4kq1f4lw1g4ms1h4no1i4oQ1j4ok1k4pC1l4pW1m4q81n4r41o4ri1p4sK1q4x01r4yG1s4-c1t4_E1u53S1v56G1w56u1x59E1y5C21z5FU1-5RC1_5Ze' class='example'>
+                    <img src="assets/secrets_of_awesome_js_api_design_bsatrom.png" alt="secrets of awesome javascript api design">
+                    <div class="caption">
+                        <h4>Speaker Deck + YouTube</h4>
+                        <p>Slides displayed as images.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 thumbnail">
+                <a href='a/#/?v=1&d=1dmethvin%2Fstate-of-j-query-june-2013-1-22939982&m=2BPkP9Vq46-4&s=010070201R0304704051050F7060Q5070W7080bN090hF0A0-V0B0_P0C13D0D1Cb0E1TP0F1aF0G1eT0H1hj0J1rP0K1t10L2AN0M2O90N2WB0O2hb0P2r30Q2-n0R31x0T3FP0V3Zd0W3bX0X3rt0Y3yr0Z4JB0a4Oj0b4W10c4Wl0d4tr0e50N0f54L0I1l10S37g0U3XQ_-4AW__4E7'>
+                    <img src="assets/state_of_jquery_sept_2013_dmethvin.png" alt="state of jquery sept 2013">
+                    <div class="caption">
+                        <h4>SlideShare + YouTube</h4>
+                        <p>Slides displayed as images.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 thumbnail">
+                <a href='a/#/?v=1&d=51e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA&m=27ecsYtRiD5Q&s=018L8048hq058r-068t6078_Q088_k0996K0A99Y099Ae0A9LY0B9Nu0C9Re0D9ZA0E9eG0F9yQ0EA3V0FA4j0GA8z0HAZx0IAoV0JAwT0LBmd0KBpn0LBqn0MCBr0NCrz0OD9T0PDKb0QDR30RDYz0SF0W0TF28_-F4e0UG3v__F_N0VGD70WGDT0XGG30YGHR0ZGTX0aGe70bGf90cGyB0dHUp0eHZ_0fHcH0gHr9_-Hrr__I3A0hI4I0iI6a0jIFY0mIZ30nIdn0oJ1P028aT038h90KBIw_-E3g_-F0X_zF0d&u=_yDaEhttp%3A%2F%2Fjsfiddle.net%2Fqy7Bt%2F244%2F'>
+                    <img src="assets/angularjs_from_an_emberjs_perspective_amatchneer.png" alt="angular.js from an ember.js perspective">
+                    <div class="caption">
+                        <h4>Google Drive + YouTube</h4>
+                        <p>Slides remain interactive.</p>
+                        <p>Presentation incorporates the JSFiddle website as a slide and automated full video display.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 thumbnail">
+                <a href='a/#/?v=1&d=6forresto%2Fjsconf-2013&m=2TElh0ne0Cxw&s=01000020BW030I4040RC050Sg060cO070i0080si090xK0A1CC_-1Fu__1R00B1RU_-1Yc__1cW0C1cm0D1dK0E1le0F1wk0G20m0H27C0I2G40K2Ki_-0zK__194_-2LU'>
+                    <img src="assets/design_for_hackability_foliphant.png" alt="design for hackability">
+                    <div class="caption">
+                        <h4>Slid.es + YouTube</h4>
+                        <p>Slides remain interactive.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="row">
+            <aside class='md-col-2 col-md-offset-10'>
+                <em>
+                    Powered by
+                    <small><a href="http://emberjs.com/"><img src="assets/tomster-sm.png" alt="Ember.js"></a></small>
+                </em>
+            </aside>
+        </div>
+    </footer>
+</div>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-46651965-1', 'slidesomatic.com');
+ga('send', 'pageview');
+</script>
 </body>
 </html>
