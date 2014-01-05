@@ -2,7 +2,6 @@ export default Ember.Component.extend({
   tagName: 'iframe',
   attributeBindings: ['src'],
   media: null,
-  timeBinding: 'playback.time',
   player: null,
 
   checkApiReady: Ember.K,
@@ -28,7 +27,7 @@ export default Ember.Component.extend({
   },
 
   didInsertElement: function() {
-    this.set('playback.mediaPlayer', this);
+    this.sendAction('setPlayer', this);
 
     try {
       this.checkApiReady();

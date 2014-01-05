@@ -66,6 +66,7 @@ export default MediaBaseComponent.extend({
 
   onError: function(self) {
     return function(evt) {
+      console.log('youtube error====', evt.data);
       self.set('playerError', evt.data);
     };
   },

@@ -1,6 +1,6 @@
 export default Ember.ObjectController.extend({
   currentSequence: Em.computed.alias('parentController.currentSequence'),
-  presentationMode: Em.computed.alias('parentController.presentationMode'),
+  editMode: Em.computed.alias('parentController.editMode'),
 
   isPastSequence: function() {
     return this.get('start') < this.get('currentSequence.start');

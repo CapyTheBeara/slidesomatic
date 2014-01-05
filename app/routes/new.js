@@ -1,5 +1,4 @@
 import PresentationRoute from 'appkit/routes/presentation';
-import Playback from 'appkit/utils/playback';
 
 export default PresentationRoute.extend({
   name: 'new',
@@ -18,19 +17,25 @@ export default PresentationRoute.extend({
     });
   },
 
-  setupController: function(controller, presentation) {
-    this._super.apply(this, arguments);
+  setupController: function(controller, model) {
+    this._super(controller, model);
     this.controllerFor('application').set('modalMode', true);
-    this.controllerFor('media').set('editMode', true);
 
-    if (presentation.get('deck.url')) {
+    this.controllerFor('media').setProperties({
+      editMode: true,
+      presentationMode: false
+    });
+
+    this.controllerFor('deck').setProperties({
+      presentationMode: false
+    });
+
+    this.controllerFor('sequences').setProperties({
+      editMode: true
+    });
+
+    if (model.get('deck.url')) {
       controller.send('submitUrls');
     }
-  },
-
-  deactivate: function() {
-    this._super();
-    this.controllerFor('application').set('modalMode', false);
-    this.controllerFor('media').set('editMode', false);
   }
 });

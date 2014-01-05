@@ -2,20 +2,20 @@
   {{#if iframe}}
       {{slide-iframe endpoint = imgEndpoint
                      firstIndex = firstIndex
-                     slide = playback.slide}}
+                     slide = slide}}
   {{else}}
       {{slide-image endpoint = imgEndpoint
                     firstIndex = firstIndex
-                    playback = playback}}
+                    deck  = this}}
 
       {{slide-image endpoint = imgEndpoint
                     firstIndex = firstIndex
-                    playback = playback
+                    deck = this
                     hidden = true}}
   {{/if}}
 </div>
 
 <div {{bind-attr class=":deck-wrapper siteMode:show:hide"}}>
-  <iframe class='deck-player' {{bind-attr src=site}} frameborder="0">.</iframe>
+  <iframe class='deck-player' {{bind-attr src=site}} frameborder="0"></iframe>
 </div>
 

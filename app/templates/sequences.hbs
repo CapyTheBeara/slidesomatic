@@ -4,9 +4,9 @@
             <tr>
                 <th>Time</th>
                 <th>Slide</th>
-                {{#unless presentationMode}}
+                {{#if editMode}}
                     <th></th>
-                {{/unless}}
+                {{/if}}
             </tr>
         </thead>
 
@@ -15,10 +15,10 @@
             <tr {{action 'skipTo' start}}
                 {{bind-attr class='isPastSequence:past'}}>
                 <td>
-                    {{#if presentationMode}}
-                        {{format-seconds start false}}
-                    {{else}}
+                    {{#if editMode}}
                         {{format-seconds start true}}
+                    {{else}}
+                        {{format-seconds start false}}
                     {{/if}}
                 </td>
                 <td>
@@ -26,11 +26,11 @@
                         {{format-slide this}}
                     </div>
                 </td>
-                {{#unless presentationMode}}
+                {{#if editMode}}
                     <td>
                         <a class='btn btn-danger btn-xs' {{action 'destroy'}}>Remove</a>
                     </td>
-                {{/unless}}
+                {{/if}}
             </tr>
         {{/each}}
         </tbody>

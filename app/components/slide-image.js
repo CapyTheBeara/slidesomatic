@@ -10,8 +10,8 @@ export default SlideIframe.extend({
   slideDidChange: function() {
     var slide = this.get('slide'),
         hidden = this.get('hidden'),
-        pSlide = this.get('playback.slide'),
-        pNextSlide = this.get('playback.nextSlide');
+        pSlide = this.get('deck.slide'),
+        pNextSlide = this.get('deck.nextSlide');
 
     if (!slide) {
       if (hidden) {
@@ -34,5 +34,5 @@ export default SlideIframe.extend({
     this.set('slide', pSlide);
     this.set('hidden', false);
 
-  }.observes('playback.slide').on('init')
+  }.observes('deck.slide').on('init')
 });

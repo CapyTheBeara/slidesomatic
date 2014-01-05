@@ -1,5 +1,3 @@
-import Playback from 'appkit/utils/playback';
-
 export default Ember.Route.extend({
   name: 'presentation',
 
@@ -29,44 +27,46 @@ export default Ember.Route.extend({
     return presentation;
   },
 
-  setupController: function(controller, presentation) {
-    this.get('playback').reset();
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    this.controllerFor('application').set('wrapperClass', this.get('name'));
 
-    controller.setProperties({
-      model: presentation.get('sequences'),
-      presentation: presentation,
-      playback: this.get('playback')
+    var mediaController = this.controllerFor('media'),
+        deckController = this.controllerFor('deck'),
+        sequencesController = this.controllerFor('sequences');
+
+    sequencesController.set('content', model.get('sequences'));
+
+    deckController.setProperties({
+      content: model.get('deck'),
+      sequences: sequencesController
     });
 
-    this.controllerFor('application').set('wrapperClass', this.get('name'));
+    mediaController.setProperties({
+      content: model.get('media'),
+      sequences: sequencesController
+    });
   },
 
-  renderTemplate: function(controller, presentation) {
-    var mediaController = this.controllerFor('media'),
-        deckController = this.controllerFor('deck');
-
-    mediaController.set('content', presentation.get('media'));
-    deckController.set('content', presentation.get('deck'));
-
+  renderTemplate: function(controller, model) {
     this.render();
+
+    this.render('sequences', {
+      into: this.get('name'),
+      outlet: 'sequences',
+      controller: this.controllerFor('sequences')
+    });
 
     this.render('media', {
       into: this.get('name'),
       outlet: 'media',
-      controller: mediaController
+      controller: this.controllerFor('media')
     });
 
     this.render('deck', {
       into: this.get('name'),
       outlet: 'deck',
-      controller: deckController
+      controller: this.controllerFor('deck')
     });
-  },
-
-  deactivate: function() {
-    // still need a playback if leaving the page while controller
-    // is trying to set a property on playback
-    // Otherwise will get error and break transition
-    this.controllerFor(this.get('name')).set('playback', Playback.create());
   }
 });

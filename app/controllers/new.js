@@ -2,19 +2,20 @@ import PresentationController from 'appkit/controllers/presentation';
 import shortenUrl from 'appkit/utils/shorten_url';
 
 export default PresentationController.extend({
-  // presentation set in route
-  deck: Em.computed.alias('presentation.deck'),
-  media: Em.computed.alias('presentation.media'),
   activeTab: 'slides',
   presentationMode: false,
-  needs: ['deck', 'media', 'application'],
   shortUrl: null,
-  site: '',
+
+  needs: ['application', 'media', 'deck', 'sequences'],
+  slideBinding: 'controllers.deck.slide',
+  siteModeBinding: 'controllers.deck.siteMode',
+  presentationModeBinding: 'controllers.deck.presentationMode',
+  videoModeBinding: 'controllers.media.videoMode',
 
   maxSeqs: function() {
-    var base = this.get('presentation.url').replace(/&s=[^&]*/, '');
+    var base = this.get('url').replace(/&s=[^&]*/, '');
     return Math.floor((2000 - base.length) / 5);
-  }.property('presentation.url'),
+  }.property('url'),
 
   toggleModal: function() {
     if (this.get('validUrls')) {
@@ -26,7 +27,7 @@ export default PresentationController.extend({
     var seq, start, args,
         mediaController = this.get('controllers.media'),
         currentTime = mediaController.getCurrentTime(),
-        startExists = this.findBy('start', currentTime);
+        startExists = this.get('sequences').findBy('start', currentTime);
 
     if (startExists) {
       alert("Sorry, you've already set this time. Please set a different time.");
@@ -37,11 +38,12 @@ export default PresentationController.extend({
     if (site) { args.site = site; }
 
     seq = this.store.createRecord('sequence', args);
-    this.pushObject(seq);
+    this.get('sequences').pushObject(seq);
+
+    this.get('controllers.media').skipTo(this.get('time') + 0.1);
     mediaController.resetScrubbers();
     return true;
   },
-
 
   actions: {
     addDeck: function() {
@@ -57,8 +59,10 @@ export default PresentationController.extend({
     },
 
     addSequence: function() {
-      if (this._addSequence(this.get('playback.slide'))) {
-        this.set('playback.slide', this.get('slide') + 1);
+      var slide = this.get('slide');
+
+      if (this._addSequence(slide)) {
+        this.set('slide', slide + 1);
       }
     },
 
@@ -73,7 +77,7 @@ export default PresentationController.extend({
     },
 
     toggleFullVideo: function() {
-      if (!this.get('fullVideo')) {
+      if (!this.get('videoMode')) {
         this._addSequence(4094);
       } else {
         this._addSequence(4095);

@@ -27,7 +27,7 @@
 
                     <li class="disabled">
                         <a>
-                            {{format-seconds playback.time false}}
+                            {{format-seconds time false}}
                         </a>
                     </li>
                 </ul>
@@ -37,7 +37,7 @@
                 {{#tab-content tabName = 'sequences'
                                activeTab = activeTab}}
                     <div class="col-md-12">
-                        {{partial 'sequence/table'}}
+                        {{outlet sequences}}
                     </div>
                 {{/tab-content}}
 
@@ -49,14 +49,14 @@
                             <a href="{{unbound deckUrl}}"
                                target='_blank'
                                class='btn btn-info'>
-                               {{source-name presentation.deck.domainRoot}}
+                               {{source-name deck.domainRoot}}
                             </a>
                         </li>
                         <li>
                             <a href="{{unbound mediaUrl}}"
                                target='_blank'
                                class='btn btn-info'>
-                               {{source-name presentation.media.domainRoot}}
+                               {{source-name media.domainRoot}}
                             </a>
                         </li>
                     </ul>

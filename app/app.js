@@ -1,5 +1,4 @@
 import Resolver from 'resolver';
-import Playback from 'appkit/utils/playback';
 
 Ember.FEATURES["query-params"] = true;
 
@@ -19,20 +18,6 @@ Ember.RSVP.configure('onerror', function(error) {
   if (error instanceof Error) {
     Ember.Logger.assert(false, error);
     Ember.Logger.error(error.stack);
-  }
-});
-
-
-Ember.Application.initializer({
-  name: 'playbackInitializer',
-  initialize: function(container, application) {
-    container.register('playback:current', Playback);
-    application.inject('component:soundcloud-audio', 'playback', 'playback:current');
-    application.inject('component:youtube-video', 'playback', 'playback:current');
-    application.inject('component:vimeo-video', 'playback', 'playback:current');
-    application.inject('route', 'playback', 'playback:current');
-    application.inject('controller:media', 'playback', 'playback:current');
-    application.inject('controller:deck', 'playback', 'playback:current');
   }
 });
 

@@ -42,7 +42,7 @@
 
                     <li class="disabled">
                         <a>
-                            {{format-seconds playback.time false}}
+                            {{format-seconds time false}}
                         </a>
                     </li>
                 </ul>
@@ -60,12 +60,12 @@
                             Presentation Sequence
                             <small>
                                 <span class="badge">
-                                    {{length}}
+                                    {{controllers.sequences.length}}
                                 </span>
                                 / {{maxSeqs}}
                             </small>
                         </h4>
-                        {{partial 'sequence/table'}}
+                        {{outlet sequences}}
                     </div>
                 {{/tab-content}}
 

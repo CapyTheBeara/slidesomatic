@@ -1,14 +1,20 @@
 <div id="media-view">
   {{#if youtube}}
-    {{youtube-video media=content}}
+    {{youtube-video media = content
+                    time = time
+                    setPlayer = 'setPlayer'}}
   {{/if}}
 
   {{#if vimeo}}
-    {{vimeo-video media=content}}
+    {{vimeo-video media = content
+                  time = time
+                  setPlayer = 'setPlayer'}}
   {{/if}}
 
   {{#if soundcloud}}
-    {{soundcloud-audio media=content}}
+    {{soundcloud-audio media = content
+                       time = time
+                       setPlayer = 'setPlayer'}}
   {{/if}}
 </div>
 
