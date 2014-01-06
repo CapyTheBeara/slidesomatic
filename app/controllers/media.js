@@ -12,9 +12,6 @@ export default Ember.ObjectController.extend({
   vimeo: equal('domainRoot', 'vimeo'),
 
   time: 0,
-  scrubHighValue: 50,
-  scrubMediumValue: 50,
-  scrubLowValue: 50,
   videoMode: false,
   animation: null,
 
@@ -60,35 +57,16 @@ export default Ember.ObjectController.extend({
     else { player.currentTime(time); }
   },
 
-  resetScrubbers: function() {
-    this.set('scrubHighValue', 50);
-    this.set('scrubMediumValue', 50);
-    this.set('scrubLowValue', 50);
-    $('input[type=range]').first().focus();
-  },
-
-  scrub: function(change, magnitude) {
+  scrub: function(change) {
     var player = this.get('player'),
         time = this.getCurrentTime();
 
-    player.currentTime(round(time + magnitude*change));
+    player.currentTime(round(time + change));
   },
 
   actions: {
     setPlayer: function(player) {
       this.set('player', player);
-    },
-
-    scrubHigh: function(change) {
-      this.scrub(change, 5);
-    },
-
-    scrubMedium: function(change) {
-      this.scrub(change, 1);
-    },
-
-    scrubLow: function(change) {
-      this.scrub(change, 1/5);
     }
   }
 });

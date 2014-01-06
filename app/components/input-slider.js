@@ -7,12 +7,13 @@ export default Ember.Component.extend({
   max: 100,
   step: 1,
   value: 50,
+  magnitude: 1,
 
   change: function(evt) {
     var value = this.get('value'),
         newValue = evt.target.value;
 
     this.set('value', newValue);
-    this.sendAction('action', newValue - value);
+    this.sendAction('action', this.get('magnitude')*(newValue - value));
   }
 });

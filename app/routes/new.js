@@ -22,7 +22,6 @@ export default PresentationRoute.extend({
     this.controllerFor('application').set('modalMode', true);
 
     this.controllerFor('media').setProperties({
-      editMode: true,
       presentationMode: false
     });
 

@@ -1,5 +1,5 @@
 export default Ember.Component.extend({
-  classNames: ['row', 'deck-controls', 'input-group', 'input-group-sm'],
+  classNames: ['deck-controls', 'input-group'],
   seekNum: 1,
   slide: null,
 
