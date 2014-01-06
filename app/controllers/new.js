@@ -3,8 +3,14 @@ import shortenUrl from 'appkit/utils/shorten_url';
 
 export default PresentationController.extend({
   activeTab: 'slides',
+  slideOptions: ['Full Video', 'External Website', 'Presentation Mode'],
+  selectedSlideOption: null,
+
   presentationMode: false,
   shortUrl: null,
+  scrubHighValue: 50,
+  scrubMediumValue: 50,
+  scrubLowValue: 50,
 
   needs: ['application', 'media', 'deck', 'sequences'],
   slideBinding: 'controllers.deck.slide',
@@ -41,8 +47,15 @@ export default PresentationController.extend({
     this.get('sequences').pushObject(seq);
 
     this.get('controllers.media').skipTo(this.get('time') + 0.1);
-    mediaController.resetScrubbers();
+    this.resetScrubbers();
     return true;
+  },
+
+  resetScrubbers: function() {
+    this.set('scrubHighValue', 50);
+    this.set('scrubMediumValue', 50);
+    this.set('scrubLowValue', 50);
+    $('input[type=range]').first().focus();
   },
 
   actions: {
@@ -52,6 +65,10 @@ export default PresentationController.extend({
 
     addVideo: function() {
       this.get('media').validate();
+    },
+
+    scrub: function(change) {
+      this.get('controllers.media').scrub(change);
     },
 
     changePresentationMode: function(value) {

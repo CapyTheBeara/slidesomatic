@@ -39,19 +39,20 @@
                     value = media.url
                     action = 'addVideo'}}
 
-        <div class="help-block">
-            {{#if media.validationState}}
-                {{validation-message validationState=media.validationState}}
-            {{else}}
-                Supported sites:
-                    <a href="http://www.youtube.com">
-                        YouTube
-                    </a>,
-                    <a href="https://vimeo.com/">
-                        Vimeo
-                    </a>,
-                    <a href="https://soundcloud.com/">SoundCloud</a>
-            {{/if}}
+            <div class="help-block">
+                {{#if media.validationState}}
+                    {{validation-message validationState=media.validationState}}
+                {{else}}
+                    Supported sites:
+                        <a href="http://www.youtube.com">
+                            YouTube
+                        </a>,
+                        <a href="https://vimeo.com/">
+                            Vimeo
+                        </a>,
+                        <a href="https://soundcloud.com/">SoundCloud</a>
+                {{/if}}
+            </div>
         </div>
     {{/if}}
 </div>
