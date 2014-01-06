@@ -8,13 +8,18 @@ export default Ember.Handlebars.makeBoundHelper(function(seconds, showMs) {
       s = date.getUTCSeconds();
 
   if (m < 10) {m = "0" + m;}
-  if (s < 10) {s = "0" + s;}
-  time = [h, m, s].join(":");
 
   if (showMs) {
-    var ms = Math.round(date.getUTCMilliseconds() / 10) / 10;
-    time = time + "." + ms;
+    var ms = Math.round(date.getUTCMilliseconds() / 100);
+    if (ms === 10) {
+      s += 1;
+      ms = 0;
+    }
   }
 
+  if (s < 10) {s = "0" + s;}
+
+  time = [h, m, s].join(":");
+  if (showMs) { time = time + "." + ms; }
   return time;
 });
