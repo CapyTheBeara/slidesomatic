@@ -1,4 +1,4 @@
-var MODE_START = 4092;
+import sequenceFinder from 'appkit/controllers/utils/sequence_finder';
 
 export default Ember.ObjectController.extend({
   slide: 1,
@@ -12,46 +12,34 @@ export default Ember.ObjectController.extend({
   timeBinding: 'sequences.time',
   currentSequenceBinding: 'sequences.currentSequence',
 
-  timeDidChange: function() {
-    var time = this.get('time'),
+  findSiteMode: sequenceFinder('site', function(self, seq) {
+    self.set('site', seq.get('site'));
+  }).observes('time'),
 
-        seq = this.get('sequences').filter(function(seq) {
-          if (seq.isPastSite(time)) { return true; }
-        }).get('lastObject');
+  findSlide: function() {
+    var seq = sequenceFinder.search(this, 'slide');
 
-    if (seq && seq.get('isOn')) {
-      this.setProperties({ siteMode: true, site: seq.get('site')});
-    }
-    else { this.set('siteMode', false); }
+    if (!this.get('presentationMode') || !seq || seq.get('isMode')) { return; }
+    this.set('slide', seq.get('slide'));
   }.observes('time'),
 
-  // FIX - if skipping over slides directly to a full video
-  // slide won't be the one before the full video
-  currentSequenceDidChange: function() {
-    var slide = this.get('currentSequence.slide'),
-        nextSlide = this.get('nextSlide');
-
-    if (!this.get('presentationMode') || slide >= MODE_START) { return; }
-    this.set('slide', slide);
-
-    if (nextSlide) {
-      this.set('nextSlide', nextSlide);
-    }
-  }.observes('currentSequence'),
-
   nextSlide: function() {
-    var sequences = this.get('sequences'),
-        currentSequence = this.get('currentSequence'),
-        currentIndex = sequences.get('currentSequenceIndex'),
+    if (this.get('presentationMode')) {
+      var sequences = this.get('sequences'),
+          currentSequence = this.get('currentSequence'),
+          currentIndex = sequences.get('currentSequenceIndex'),
 
-        seq = sequences.find(function(seq, i) {
-          if (i > currentIndex && seq.get('slide') < MODE_START ) {
-            return true;
-          }
-        });
+          seq = sequences.find(function(seq, i) {
+            if (i > currentIndex && !seq.get('isMode')) {
+              return true;
+            }
+          });
 
-    if (seq) { return seq.get('slide'); }
-  }.property('sequences', 'currentSequence'),
+      if (seq) { return seq.get('slide'); }
+    } else {
+      return this.get('slide') + 1;
+    }
+  }.property('sequences', 'currentSequence', 'slide'),
 
   iframe: function() {
     var root = this.get('domainRoot');

@@ -1,5 +1,5 @@
 import FullVideoAnimation from 'appkit/utils/full_video_animation';
-import createModeFinder from 'appkit/controllers/options/mode_finder';
+import sequenceFinder from 'appkit/controllers/utils/sequence_finder';
 
 function round(num) {
   return Math.round(num*10) / 10;
@@ -21,10 +21,10 @@ export default Ember.ObjectController.extend({
   sequences: null,
 
   videoMode: false,
-  findVideoMode: createModeFinder('video').observes('time'),
+  findVideoMode: sequenceFinder('video').observes('time'),
 
   pauseMode: false,
-  findPauseMode: createModeFinder('pause').observes('time'),
+  findPauseMode: sequenceFinder('pause').observes('time'),
 
   videoModeDidChange: function() {
     if (!this.get('presentationMode')) { return; }

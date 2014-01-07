@@ -60,8 +60,9 @@ export default DS.Model.extend({
     return this.get('slide') >= modes.MODE_START;
   }.property('slide'),
 
-  isA: function(mode) {
-    return this.get('mode').split('_')[0].toLowerCase() === mode;
+  isA: function(type) {  // types: slide, pause, site, video
+    if (type === 'slide') { return !this.get('isMode'); }
+    return this.get('mode').split('_')[0].toLowerCase() === type;
   },
 
 
