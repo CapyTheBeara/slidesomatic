@@ -1,4 +1,5 @@
 import FullVideoAnimation from 'appkit/utils/full_video_animation';
+import createModeFinder from 'appkit/controllers/options/mode_finder';
 
 function round(num) {
   return Math.round(num*10) / 10;
@@ -12,7 +13,6 @@ export default Ember.ObjectController.extend({
   vimeo: equal('domainRoot', 'vimeo'),
 
   time: 0,
-  videoMode: false,
   animation: null,
 
   // set/override these in route
@@ -20,16 +20,11 @@ export default Ember.ObjectController.extend({
   presentationMode: true,
   sequences: null,
 
-  timeDidChange: function() {
-    var time = this.get('time'),
+  videoMode: false,
+  findVideoMode: createModeFinder('video').observes('time'),
 
-        seq = this.get('sequences').filter(function(seq) {
-          if (seq.isPastVideo(time)) { return true; }
-        }).get('lastObject');
-
-    if (seq && seq.get('isOn')) { this.set('videoMode', true); }
-    else { this.set('videoMode', false); }
-  }.observes('time'),
+  pauseMode: false,
+  findPauseMode: createModeFinder('pause').observes('time'),
 
   videoModeDidChange: function() {
     if (!this.get('presentationMode')) { return; }
@@ -44,6 +39,12 @@ export default Ember.ObjectController.extend({
       _anim.contract();
     }
   }.observes('videoMode'),
+
+  pauseModeDidChange: function() {
+    if (!this.get('presentationMode')) { return; }
+
+    if (this.get('pauseMode')) { this.get('player').pause(); }
+  }.observes('pauseMode'),
 
   getCurrentTime: function() {
     return round(this.get('player').currentTime());

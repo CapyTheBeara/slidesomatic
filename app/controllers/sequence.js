@@ -2,21 +2,15 @@ export default Ember.ObjectController.extend({
   currentSequence: Em.computed.alias('parentController.currentSequence'),
   editMode: Em.computed.alias('parentController.editMode'),
 
+  isPast: function(time, type) {
+    var past = this.get('start') <= time;
+    if (!type) { return past; }
+    return past && this.get('content').isA(type);
+  },
+
   isPastSequence: function() {
     return this.get('start') < this.get('currentSequence.start');
   }.property('currentSequence'),
-
-  isPast: function(time) {
-    return this.get('start') <= time;
-  },
-
-  isPastSite: function(time) {
-    return this.get('isSite') && this.get('start') <= time;
-  },
-
-  isPastVideo: function(time) {
-    return this.get('isVideo') && this.get('start') <= time;
-  },
 
   eq: function(seq) {
     return this.get('start') === seq.get('start');
@@ -25,7 +19,7 @@ export default Ember.ObjectController.extend({
   actions: {
     destroy: function() {
       if (confirm('Remove this time point?')) {
-        this.get('parentController').removeObject(this);
+        this.get('parentController').removeObject(this.get('content'));
       }
     }
   }

@@ -1,15 +1,20 @@
 export default Ember.Handlebars.makeBoundHelper(function(seq) {
-  var slide = seq.get('slide');
+  var slide = seq;
 
-  if (slide < 4092) { return slide; }
-  switch (slide) {
-    case 4092:
+  if (!seq.get('isMode')) { return seq.get('slide'); }
+
+  switch (seq.get('mode')) {
+    case 'SITE_ON':
       return seq.get('site');
-    case 4093:
+    case 'SITE_OFF':
       return 'External Site Off';
-    case 4094:
+    case 'VIDEO_ON':
       return 'Full Video On';
-    case 4095:
+    case 'VIDEO_OFF':
       return 'Full Video Off';
+    case 'PAUSE_ON':
+      return 'Pause';
+    case 'PAUSE_OFF':
+      return 'Pause Off';
   }
 });

@@ -6,42 +6,83 @@ function int(num) {
 }
 
 var attr = DS.attr,
-    MODE_START = 4092,
-    MODE_EXTERNAL_URL_ON = 4092,
-    MODE_EXTERNAL_URL_OFF = 4093,
-    MODE_FULL_VIDEO_ON = 4094,
-    MODE_FULL_VIDEO_OFF = 4095;
+    _modes = {
+      PAUSE_ON: 4090,
+      PAUSE_OFF: 4091,
+      SITE_ON: 4092,
+      SITE_OFF: 4093,
+      VIDEO_ON: 4094,
+      VIDEO_OFF: 4095
+    };
+
+var Modes = Ember.Object.extend(_modes);
+Modes.reopen({
+  MODE_START: _modes[
+    Object.keys(_modes).reduce(function(prev, cur) {
+      return _modes[prev] < _modes[cur] ? prev : cur;
+    })
+  ],
+
+  reversed: function() {
+    return Object.keys(_modes).reduce(function(col, key) {
+      col[_modes[key]] = key;
+      return col;
+    }, {});
+  }(),
+
+  mode: function(val) {
+    return this.reversed[val];
+  }
+});
+
+var modes = Modes.create();
+
 
 export default DS.Model.extend({
   start: attr('number'),
-  slide: attr('number'),
+  slide: attr('number', { defaultValue: 1 }),
   site: attr(),
 
   urlFrag: null,
   externalUrlFrag: null,
 
-  isSite: function() {
-    var slide = this.get('slide');
-    return slide === MODE_EXTERNAL_URL_ON || slide === MODE_EXTERNAL_URL_OFF;
+  mode: function(k, v) {
+    if (v) {
+      this.set('slide', modes[v]);
+      return v;
+    }
+
+    if (this.get('isMode')) { return modes.mode(this.get('slide')); }
+    else { return 'NOT_MODE'; }
+  }.property(),
+
+  isMode: function() {
+    return this.get('slide') >= modes.MODE_START;
   }.property('slide'),
 
-  isVideo: function() {
-    var slide = this.get('slide');
-    return slide === MODE_FULL_VIDEO_ON || slide === MODE_FULL_VIDEO_OFF;
-  }.property('slide'),
+  isA: function(mode) {
+    return this.get('mode').split('_')[0].toLowerCase() === mode;
+  },
+
 
   isOn: function() {
     var slide = this.get('slide');
-    return slide === MODE_FULL_VIDEO_ON || slide === MODE_EXTERNAL_URL_ON;
+    return slide === modes.VIDEO_ON ||
+           slide === modes.SITE_ON ||
+           slide === modes.PAUSE_ON;
   }.property('slide'),
 
-  isOnSite: function() {
-    return this.get('isSite') && this.get('isOn');
-  }.property('isSite', 'isOn'),
+  isSiteOn: function() {
+    return this.get('slide') === modes.SITE_ON;
+  }.property('slide'),
 
-  isNotOnSite: function() {
-    return !this.get('isOnSite');
-  }.property('isOnSite'),
+  isNotSiteOn: function() {
+    return !this.get('isSiteOn');
+  }.property('isSiteOn'),
+
+  isNotPauseOff: function() {
+    return this.get('slide') !== modes.PAUSE_OFF;
+  }.property('slide'),
 
   encoded: function() {
     var encoded,
@@ -50,16 +91,12 @@ export default DS.Model.extend({
 
     encoded = slide + start; // normal fragment always has 5 chars "0200Z"
 
-    if (this.get('isOnSite')) {
+    if (this.get('isSiteOn')) {
       encoded = encoded + encodeURIComponent(this.get('site'));
     }
 
     return encoded;
   }.property('start', 'slide', 'site'),
-
-  siteDidChange: function() {
-    this.set('slide', MODE_EXTERNAL_URL_ON);
-  }.observes('site'),
 
   urlFragDidChange: function() {
     var frag = this.get('urlFrag'),

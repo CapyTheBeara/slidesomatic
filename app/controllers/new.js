@@ -3,7 +3,8 @@ import shortenUrl from 'appkit/utils/shorten_url';
 
 export default PresentationController.extend({
   activeTab: 'slides',
-  slideOptions: ['Full Video', 'External Website', 'Presentation Mode'],
+  slideOptions: ['Full Video', 'External Website',
+                 'Playback Controls', 'Presentation Mode'],
   selectedSlideOption: null,
 
   presentationMode: false,
@@ -29,24 +30,27 @@ export default PresentationController.extend({
     }
   }.observes('validUrls'),
 
-  _addSequence: function(slide, site) {
-    var seq, start, args,
+  _addSequence: function(slideMode, site, timeInc) {
+    var seq, args,
         mediaController = this.get('controllers.media'),
         currentTime = mediaController.getCurrentTime(),
-        startExists = this.get('sequences').findBy('start', currentTime);
+        start = timeInc ? currentTime + timeInc : currentTime,
+        startExists = this.get('sequences').findBy('start', start);
 
     if (startExists) {
       alert("Sorry, you've already set this time. Please set a different time.");
       return;
     }
 
-    args = { start: currentTime, slide: slide };
+    args = { start: start};
+    if (typeof(slideMode) === 'number') { args.slide = slideMode; }
+    else { args.mode = slideMode; }
     if (site) { args.site = site; }
 
     seq = this.store.createRecord('sequence', args);
     this.get('sequences').pushObject(seq);
 
-    this.get('controllers.media').skipTo(this.get('time') + 0.1);
+    this.get('controllers.media').skipTo(start + 0.1);
     this.resetScrubbers();
     return true;
   },
@@ -86,18 +90,24 @@ export default PresentationController.extend({
     addSite: function() {
       var url = this.get('site');
       // TODO validate url
-      this._addSequence(null, url);
+      this._addSequence('SITE_ON', url);
     },
 
     removeSite: function() {
-      this._addSequence(4093);
+      this._addSequence('SITE_OFF');
     },
 
     toggleFullVideo: function() {
       if (!this.get('videoMode')) {
-        this._addSequence(4094);
+        this._addSequence('VIDEO_ON');
       } else {
-        this._addSequence(4095);
+        this._addSequence('VIDEO_OFF');
+      }
+    },
+
+    addPause: function() {
+      if (this._addSequence('PAUSE_ON')) {
+        this._addSequence('PAUSE_OFF', null, 0.4);
       }
     },
 
@@ -124,8 +134,8 @@ export default PresentationController.extend({
       var deck = this.get('deck'),
           media = this.get('media');
 
-      // deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
-      deck.set('url', 'https://docs.google.com/presentation/d/1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI/edit?pli=1#slide=id.g177d510c8_0342');
+      deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
+      // deck.set('url', 'https://docs.google.com/presentation/d/1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI/edit?pli=1#slide=id.g177d510c8_0342');
       // deck.set('url', 'http://slid.es/jonathangoldman/reducecomputed/');
       media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
       // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");

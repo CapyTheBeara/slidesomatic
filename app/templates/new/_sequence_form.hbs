@@ -108,6 +108,32 @@
 {{/tab-content}}
 
 {{#tab-content class = "row form-group"
+               tabName = 'Playback Controls'
+               activeTab = selectedSlideOption}}
+    <div class="col-md-12">
+        <label>
+            Playback Controls
+            <span class="hint--right" data-hint='Controls the video playback.'>
+                <span class="glyphicon glyphicon-info-sign">
+                </span>
+            </span>
+        </label>
+
+        <div class="row">
+            <div class="col-md-12">
+                <span class="input-group-btn">
+                    <button class="btn btn-warning"
+                            {{action 'addPause'}}>
+                        Add Pause
+                    </button>
+                    <p>This will add "Pause" and "Pause Off" time points separated by 0.4ms. If you need to remove the pause, remove both time points.</p>
+                </span>
+            </div>
+        </div>
+    </div>
+{{/tab-content}}
+
+{{#tab-content class = "row form-group"
                tabName = 'Presentation Mode'
                activeTab = selectedSlideOption}}
     <div class="col-md-12">

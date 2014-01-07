@@ -11,7 +11,7 @@
         </thead>
 
         <tbody>
-        {{#each}}
+        {{#each filteredContent itemController='sequence'}}
             <tr {{action 'skipTo' start}}
                 {{bind-attr class='isPastSequence:past'}}>
                 <td>

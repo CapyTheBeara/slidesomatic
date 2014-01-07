@@ -34,15 +34,15 @@ export default DS.Model.extend({
 
   encodedSequences: function() {
     return this.get('sequences')
-               .filterBy('isNotOnSite')
+               .filterBy('isNotSiteOn')
                .mapBy('encoded').join('');
   }.property('sequences.@each.encoded'),
 
   encodedSites: function() {
     return this.get('sequences')
-               .filterBy('isOnSite')
+               .filterBy('isSiteOn')
                .mapBy('encoded').join(SITE_DELIMETER);
-  }.property('sequences.@each.isOnSite'),
+  }.property('sequences.@each.isSiteOn'),
 
   sequencesUrlFragDidChange: function() {
     var self = this,
