@@ -11,10 +11,19 @@ export default PresentationRoute.extend({
     var deckArgs = queryParams.d ? {url: queryParams.d} : {},
         mediaArgs = queryParams.m ? {url: queryParams.m} : {};
 
-    return this.store.createRecord('presentation', {
+    var pres = this.store.createRecord('presentation', {
       deck: this.store.createRecord('deck', deckArgs),
       media: this.store.createRecord('media', mediaArgs)
     });
+
+    pres.get('sequences').pushObject(
+      this.store.createRecord('sequence', {
+        start: 0,
+        slide: 1
+      })
+    );
+
+    return pres;
   },
 
   setupController: function(controller, model) {
