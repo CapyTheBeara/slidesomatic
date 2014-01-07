@@ -75,12 +75,16 @@ export default MediaBaseComponent.extend({
     return this.get('player').getCurrentTime();
   },
 
-  _seekTo: function(seconds) {
+  playerPlay: function() {
+    this.get('player').playVideo();
+  },
+
+  seekTo: function(seconds) {
     this.get('player').seekTo(seconds);
   },
 
-  _play: function() {
-    this.get('player').playVideo();
+  pause: function() {
+   this.get('player').pauseVideo();
   },
 
   playerStateDidChange: function() {

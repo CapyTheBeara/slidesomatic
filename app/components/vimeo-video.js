@@ -54,13 +54,17 @@ export default MediaBaseComponent.extend({
     this.set('time', data.seconds);
   },
 
-  _seekTo: function(seconds) {
+  playerPlay: function() {
+    player('play');
+  },
+
+  seekTo: function(seconds) {
     if (seconds === 0) { seconds = 0.01; }  // vimeo doesn't accept 0
     player('seekTo', seconds);
   },
 
-  _play: function() {
-    player('play');
+  pause: function() {
+    player('pause');
   },
 
   willDestroyElement: function() {

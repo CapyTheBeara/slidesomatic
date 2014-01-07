@@ -25,12 +25,16 @@ export default MediaBaseComponent.extend({
     return player;
   }.property(),
 
-  _seekTo: function(seconds) {
+  playerPlay: function() {
+    this.get('player').play();
+  },
+
+  seekTo: function(seconds) {
     this.get('player').seekTo(seconds * 1000);
   },
 
-  _play: function() {
-    this.get('player').play();
+  pause: function() {
+    this.get('player').pause();
   },
 
   willDestroyElement: function() {

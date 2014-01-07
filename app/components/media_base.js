@@ -5,8 +5,9 @@ export default Ember.Component.extend({
   player: null,
 
   checkApiReady: Ember.K,
-  _play: Ember.K,
-  _seekTo: Ember.K,
+  playerPlay: Ember.K,
+  seekTo: Ember.K,
+  pause: Ember.K,
 
   init: function() {
     this._super();
@@ -37,13 +38,13 @@ export default Ember.Component.extend({
 
   currentTime: function(seconds) {
     if (seconds === undefined || seconds < 0) { return this._getTime(); }
-    this._seekTo(seconds);
+    this.seekTo(seconds);
     this.set('time', seconds);
   },
 
   play: function(seconds) {
-    if (seconds !== undefined) { this._seekTo(seconds); }
-    this._play();
+    if (seconds !== undefined) { this.seekTo(seconds); }
+    this.playerPlay();
   },
 
   _getTime: function() {
