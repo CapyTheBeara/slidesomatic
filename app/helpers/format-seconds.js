@@ -1,7 +1,7 @@
 export default Ember.Handlebars.makeBoundHelper(function(seconds, showMs) {
   if (!seconds && seconds !== 0) { return; }
 
-  var time,
+  var ms, time,
       date = new Date(seconds * 1000),
       h = date.getUTCHours(),
       m = date.getUTCMinutes(),
@@ -10,7 +10,7 @@ export default Ember.Handlebars.makeBoundHelper(function(seconds, showMs) {
   if (m < 10) {m = "0" + m;}
 
   if (showMs) {
-    var ms = Math.round(date.getUTCMilliseconds() / 100);
+    ms = Math.round(date.getUTCMilliseconds() / 100);
     if (ms === 10) {
       s += 1;
       ms = 0;

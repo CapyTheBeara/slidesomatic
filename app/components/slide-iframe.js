@@ -17,5 +17,4 @@ export default Ember.Component.extend({
 
     this.set('src', src);
   }.observes('slide', 'endpoint').on('init')
-
 });
