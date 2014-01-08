@@ -1,5 +1,7 @@
 <div {{bind-attr class=":deck-wrapper siteMode:hide"}}
      id='slide-wrapper'>
+  <span id='pointer' class="glyphicon glyphicon-arrow-up hide"></span>
+
   {{#if iframe}}
       {{slide-iframe endpoint = imgEndpoint
                      firstIndex = firstIndex

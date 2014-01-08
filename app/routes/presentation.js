@@ -28,14 +28,23 @@ export default Ember.Route.extend({
   },
 
   setupController: function(controller, model) {
-    this._super(controller, model);
-    this.controllerFor('application').set('wrapperClass', this.get('name'));
-
     var mediaController = this.controllerFor('media'),
         deckController = this.controllerFor('deck'),
         sequencesController = this.controllerFor('sequences');
 
-    sequencesController.set('content', model.get('sequences'));
+    this._super(controller, model);
+
+    controller.set('presentationMode', true);
+
+    this.controllerFor('application').setProperties({
+      modalMode: false,
+      wrapperClass: this.get('name')
+    });
+
+    sequencesController.setProperties({
+      content: model.get('sequences'),
+      editMode: false
+    });
 
     deckController.setProperties({
       content: model.get('deck'),

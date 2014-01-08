@@ -313,23 +313,59 @@ form.sequence-new button {
 
 /* http://www.developerdrive.com/2013/09/how-to-style-range-sliders-in-webkit/ */
 input[type='range'] {
-    -webkit-appearance: none;
-    background-color: #3498db;
-    height: 8px;
-    width: 100%;
-    border-radius: 5px;
-    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+  -webkit-appearance: none;
+  background-color: #3498db;
+  height: 8px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
 }
 
 input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1px solid gray;
-    background: #fff;
-    box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background: #fff;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
 }
+
+input[type='range']::-moz-range-track {
+  -webkit-appearance: none;
+  background-color: #3498db;
+  height: 8px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background: #fff;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+}
+
+input[type='range']::-ms-track {
+  background-color: #3498db;
+  height: 8px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.6);
+}
+
+input[type='range']::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background: #fff;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+}
+
 
 .scroll::-webkit-scrollbar {
     width: 12px;
