@@ -9,20 +9,20 @@
 
   <link rel="stylesheet" href="/assets/bootswatch.css">
   <style>
-/*    .upper{background-color:#1A242F}*/
-    h1{color:#ecf0f1;}
-    .jumbotron{text-align:center;font-size:2.5em;}
-    .pitch {background-color:#ecf0f1;}
-    footer {border-top:1px solid #ecf0f1;padding-top:10px;}
-    footer img {height:50px;}
+h1 {color:#ecf0f1;}
+.panel, .panel-heading, .thumbnail{border-radius:0;}
+.jumbotron{text-align:center;font-size:2.5em;}
+footer {border-top:1px solid #ecf0f1;padding-top:10px;}
+footer img {height:50px;}
 .upper {
-background: #1A242F;
-background: -moz-linear-gradient(top, #1A242F 0%, #394047 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1A242F), color-stop(100%,#394047));
-background: -webkit-linear-gradient(top, #1A242F 0%,#394047 100%);
-background: -o-linear-gradient(top, #1A242F 0%,#394047 100%);
-background: -ms-linear-gradient(top, #1A242F 0%,#394047 100%);
-background: linear-gradient(top, #1A242F 0%,#394047 100%);
+    margin-bottom:28px;
+    background:#1A242F;
+    background:-moz-linear-gradient(top, #1A242F 0%, #394047 100%);
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1A242F), color-stop(100%,#394047));
+    background:-webkit-linear-gradient(top, #1A242F 0%,#394047 100%);
+    background:-o-linear-gradient(top, #1A242F 0%,#394047 100%);
+    background:-ms-linear-gradient(top, #1A242F 0%,#394047 100%);
+    background:linear-gradient(top, #1A242F 0%,#394047 100%);
 }
   </style>
 </head>
@@ -49,39 +49,79 @@ background: linear-gradient(top, #1A242F 0%,#394047 100%);
 </div>
 
 <div class='container'>
-    <section class="row pitch">
-        <div class="col-md-4">
-            <h3>Present in Style</h3>
-            <p>You've spent a lot of effort on your presentation. You even recorded it. Don't just post your slides. Share them the way you intended.</p>
-            <p>Want to use another website as an interactive slide? No problem.</p>
+    <section class="row">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class='panel-title'>Present In Style</h3>
+                </div>
+
+                <div class="panel-body">
+                    <p>You've spent a lot of effort on your presentation. You even recorded it.</p>
+                    <p>Don't just post your slides. Share them the way they were originally intended.</p>
+                    <p>Sync up your recording with your slides.</p>
+                    <p class="invisible">-</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h3>Fast & Easy</h3>
-            <p>No user account or login is required. Use a video or audio file and slide deck that you've already uploaded to another site. After you time your slides to your media, you get a link that you can use to view your presentation or edit it later.</p>
+
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class='panel-title'>Completely Free</h3>
+                </div>
+
+                <div class="panel-body">
+                    <p>No user account or login is required.</p>
+                    <p>Use a video or audio file and slide deck that you've already uploaded to another site.</p>
+                    <p>After you time your slides to your media, you get a link that you can use to view your presentation or edit it later.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-4">
-            <h3>Media</h3>
-            <p>
-                For slides, you can use
-                <a href="https://speakerdeck.com/">Speaker Deck</a>
-                ,
-                <a href="http://www.slideshare.net/">SlideShare</a>
-                ,
-                <a href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">Google Drive</a>
-                , or
-                <a href="http://slid.es/">Slid.es</a>.
-                <br>
-                <em>(Limited support for Slid.es.)</em>
-            </p>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class='panel-title'>Enhance Your Presentation</h3>
+                </div>
 
-            <p>For videos, you can use
-                <a href='http://www.youtube.com/'>YouTube</a>
-                or
-                <a href="https://vimeo.com/">Vimeo</a>.
-            </p>
+                <div class="panel-body">
+                    <p>Set when your video will go to full screen mode.</p>
+                    <p >Include a website as a slide so the viewer can interact with it during the presentation. (Only some websites allow this.)</p>
+                    <p>Add a pause during the presentation so that users can explore have time to explore.</p>
+                </div>
+            </div>
+        </div>
 
-            <p>Want to add sound instead of video? Use <a href="https://soundcloud.com/">SoundCloud</a>.</p>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class='panel-title'>Media Sources</h3>
+                </div>
+
+                <div class="panel-body">
+                    <p>
+                        For slides, you can use
+                        <a href="https://speakerdeck.com/">Speaker Deck</a>
+                        ,
+                        <a href="http://www.slideshare.net/">SlideShare</a>
+                        ,
+                        <a href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">Google Drive</a>
+                        , or
+                        <a href="http://slid.es/">Slid.es</a>.
+                        <br>
+                        <em>(Limited support for Slid.es.)</em>
+                    </p>
+
+                    <p>For videos, you can use
+                        <a href='http://www.youtube.com/'>YouTube</a>
+                        or
+                        <a href="https://vimeo.com/">Vimeo</a>.
+                    </p>
+
+                    <p>Want to add sound instead of video? Use <a href="https://soundcloud.com/">SoundCloud</a>.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -93,20 +133,22 @@ background: linear-gradient(top, #1A242F 0%,#394047 100%);
 
             <div class="col-md-6 thumbnail">
                 <a href='a/#/?v=1&d=0brandonsatrom%2Fsecrets-of-awesome-javascript-api-design&m=2QlQm786MClE&s=010000206k0309Y040AK050Ae060C2070Dm080FK090Fo0A0Ic0B0Lk0C0PA0D0Qk0E0SI0F0WW0G0g-0H0iY0I0qC0J0to0K0xE0L1540M16o0N1BK0O1HQ0P1TS0Q1V00R1cq0S1fU0T1fe0U1js0V1oY0W1va0X1vu0Y26E0Z26Y0a2EW0b2Eq0c2Gs0d2H00e2LO0f2LY0g2O-0h2Su0i2W00j2Zm0l2mu0n2nq0o2qy0p2ra0q2w60r30g0s33U0t38e0u37i0v3AM0w3Bw0x3FC0y3KW0z3QI0-3RE0_3Vm103Y6113ZW123bO133d6143gY153hK163iu173kS183li193qi1A3sQ1B3v41C3vs1D3yM1E3yq1F3_y1G44e1H46q1I48E1J49A1K4Ey1L4FQ1M4GC1N4Ka1O4Mm1P4PG1R4Si1S4U61T4Uu1V4YK1X4YU1Y4bI1Z4ek1a4fM1b4fg1c4iy1d4kW1e4kq1f4lw1g4ms1h4no1i4oQ1j4ok1k4pC1l4pW1m4q81n4r41o4ri1p4sK1q4x01r4yG1s4-c1t4_E1u53S1v56G1w56u1x59E1y5C21z5FU1-5RC1_5Ze' class='example'>
-                    <img src="assets/secrets_of_awesome_js_api_design_bsatrom.png" alt="secrets of awesome javascript api design">
+                    <img src="assets/secrets_of_awesome_js_api_design_bsatrom.png" alt="Secrets Of Awesome Javascript Api Design">
                     <div class="caption">
                         <h4>Speaker Deck + YouTube</h4>
                         <p>Slides displayed as images.</p>
+                        <p><small>Fluent Conference 2013</small></p>
                     </div>
                 </a>
             </div>
 
             <div class="col-md-6 thumbnail">
                 <a href='a/#/?v=1&d=1dmethvin%2Fstate-of-j-query-june-2013-1-22939982&m=2BPkP9Vq46-4&s=010070201R0304704051050F7060Q5070W7080bN090hF0A0-V0B0_P0C13D0D1Cb0E1TP0F1aF0G1eT0H1hj0J1rP0K1t10L2AN0M2O90N2WB0O2hb0P2r30Q2-n0R31x0T3FP0V3Zd0W3bX0X3rt0Y3yr0Z4JB0a4Oj0b4W10c4Wl0d4tr0e50N0f54L0I1l10S37g0U3XQ_-4AW__4E7'>
-                    <img src="assets/state_of_jquery_sept_2013_dmethvin.png" alt="state of jquery sept 2013">
+                    <img src="assets/state_of_jquery_sept_2013_dmethvin.png" alt="State Of jQuery Sept 2013">
                     <div class="caption">
                         <h4>SlideShare + YouTube</h4>
                         <p>Slides displayed as images.</p>
+                        <p><small>jQuery Conference 2013</small></p>
                     </div>
                 </a>
             </div>
@@ -114,22 +156,55 @@ background: linear-gradient(top, #1A242F 0%,#394047 100%);
 
         <div class="row">
             <div class="col-md-6 thumbnail">
-                <a href='a/#/?v=1&d=51e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA&m=27ecsYtRiD5Q&s=018L8048hq058r-068t6078_Q088_k0996K0A99Y099Ae0A9LY0B9Nu0C9Re0D9ZA0E9eG0F9yQ0EA3V0FA4j0GA8z0HAZx0IAoV0JAwT0LBmd0KBpn0LBqn0MCBr0NCrz0OD9T0PDKb0QDR30RDYz0SF0W0TF28_-F4e0UG3v__F_N0VGD70WGDT0XGG30YGHR0ZGTX0aGe70bGf90cGyB0dHUp0eHZ_0fHcH0gHr9_-Hrr__I3A0hI4I0iI6a0jIFY0mIZ30nIdn0oJ1P028aT038h90KBIw_-E3g_-F0X_zF0d&u=_yDaEhttp%3A%2F%2Fjsfiddle.net%2Fqy7Bt%2F244%2F'>
-                    <img src="assets/angularjs_from_an_emberjs_perspective_amatchneer.png" alt="angular.js from an ember.js perspective">
+                <a href='a/#/?v=1&d=51e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA&m=27ecsYtRiD5Q&s=018L8048hq058r-068t6078_Q088_k0996K0A99Y099Ae0A9LY0B9Nu0C9Re0D9ZA0E9eG0F9yQ0EA3V0FA4j0GA8z0HAZx0IAoV0JAwT0LBmd0KBpn0LBqn0MCBr0NCrz0OD9T0PDKb0QDR30RDYz0SF0W0TF28_-F4e0UG3v__F_N0VGD70WGDT0XGG30YGHR0ZGTX0aGe70bGf90cGyB0dHUp0eHZ_0fHcH0gHr9_-Hrr__I3A0hI4I0iI6a0jIFY0mIZ30nIdn0oJ1P028aT038h90KBIw_-E3g__F0V_zF0P&u=_yDaEhttp%3A%2F%2Fjsfiddle.net%2Fqy7Bt%2F244%2F'>
+                    <img src="assets/angularjs_from_an_emberjs_perspective_amatchneer.png" alt="Angular.js From An Ember.js Perspective">
                     <div class="caption">
                         <h4>Google Drive + YouTube</h4>
-                        <p>Slides remain interactive.</p>
-                        <p>Presentation incorporates the JSFiddle website as a slide and automated full video display.</p>
+                        <p>Slides remain interactive.
+                            <br>
+                            <small>Presented by Alex Matchneer.</small>
+                        </p>
                     </div>
                 </a>
             </div>
 
             <div class="col-md-6 thumbnail">
                 <a href='a/#/?v=1&d=6forresto%2Fjsconf-2013&m=2TElh0ne0Cxw&s=01000020BW030I4040RC050Sg060cO070i0080si090xK0A1CC_-1Fu__1R00B1RU_-1Yc__1cW0C1cm0D1dK0E1le0F1wk0G20m0H27C0I2G40K2Ki_-0zK__194_-2LU'>
-                    <img src="assets/design_for_hackability_foliphant.png" alt="design for hackability">
+                    <img src="assets/design_for_hackability_foliphant.png" alt="Design For Hackability">
                     <div class="caption">
                         <h4>Slid.es + YouTube</h4>
-                        <p>Slides remain interactive.</p>
+                        <p>Slides remain interactive.
+                            <br>
+                            <small>JSConf EU 2013</small>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 thumbnail">
+                <a href='a#/?v=1&d=0addyosmani%2Fdecoupling-javascript-vs-the-world&m=444100359&s=01000020DP030Et040Fz050HR060Ip070N3080Nr090Oj0A0PR0B0R70C0S20D0Vm0F0c80H0hk0I0iy0J0m-0K0rs0L0-m0M10U0N1660O1Mq0P1NW0Q1Qw0R1Ui0S1WC0T1ge0U1h20V1hE0W1is0X1l80Y1tc0Z1xm0a1yE0b1yc0c1zM0d1zg0j22i0k2W60l2YA0m2co0n2d60o2dE0r3540s36C0t3Gw0u3H00v3HS0y3QS0z3RG123q0133qE143uK153z4163_W1742s194mY1B4n01E4-G1G4_G1I53S1L63O1N64U1Q6521V65m1W66Y1X66c1a66o1b67a1c6EC1d6Ek_-00A__06O_-1A7__1MU_-23J__2Vu_-2i5__34a_-43S__4mT_-552__63M_-3Hl__3QH_-3Uu__3YC_-3eC__3pc'>
+                    <img src="assets/decoupling_js_vs_the_world_aosmani.png" alt="Decoupling Javascript Vs The World">
+                    <div class="caption">
+                        <h4>Speaker Deck + Vimeo</h4>
+                        <p>
+                            <br>
+                            <small>The Web Rebels Conference 2012</small>
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 thumbnail">
+                <a href='a/#/?v=1&d=0trek%2Fthe-rendering-revolution-running-apps-in-the-browser-with-ember-dot-js&m=2_EKiaOElaag&s=010000307o040B3050Bl060Eh070JA080NI090RJ0C0Zw0D0br0B0ZN0A0ZL0F0gN0E0ey0G0l50H0oQ0I0qC0J0tM0K0vU0L0yU0M0_m0N1130O12j0P13K0Q13_0R14G0S14V0T1At0X1J50U1Ds0V1GS0W1H40Y1Lv0Z1Ny0a1OT0b1Pz0c1TI0d1Um0e1Xo0f1Z80g1cG0h1d-0i1fE0j1g30k1iJ0l1is0m1jM0n1lC0o1m-0p1nk0q1uT0r1vS0s1wI0t1_i0u21-0v25L0w27-0x28i0y2A70z2AQ0-2Cg0_2HJ102Hu112I-122OB132O_142PJ152QI162TC172UX182Xv1A2Ze1B2bb1C2cB1D2di1E2em1F2gX1G2h31H2hN1I2iM1J2iv1K2k21L2l51M2lJ1N2ly1O2nU1P2nl1Q2o11R2pv1S2ql1T2rt1U2s81V2tl1W2xI1X2-11Y2-S1Z2-w1a2_w1b30b1c30t1d3151e31S1f31j1g32e1h34q1i35A1j35q1k37k1l38p1m3Aq1n3BG1o3Bh1p3Cj1q3Ey1r3IW1s3Kb1t3Mn&u=_y4oohttp%3A%2F%2Fdiscourse.org%2F+_y6GFhttp%3A%2F%2Femblemjs.com%2F+_y6Qchttp%3A%2F%2Fiamstef.net%2Fember-app-kit%2F'>
+                    <img src="assets/the_rendering_revolution_tglowacki.png" alt="The Rendering Revolution: Running Apps in the Browser with Ember.js">
+                    <div class="caption">
+                        <h4>Speaker Deck + Vimeo</h4>
+                        <p>The Rendering Revolution: Running Apps in the Browser with Ember.js
+                            <br>
+                            <small>Presented by Trek Glowack. All Things Open 2013</small>
+                        </p>
                     </div>
                 </a>
             </div>

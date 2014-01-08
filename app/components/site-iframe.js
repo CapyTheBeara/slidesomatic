@@ -7,6 +7,8 @@ function setMatchMedia(component) {
     var media = '(min-width: ' + width + 'px)',
         check = window.matchMedia(media);
 
+    if (!component) { return; }
+
     check.addListener(function(mediaQueryList) {
       Ember.run(function() {
         component.set('check' + width, mediaQueryList.matches);
