@@ -45,6 +45,11 @@ export default DS.Model.extend({
 
   urlFrag: null,
   externalUrlFrag: null,
+  disabled: null,  // set if a VIDEO_ON sequence was closed
+
+  eq: function(seq) {
+    return this.get('start') === seq.get('start');
+  },
 
   mode: function(k, v) {
     if (v) {

@@ -13,7 +13,7 @@
         <tbody>
         {{#each filteredContent itemController='sequence'}}
             <tr {{action 'skipTo' start}}
-                {{bind-attr class='isPastSequence:past'}}>
+                {{bind-attr class='isPastSequence:past disabled'}}>
                 <td>
                     {{#if editMode}}
                         {{format-seconds start true}}

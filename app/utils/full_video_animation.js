@@ -29,11 +29,15 @@ export default Ember.Object.extend({
         width: '100%',
         height: '100%'
       });
+
+      $('.close-media-button').removeClass('hide');
     });
   },
 
   contract: function() {
     var el = this.get('el');
+
+    $('.close-media-button').addClass('hide');
 
     el.css({
       position: 'relative',

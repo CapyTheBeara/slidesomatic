@@ -1,4 +1,12 @@
 <div id="media-view">
+  {{#unless editMode}}
+    <button type = "button"
+            class = "close close-media-button hide"
+            {{action 'fullVideoOff'}}>
+      &times;
+    </button>
+  {{/unless}}
+
   {{#if youtube}}
     {{youtube-video media = content
                     time = time

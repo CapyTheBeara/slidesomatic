@@ -20,11 +20,20 @@ export default Ember.ObjectController.extend({
   presentationMode: true,
   sequences: null,
 
-  videoMode: false,
-  findVideoMode: sequenceFinder('video').observes('time'),
-
   pauseMode: false,
   findPauseMode: sequenceFinder('pause').observes('time'),
+
+  videoMode: false,
+  blockedVideoSeq: null,
+  currentVideoSeq: null,
+
+  findVideoMode: sequenceFinder('video', function(self, seq) {
+    self.set('currentVideoSeq', seq);
+    var blocked = self.get('blockedVideoSeq');
+
+    if (blocked && blocked.eq(seq)) { return false; }
+    return true;
+  }).observes('time'),
 
   videoModeDidChange: function() {
     if (!this.get('presentationMode')) { return; }
@@ -68,6 +77,19 @@ export default Ember.ObjectController.extend({
   actions: {
     setPlayer: function(player) {
       this.set('player', player);
+    },
+
+    fullVideoOff: function() {
+      var blocked = this.get('currentVideoSeq'),
+          oldBlocked = this.get('blockedVideoSeq');
+
+      blocked.set('disabled', true);
+      if (oldBlocked) { oldBlocked.set('disabled', false); }
+
+      this.setProperties({
+        videoMode: false,
+        blockedVideoSeq: blocked
+      });
     }
   }
 });

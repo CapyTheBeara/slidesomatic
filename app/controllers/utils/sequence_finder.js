@@ -1,12 +1,16 @@
 function sequenceFinder(type, callback) {
   return function() {
-    var seq = sequenceFinder.search(this, type);
+    var seq = sequenceFinder.search(this, type),
+        mode = type + 'Mode';
 
     if (seq && seq.get('isOn')) {
-      this.set(type + 'Mode', true);
-      if (callback) { callback(this, seq); }
+
+      if (callback) {
+        if (callback(this, seq)) { this.set(mode, true); }
+      }
+      else { this.set(mode, true); }
     }
-    else { this.set(type + 'Mode', false); }
+    else { this.set(mode, false); }
   };
 }
 
