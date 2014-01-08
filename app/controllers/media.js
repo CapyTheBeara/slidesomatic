@@ -14,10 +14,10 @@ export default Ember.ObjectController.extend({
 
   time: 0,
   animation: null,
+  presentationModeBinding: 'playback.presentationMode',
 
   // set/override these in route
   editMode: false,
-  presentationMode: true,
   sequences: null,
 
   pauseMode: false,

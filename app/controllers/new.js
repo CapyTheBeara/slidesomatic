@@ -16,7 +16,7 @@ export default PresentationController.extend({
   needs: ['application', 'media', 'deck', 'sequences'],
   slideBinding: 'controllers.deck.slide',
   siteModeBinding: 'controllers.deck.siteMode',
-  presentationModeBinding: 'controllers.deck.presentationMode',
+  presentationModeBinding: 'playback.presentationMode',
   videoModeBinding: 'controllers.media.videoMode',
 
   maxSeqs: function() {

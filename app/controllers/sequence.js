@@ -13,7 +13,8 @@ export default Ember.ObjectController.extend({
   }.property('currentSequence'),
 
   eq: function(seq) {
-    return this.get('content').eq(seq);
+    var content = this.get('content');
+    return content && content.eq(seq);
   },
 
   actions: {

@@ -4,6 +4,7 @@ export default Ember.ObjectController.extend({
 
   needs: ['media'],
   timeBinding: 'controllers.media.time',
+  presentationModeBinding: 'playback.presentationMode',
 
   actions: {
     changeTab: function(tab) {

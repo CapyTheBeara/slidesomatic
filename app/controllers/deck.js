@@ -5,15 +5,15 @@ export default Ember.ObjectController.extend({
   site: null,
   siteMode: false,
 
-  // set/override these in route
-  presentationMode: true,
+  // set in route
   sequences: null,
 
   timeBinding: 'sequences.time',
   currentSequenceBinding: 'sequences.currentSequence',
+  presentationModeBinding: 'playback.presentationMode',
 
   findSiteMode: sequenceFinder('site', function(self, seq) {
-    self.set('site', seq.get('site'));
+    return self.set('site', seq.get('site'));
   }).observes('time'),
 
   findSlide: function() {
@@ -36,9 +36,9 @@ export default Ember.ObjectController.extend({
           });
 
       if (seq) { return seq.get('slide'); }
-    } else {
-      return this.get('slide') + 1;
     }
+
+    return this.get('slide') + 1;
   }.property('sequences', 'currentSequence', 'slide'),
 
   iframe: function() {

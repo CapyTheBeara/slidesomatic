@@ -28,19 +28,10 @@ export default PresentationRoute.extend({
 
   setupController: function(controller, model) {
     this._super(controller, model);
+
+    controller.set('presentationMode', false);
     this.controllerFor('application').set('modalMode', true);
-
-    this.controllerFor('media').setProperties({
-      presentationMode: false
-    });
-
-    this.controllerFor('deck').setProperties({
-      presentationMode: false
-    });
-
-    this.controllerFor('sequences').setProperties({
-      editMode: true
-    });
+    this.controllerFor('sequences').set('editMode', true);
 
     if (model.get('deck.url')) {
       controller.send('submitUrls');

@@ -9,7 +9,11 @@ var App = Ember.Application.extend({
   LOG_TRANSITIONS_INTERNAL: true,
   LOG_VIEW_LOOKUPS: true,
   modulePrefix: 'appkit', // TODO: loaded via config
-  Resolver: Resolver['default']
+  Resolver: Resolver['default'],
+
+  customEvents: {
+    'input' : 'input'
+  }
 });
 
 Ember.RSVP.configure('onerror', function(error) {
@@ -18,6 +22,18 @@ Ember.RSVP.configure('onerror', function(error) {
   if (error instanceof Error) {
     Ember.Logger.assert(false, error);
     Ember.Logger.error(error.stack);
+  }
+});
+
+var Playback = Ember.Object.extend({
+  presentationMode: true
+});
+
+Ember.Application.initializer({
+  name: 'playbackInitializer',
+  initialize: function(container, application) {
+    container.register('playback:current', Playback);
+    application.inject('controller', 'playback', 'playback:current');
   }
 });
 

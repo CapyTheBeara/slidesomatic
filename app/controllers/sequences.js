@@ -12,7 +12,7 @@ var SequencesController = Ember.ArrayController.extend({
 
   needs: ['media'],
   timeBinding: 'controllers.media.time',
-  presentationModeBinding: 'controllers.media.presentationMode',
+  presentationModeBinding: 'playback.presentationMode',
 
   filteredContent: function() {
     if (this.get('editMode')) {
@@ -34,17 +34,22 @@ var SequencesController = Ember.ArrayController.extend({
 
     if (!hit) { return this.set('currentSequence', this.get('firstObject')); }
     if (!currentSequence || !currentSequence.eq(hit)) {
+      if (currentSequence && !currentSequence.get('isDestroyed')) {
+        currentSequence.set('active', false);
+      }
+
+      hit.set('active', true);
       this.set('currentSequence', hit);
     }
   }.observes('time'),
 
   updateScrollTop: function() {
     if (this.get('presentationMode')) {
-      rowHeight = $('.sequences-table tr:first').height() - 1;
+      rowHeight = rowHeight || $('.sequences-table tbody tr:first').height();
       if (!rowHeight) { return; }
 
       var index = this.get('currentSequenceIndex');
-      $('.sequences-table').animate({ scrollTop: rowHeight*(index - 2) });
+      $('.sequences-table').animate({ scrollTop: rowHeight * index });
     }
   }.observes('currentSequence'),
 

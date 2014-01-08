@@ -4,8 +4,12 @@
 @-webkit-keyframes domChanged { from { background: yellow; } }
 .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
 */
-html, body {
-  min-height: 100%;
+html, body,
+div.ember-view:nth-of-type(1),
+div.presentation,
+.presentation div.row:nth-of-type(1),
+.presentation div.col-md-9:nth-of-type(1) {
+  height: 100%;
 }
 
 body {
@@ -37,6 +41,15 @@ button.close-media-button {
   position: fixed;
   right: 0;
   z-index: 11
+}
+
+#pointer {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  z-index: 5;
+  height: 15px;
+  position: absolute;
 }
 
 #site-iframe {
@@ -140,6 +153,10 @@ form.sequence-new button {
   .disabled {
     background-color: #e74c3c;
     opacity: 0.65;
+  }
+
+  tr {
+    height: 41px;
   }
 
   tr:hover:not(:first-child) {
