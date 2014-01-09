@@ -4,16 +4,18 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Slides-O-Matic</title>
-  <meta name="description" content="">
+  <link rel="shortcut icon" href="/assets/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="/assets/bootswatch.css">
   <style>
 h1 {color:#ecf0f1;}
 .panel, .panel-heading, .thumbnail{border-radius:0;}
+.panel{height:290px;}
 .jumbotron{text-align:center;font-size:2.5em;}
-footer {border-top:1px solid #ecf0f1;padding-top:10px;}
-footer img {height:50px;}
+footer {border-top:1px solid #ecf0f1;padding:30px 0;}
+footer img {height:30px;}
+.thumbnail:hover{background-color: #D9F1FA}
 .upper {
     margin-bottom:28px;
     background:#1A242F;
@@ -60,7 +62,6 @@ footer img {height:50px;}
                     <p>You've spent a lot of effort on your presentation. You even recorded it.</p>
                     <p>Don't just post your slides. Share them the way they were originally intended.</p>
                     <p>Sync up your recording with your slides.</p>
-                    <p class="invisible">-</p>
                 </div>
             </div>
         </div>
@@ -87,8 +88,11 @@ footer img {height:50px;}
 
                 <div class="panel-body">
                     <p>Set when your video will go to full screen mode.</p>
-                    <p >Include a website as a slide so the viewer can interact with it during the presentation. (Only some websites allow this.)</p>
-                    <p>Add a pause during the presentation so that users can explore have time to explore.</p>
+                    <p >Include a website as a slide so the viewer can interact with it during the presentation.
+                        <br>
+                        <small><em>(Only some websites allow this.)</em></small>
+                    </p>
+                    <p>Add a pause during the presentation so that viewers know when to explore.</p>
                 </div>
             </div>
         </div>
@@ -102,24 +106,24 @@ footer img {height:50px;}
                 <div class="panel-body">
                     <p>
                         For slides, you can use
-                        <a href="https://speakerdeck.com/">Speaker Deck</a>
+                        <a target='_blank' href="https://speakerdeck.com/">Speaker Deck</a>
                         ,
-                        <a href="http://www.slideshare.net/">SlideShare</a>
+                        <a target='_blank' href="http://www.slideshare.net/">SlideShare</a>
                         ,
-                        <a href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">Google Drive</a>
+                        <a target='_blank' href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">Google Drive</a>
                         , or
-                        <a href="http://slid.es/">Slid.es</a>.
+                        <a target='_blank' href="http://slid.es/">Slid.es</a>.
                         <br>
-                        <em>(Limited support for Slid.es.)</em>
+                        <small><em>(Limited support for Slid.es.)</em></small>
                     </p>
 
                     <p>For videos, you can use
-                        <a href='http://www.youtube.com/'>YouTube</a>
+                        <a target='_blank' href='http://www.youtube.com/'>YouTube</a>
                         or
-                        <a href="https://vimeo.com/">Vimeo</a>.
+                        <a target='_blank' href="https://vimeo.com/">Vimeo</a>.
                     </p>
 
-                    <p>Want to add sound instead of video? Use <a href="https://soundcloud.com/">SoundCloud</a>.</p>
+                    <p>Want to add sound instead of video? Use <a target='_blank' href="https://soundcloud.com/">SoundCloud</a>.</p>
                 </div>
             </div>
         </div>
@@ -200,7 +204,7 @@ footer img {height:50px;}
                 <a href='a/#/?v=1&d=0trek%2Fthe-rendering-revolution-running-apps-in-the-browser-with-ember-dot-js&m=2_EKiaOElaag&s=010000307o040B3050Bl060Eh070JA080NI090RJ0C0Zw0D0br0B0ZN0A0ZL0F0gN0E0ey0G0l50H0oQ0I0qC0J0tM0K0vU0L0yU0M0_m0N1130O12j0P13K0Q13_0R14G0S14V0T1At0X1J50U1Ds0V1GS0W1H40Y1Lv0Z1Ny0a1OT0b1Pz0c1TI0d1Um0e1Xo0f1Z80g1cG0h1d-0i1fE0j1g30k1iJ0l1is0m1jM0n1lC0o1m-0p1nk0q1uT0r1vS0s1wI0t1_i0u21-0v25L0w27-0x28i0y2A70z2AQ0-2Cg0_2HJ102Hu112I-122OB132O_142PJ152QI162TC172UX182Xv1A2Ze1B2bb1C2cB1D2di1E2em1F2gX1G2h31H2hN1I2iM1J2iv1K2k21L2l51M2lJ1N2ly1O2nU1P2nl1Q2o11R2pv1S2ql1T2rt1U2s81V2tl1W2xI1X2-11Y2-S1Z2-w1a2_w1b30b1c30t1d3151e31S1f31j1g32e1h34q1i35A1j35q1k37k1l38p1m3Aq1n3BG1o3Bh1p3Cj1q3Ey1r3IW1s3Kb1t3Mn&u=_y4oohttp%3A%2F%2Fdiscourse.org%2F+_y6GFhttp%3A%2F%2Femblemjs.com%2F+_y6Qchttp%3A%2F%2Fiamstef.net%2Fember-app-kit%2F'>
                     <img src="assets/the_rendering_revolution_tglowacki.png" alt="The Rendering Revolution: Running Apps in the Browser with Ember.js">
                     <div class="caption">
-                        <h4>Speaker Deck + Vimeo</h4>
+                        <h4>Speaker Deck + YouTube</h4>
                         <p>The Rendering Revolution: Running Apps in the Browser with Ember.js
                             <br>
                             <small>Presented by Trek Glowack. All Things Open 2013</small>
@@ -212,14 +216,21 @@ footer img {height:50px;}
     </section>
 
     <footer>
-        <div class="row">
-            <aside class='md-col-2 col-md-offset-10'>
+        <aside class="row">
+            <div class='col-md-2 col-md-offset-8'>
                 <em>
                     Powered by
                     <small><a href="http://emberjs.com/"><img src="assets/tomster-sm.png" alt="Ember.js"></a></small>
                 </em>
-            </aside>
-        </div>
+            </div>
+
+            <div class='col-md-2'>
+                <em>
+                    Hosted at
+                    <small><a href="https://github.com/monocle/slidesomatic"><img src="assets/GitHub-Mark.png" alt="github.com"></a></small>
+                </em>
+            </div>
+        </aside>
     </footer>
 </div>
 

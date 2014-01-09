@@ -16,12 +16,12 @@ export default PresentationRoute.extend({
       media: this.store.createRecord('media', mediaArgs)
     });
 
-    pres.get('sequences').pushObject(
-      this.store.createRecord('sequence', {
-        start: 0,
-        slide: 1
-      })
-    );
+    // pres.get('sequences').pushObject(
+    //   this.store.createRecord('sequence', {
+    //     start: 0,
+    //     slide: 1
+    //   })
+    // );
 
     return pres;
   },

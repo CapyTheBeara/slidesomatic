@@ -114,7 +114,7 @@ export default PresentationController.extend({
     shortenUrl: function() {
       if (confirm('Are you finished?\n(Shortened URLs should only be obtained once you have finished adding all of your slide sequences.)')) {
         var self = this,
-            url = this.get('presentation.url');
+            url = this.get('url');
 
         shortenUrl(url).then(function(res) {
           self.set('shortUrl', res.url);
@@ -134,10 +134,10 @@ export default PresentationController.extend({
       var deck = this.get('deck'),
           media = this.get('media');
 
-      deck.set('url', "https://speakerdeck.com/jrallison/ember-components");
+      deck.set('url', 'http://www.slideshare.net/nzakas/maintainable-javascript-2012');
       // deck.set('url', 'https://docs.google.com/presentation/d/1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI/edit?pli=1#slide=id.g177d510c8_0342');
       // deck.set('url', 'http://slid.es/jonathangoldman/reducecomputed/');
-      media.set('url', "http://www.youtube.com/watch?v=8MYcjaar7Vw#t=1451");
+      media.set('url', "http://www.youtube.com/watch?v=c-kav7Tf834");
       // media.set('url', "https://soundcloud.com/armadamusic/armin-van-buuren-shivers");
       // media.set('url', 'http://vimeo.com/76153146');
       deck.validate();

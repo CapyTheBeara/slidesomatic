@@ -25,7 +25,8 @@ export default DS.Model.extend({
   }.property('deck.url', 'media.url', 'encodedSequences', 'encodedSites'),
 
   url: function() {
-    return window.location.host + "/" + this.get('path');
+    var location = window.location;
+    return [location.protocol, '/', location.host, 'a/', this.get('path')].join('/');
   }.property('path'),
 
   firstSequence: function() {
