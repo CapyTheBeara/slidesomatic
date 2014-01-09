@@ -2,7 +2,7 @@
     <div class='form-group col-md-12'>
         <label>Slides Address</label>
         {{input class = 'form-control'
-                placeholder = 'ex. https://speakerdeck.com/addyosmani/decoupling-javascript-vs-the-world'
+                placeholder = 'ex. http://www.slideshare.net/dmethvin/state-of-j-query-june-2013-1-22939982'
                 value = deck.url
                 action = 'addDeck'}}
 
@@ -11,16 +11,16 @@
                 {{validation-message validationState=deck.validationState}}
             {{else}}
                     Supported sites:
-                    <a href="https://speakerdeck.com/">
+                    <a target='_blank' href="https://speakerdeck.com/">
                         Speaker Deck
                     </a>,
-                    <a href="http://www.slideshare.net">
+                    <a target='_blank' href="http://www.slideshare.net">
                         SlideShare
                     </a>,
-                    <a href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">
+                    <a target='_blank' href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">
                         Google Drive
                     </a>, or
-                    <a href="http://slid.es/">
+                    <a target='_blank' href="http://slid.es/">
                         Slid.es
                     </a>
                     .
@@ -35,7 +35,7 @@
         <div class='form-group col-md-7'>
             <label>Video/Audio Address</label>
             {{input class = 'form-control'
-                    placeholder = 'ex. http://vimeo.com/44100359'
+                    placeholder = 'ex. http://www.youtube.com/watch?v=BPkP9Vq46-4'
                     value = media.url
                     action = 'addVideo'}}
 
@@ -44,13 +44,13 @@
                     {{validation-message validationState=media.validationState}}
                 {{else}}
                     Supported sites:
-                        <a href="http://www.youtube.com">
+                        <a target='_blank' href="http://www.youtube.com">
                             YouTube
                         </a>,
-                        <a href="https://vimeo.com/">
+                        <a target='_blank' href="https://vimeo.com/">
                             Vimeo
                         </a>,
-                        <a href="https://soundcloud.com/">SoundCloud</a>
+                        <a target='_blank' href="https://soundcloud.com/">SoundCloud</a>
                 {{/if}}
             </div>
         </div>

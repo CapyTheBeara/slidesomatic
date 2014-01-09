@@ -59,7 +59,8 @@ module.exports = {
         '!**/*.{css,js}', // Already handled by concat
         '!**/*.{png,gif,jpg,jpeg}', // Already handled by imagemin
         '!tests/**/*', // No tests, please
-        '!**/*.map' // No source maps
+        '!**/*.map', // No source maps
+        '**/assets/bootswatch.css'
       ],
       filter: 'isFile',
       dest: 'dist/'
