@@ -1,20 +1,43 @@
-import MediaMixin from 'appkit/models/media/media_mixin';
+/* jshint eqeqeq: false */
 
-import Slideshare from 'appkit/models/media/slideshare';
-import Speakerdeck from 'appkit/models/media/speakerdeck';
-import Google from 'appkit/models/media/google';
-import Slid from 'appkit/models/media/slid';
+import ResourceMixin from 'appkit/models/support/resource_model_mixin';
 
-var attr = DS.attr;
+var Deck = DS.Model.extend(
+  ResourceMixin, {
 
-export default DS.Model.extend(MediaMixin, {
-  url: attr(),
-  presentation: DS.belongsTo('presentation'),
+  speakerdeckFirstIndex: 0,
+  slideshareFirstIndex: 1,
+  googleFirstIndex: 1,
+  slidFirstIndex: 0,
 
-  mediaTypes: {
-    speakerdeck: Speakerdeck,
-    slideshare: Slideshare,
-    google: Google,
-    slid: Slid
-  }
+  firstIndex: function() {
+    return this.getProperty('FirstIndex');
+  }.property('domainRoot'),
+
+  slideEndpoint: function() {
+    return this.getProperty('Endpoint');
+  }.property('queryResult', 'domainRoot'),
+
+  speakerdeckEndpoint: function() {
+    var res = this.get('queryResult'),
+        href = res.query.results.a.href;
+    return href.split(/\/[^/]*$/)[0] + "/slide_NUMBER.jpg";
+  }.property('queryResult'),
+
+  slideshareEndpoint: function() {
+    var res = this.get('queryResult'),
+        src = res.query.results.img.src;
+    return src.split('?cb=')[0]
+              .replace(/slide-1/, 'slide-NUMBER');
+  }.property('queryResult'),
+
+  slidEndpoint: function() {
+    return this.get('url') + '/fullscreen#/NUMBER';
+  }.property('queryResult'),
+
+  googleEndpoint: function() {
+    return [this.get('domain'), this.get('id'),'/embed#slide=NUMBER'].join('');
+  }.property('queryResult')
 });
+
+export default Deck;
