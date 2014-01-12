@@ -1,13 +1,27 @@
-export default Ember.Mixin.create({
-  findQuery: function(store, modelClass, params) {
-    var yql = "http://query.yahooapis.com/v1/public/yql?q=",
-        url = params.domain + params.id,  //= "https://speakerdeck.com/" + "jrallison/ember-components"
-        domainRoot = params.domainRoot,
-        query = this[domainRoot + 'Query'](),  //= "speakerdeckQuery"
-        endpoint = yql + query.replace('URL', encodeURIComponent(url)) + '&format=json';
+import queryParams from 'appkit/utils/query_params';
 
-    return $.getJSON(endpoint);
+export default Ember.Mixin.create({
+  modelProperties: null,
+
+  find: function(store, modelClass, id) {
+    this.set('modelProperties', queryParams({ id: id }));
+    return $.getJSON(this.get('endpoint'));
   },
+
+  findQuery: function(store, modelClass, params) {
+    this.set('modelProperties', queryParams(params));
+    return $.getJSON(this.get('endpoint'));
+  },
+
+  endpoint: function() {
+    var yql = "http://query.yahooapis.com/v1/public/yql?q=",
+        props = this.get('modelProperties'),
+        url = props.url,
+        domainRoot = props.domainRoot,
+        query = this[domainRoot + 'Query']();  //= "speakerdeckQuery"
+
+    return yql + query.replace('URL', encodeURIComponent(url)) + '&format=json';
+  }.property('modelProperties'),
 
   xpathQuery: function(xpath) {
     var query = "select%20*%20from%20html%20where%20url%3D'URL'%20AND%20xpath%3D'XPATH'";

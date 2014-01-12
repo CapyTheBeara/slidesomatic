@@ -5,17 +5,18 @@ var gdataEndpoint = 'http://gdata.youtube.com/feeds/api/videos/VIDEO_ID?v=2&alt=
 export default DS.RESTAdapter.extend(
   YQLAdapterMixin, {
 
-  findQuery: function(store, modelClass, params) {
-    if (params.domainRoot === 'youtube') {
-      return this.youtubeQuery(params.id);
+  endpoint: function() {
+    var props = this.get('modelProperties');
+
+    if (props.domainRoot === 'youtube') {
+      return this.youtubeQuery(props.externalId);
     }
 
-    return this._super(store, modelClass, params);
-  },
+    return this._super();
+  }.property('modelProperties'),
 
   youtubeQuery: function(id) {
-    var endpoint = gdataEndpoint.replace('VIDEO_ID', id);
-    return $.getJSON(endpoint);
+    return gdataEndpoint.replace('VIDEO_ID', id);
   },
 
   vimeoQuery: function() {
