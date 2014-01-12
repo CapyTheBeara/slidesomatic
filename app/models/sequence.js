@@ -43,8 +43,8 @@ export default DS.Model.extend({
   slide: attr('number', { defaultValue: 1 }),
   site: attr(),
 
-  urlFrag: null,
-  externalUrlFrag: null,
+  hash: null,
+  siteHash: null,
 
   eq: function(seq) {
     return this.get('start') === seq.get('start');
@@ -103,19 +103,19 @@ export default DS.Model.extend({
     return encoded;
   }.property('start', 'slide', 'site'),
 
-  urlFragDidChange: function() {
-    var frag = this.get('urlFrag'),
+  hashDidChange: function() {
+    var frag = this.get('hash'),
         slide = base64(frag.slice(0,2)),
         start = base64(frag.slice(2)) / 10;
 
     this.setProperties({ start: start, slide: slide });
-  }.observes('urlFrag'),
+  }.observes('hash'),
 
-  siteFragDidChange: function() {
-    var frag = this.get('siteFrag'),
-        urlFrag = frag.slice(0,5),
+  siteHashDidChange: function() {
+    var frag = this.get('siteHash'),
+        hash = frag.slice(0,5),
         url = decodeURIComponent(frag.slice(5));
 
-    this.setProperties({ urlFrag: urlFrag, site: url });
-  }.observes('siteFrag')
+    this.setProperties({ hash: hash, site: url });
+  }.observes('siteHash')
 });

@@ -40,4 +40,26 @@ var Deck = DS.Model.extend(
   }.property('queryResult')
 });
 
+Deck.reopenClass({
+  find: function(modelType, params) {
+    var self = this;
+
+    return this.store.find(modelType, params).then(
+      function(res) {
+        var model = res.get('firstObject');
+        model.setPropertiesFromParams(params);
+        model.set('validationState', 'valid');
+        return model;
+      },
+      function(res) {
+console.log('requestError', res);
+        return self.store.createRecord(modelType, {
+          validationState: 'requestError'
+        });
+      }
+    );
+  }
+
+});
+
 export default Deck;
