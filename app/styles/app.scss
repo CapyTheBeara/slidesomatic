@@ -6,9 +6,9 @@
 */
 html, body,
 div.ember-view:nth-of-type(1),
-div.presentation,
-.presentation div.row:nth-of-type(1),
-.presentation div.col-md-9:nth-of-type(1) {
+div.view,
+.view div.row:nth-of-type(1),
+.view div.col-md-9:nth-of-type(1) {
   height: 100%;
 }
 
@@ -28,8 +28,8 @@ body {
   background-color: #FFEFD5;
 }
 
-.container.presentation,
-.container.new {
+.container.view,
+.container.edit {
   padding: 0 5px;
   width: 100%;
 }
@@ -62,16 +62,16 @@ button.close-media-button {
   height: 100%;
 }
 
-.presentation .deck-wrapper,
-.presentation .deck-player {
+.view .deck-wrapper,
+.view .deck-player {
   height: 100%;
 }
 
-.presentation .deck-player {
+.view .deck-player {
   width: 100%;
 }
 
-.presentation {
+.view {
   #media-view {
     height: 200px;
     position: relative;
@@ -89,7 +89,7 @@ button.close-media-button {
   }
 }
 
-.new {
+.edit {
   .deck-wrapper,
   #site-iframe-wrapper,
   #media-view {
@@ -103,6 +103,10 @@ button.close-media-button {
 
   .nav-stacked {
     background-color: #ECF0F1;
+  }
+
+  .sequences-table {
+    height: 120px;
   }
 }
 
@@ -169,10 +173,6 @@ form.sequence-new button {
     margin-right: -25px;
     overflow-x: scroll;
   }
-}
-
-.new .sequences-table {
-  height: 120px;
 }
 
 .deck-controls input {

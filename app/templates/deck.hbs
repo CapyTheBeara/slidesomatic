@@ -1,22 +1,26 @@
-<div {{bind-attr class=":deck-wrapper siteMode:hide"}}
-     id='slide-wrapper'>
-  <span id='pointer' class="glyphicon glyphicon-arrow-up hide"></span>
+<div {{bind-attr id = 'slide-wrapper'
+                 class = ":deck-wrapper siteMode:hide"}}>
 
-  {{#if iframe}}
-      {{slide-iframe endpoint = imgEndpoint
-                     firstIndex = firstIndex
-                     slide = slide}}
-  {{else}}
-      {{slide-image endpoint = imgEndpoint
-                    firstIndex = firstIndex
-                    deck  = this}}
+    <span id='pointer'
+          class="glyphicon glyphicon-arrow-  up hide">
+    </span>
 
-      {{slide-image endpoint = imgEndpoint
-                    firstIndex = firstIndex
-                    deck = this
-                    hidden = true}}
-  {{/if}}
+    {{#if iframe}}
+        {{slide-iframe endpoint = slideEndpoint
+                       firstIndex = firstIndex
+                       slide = slide}}
+    {{else}}
+        {{slide-image endpoint = slideEndpoint
+                      firstIndex = firstIndex
+                      deck  = this}}
+
+        {{slide-image endpoint = slideEndpoint
+                      firstIndex = firstIndex
+                      deck = this
+                      hidden = true}}
+    {{/if}}
 </div>
+
 
 {{site-iframe class = 'deck-wrapper'
               show = siteMode

@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-md-5">
+        {{outlet deck}}
+    </div>
+
+    <div class="col-md-7" id='media'>
+        {{outlet media}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 input-sliders">
+        {{input-slider value = scrubHighValue
+                       magnitude = 5
+                       action = 'scrub'}}
+        {{input-slider value = scrubMediumValue
+                       magnitude = 1
+                       action = 'scrub'}}
+        {{input-slider value = scrubLowValue
+                       magnitude = '0.2'
+                       action = 'scrub'}}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10">
+        {{#tab-content tabName = 'slides'
+                       activeTab = activeTab}}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{partial 'new/_sequence_form'}}
+                </div>
+
+                <div class="col-md-6 sequences-column">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <span class="badge">
+                                {{format-seconds time true}}
+                            </span>
+                        </div>
+                        <div class="col-md-7">
+                            <em>Number of time points:</em>
+                            <span class="badge">
+                                {{controllers.sequences.length}}
+                            </span>
+                            / {{maxSeqs}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{outlet sequences}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/tab-content}}
+
+        {{#tab-content tabName = 'links'
+                       activeTab = activeTab}}
+            <div class="row">
+                <div class="col-md-12">
+                    {{partial 'new/_urls'}}
+                </div>
+            </div>
+        {{/tab-content}}
+    </div>
+
+    <div class="col-md-2 tabs">
+        <ul class="nav nav-pills nav-stacked">
+            {{#tab-li tabName = 'slides'
+                      activeTab = activeTab
+                      action = 'changeTab'}}
+                <a>1. Time Your Slides &nbsp;
+                    <span class="fa fa-clock-o"></span>
+                </a>
+            {{/tab-li}}
+
+            {{#tab-li tabName = 'links'
+                      activeTab = activeTab
+                      action = 'changeTab'}}
+                <a>2. Finish/Save &nbsp;
+                    <span class="fa fa-thumbs-o-up"></span>
+                </a>
+            {{/tab-li}}
+        </ul>
+    </div>
+</div>

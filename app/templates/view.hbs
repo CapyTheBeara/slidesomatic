@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-md-9">
+        {{outlet deck}}
+    </div>
+
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12" id='media-container'>
+                {{outlet media}}
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="nav nav-tabs">
+                {{#tab-li tabName = 'sequences'
+                          activeTab = activeTab
+                          action = 'changeTab'}}
+                    <a>Times</a>
+                {{/tab-li}}
+
+                {{#tab-li tabName = 'other'
+                          activeTab = activeTab
+                          action = 'changeTab'}}
+                    <a>Other</a>
+                {{/tab-li}}
+
+                <li class="disabled">
+                    <a>
+                        {{format-seconds time false}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            {{#tab-content tabName = 'sequences'
+                           activeTab = activeTab}}
+                <div class="col-md-12">
+                    {{outlet sequences}}
+                </div>
+            {{/tab-content}}
+
+            {{#tab-content tabName = 'other'
+                           activeTab = activeTab}}
+                <ul class="nav nav-pills nav-stacked">
+                    <h4>Sources</h4>
+                    <li>
+                        <a href="{{unbound deck.url}}"
+                           target='_blank'
+                           class='btn btn-info'>
+                           {{source-name deck.domainRoot}}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{unbound media.url}}"
+                           target='_blank'
+                           class='btn btn-info'>
+                           {{source-name media.domainRoot}}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked">
+                    <h4 class='invisible'>-</h4>
+                    <li>
+                        {{link-to 'Edit' 'new' class='btn btn-primary'}}
+                    </li>
+                    <li>
+                        <a href='/' class='btn btn-primary'>Home</a>
+                    </li>
+                </ul>
+            {{/tab-content}}
+        </div>
+    </div>
+</div>
