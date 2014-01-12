@@ -21,7 +21,7 @@ export default MediaBaseComponent.extend({
 
   src: function() {
     return endpoint.replace('EXTERNAL_ID', this.get('media.externalId'))
-                   .replace('START', this.get('media.start') || 0);
+                   .replace('START',  Math.floor(this.get('media.start')) || 0);
   }.property('media.externalId', 'media.start'),
 
   apiSetup: function() {
