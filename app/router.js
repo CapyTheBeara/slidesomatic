@@ -1,9 +1,20 @@
 var Router = Ember.Router.extend(),
-    params = ['d', 'm', 's', 'v', 'u'];  // d=deck, m=media, s=sequences, v=version, u=urls
+    params = ['v', 's'];  // v=version, s=sites
+
+function resources() {
+  return function() {
+    this.resource('deck', { path: '/:deck_id' }, function() {
+      this.resource('media', { path: '/:media_id' }, function() {
+        this.resource('sequences', { path: ':hash', queryParams: ['s', 'v'] });
+      });
+    });
+  };
+}
 
 Router.map(function() {
-  this.route('presentation', { path: '/', queryParams: params });
-  this.route('new', { path: '/new', queryParams: params });
+  this.route('new');
+  this.resource('view', { path: '/view' }, resources());
+  this.resource('edit', { path: '/edit' }, resources());
 });
 
 export default Router;

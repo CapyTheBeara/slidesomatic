@@ -1,9 +1,8 @@
  /* jshint eqeqeq: false */
 
 export default Ember.Mixin.create({
-  handleErrors: function(models) {
+  handleErrors: function(model) {
     var error, results, status,
-        model = models.get('firstObject'),
         res = model.get('queryResult');
 
     // check the response. gdata will reject the promise
@@ -29,8 +28,8 @@ export default Ember.Mixin.create({
     }
   },
 
-  afterModel: function(models, transition) {
-    this.handleErrors(models);
-    this._super(models, transition);
+  afterModel: function(model, transition) {
+    this.handleErrors(model);
+    this._super(model, transition);
   }
 });
