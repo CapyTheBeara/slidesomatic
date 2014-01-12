@@ -1,16 +1,17 @@
 import sequenceFinder from 'appkit/controllers/utils/sequence_finder';
 
+var alias = Em.computed.alias;
+
 export default Ember.ObjectController.extend({
   slide: 1,
   site: null,
   siteMode: false,
 
-  // set in route
-  sequences: null,
-
+  needs: ['sequences'],
+  sequences: alias('controllers.sequences'),
+  currentSequence: alias('sequences.currentSequence'),
+  presentationMode: alias('playback.presentationMode'),
   timeBinding: 'sequences.time',
-  currentSequenceBinding: 'sequences.currentSequence',
-  presentationModeBinding: 'playback.presentationMode',
 
   findSiteMode: sequenceFinder('site', function(self, seq) {
     return self.set('site', seq.get('site'));

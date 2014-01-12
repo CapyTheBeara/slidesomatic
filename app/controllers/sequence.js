@@ -1,6 +1,8 @@
+var alias = Em.computed.alias;
+
 export default Ember.ObjectController.extend({
-  currentSequence: Em.computed.alias('parentController.currentSequence'),
-  editMode: Em.computed.alias('parentController.editMode'),
+  currentSequence: alias('parentController.currentSequence'),
+  editMode: alias('parentController.editMode'),
 
   isPast: function(time, type) {
     var past = this.get('start') <= time;
