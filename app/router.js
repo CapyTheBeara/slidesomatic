@@ -1,11 +1,11 @@
 var Router = Ember.Router.extend(),
-    params = ['v', 's'];  // v=version, s=sites
+    params = ['s'];  // s=sites
 
 function resources() {
   return function() {
     this.resource('deck', { path: '/:deck_id' }, function() {
       this.resource('media', { path: '/:media_id' }, function() {
-        this.resource('sequences', { path: ':hash', queryParams: ['s', 'v'] });
+        this.resource('sequences', { path: ':hash', queryParams: params });
       });
     });
   };
