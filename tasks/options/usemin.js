@@ -1,5 +1,5 @@
 module.exports = {
-  html: ['dist/a/index.html'],
+  html: ['dist/b/index.html'],
   options: {
     basedir: 'dist/'
   }
