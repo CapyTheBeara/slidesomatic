@@ -1,6 +1,5 @@
 export default Ember.Route.extend({
   presentationMode: null,
-  name: null,
   editMode: null,
 
   model: function() {
@@ -17,7 +16,7 @@ export default Ember.Route.extend({
     });
 
     this.controllerFor('application').setProperties({
-      wrapperClass: this.get('name')
+      wrapperClass: this.get('routeName')
     });
 
     this.controllerFor('sequences').set('editMode', this.get('editMode'));

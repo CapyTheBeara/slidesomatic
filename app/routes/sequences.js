@@ -4,9 +4,11 @@
 // _y4oohttp%3A%2F%2Fdiscourse.org%2F+_y6GFhttp%3A%2F%2Femblemjs.com%2F+_y6Qchttp%3A%2F%2Fiamstef.net%2Fember-app-kit%2F
 
 export default Ember.Route.extend({
+  parentRoute: 'view',
+
   model: function(params, queryParams) {
     var hash = params.hash,
-        pres = this.modelFor('view') || this.modelFor('edit'),
+        pres = this.modelFor(this.get('parentRoute')),
         sitesHash = queryParams.s;
 
     if (hash) { pres.set('sequencesHash', hash); }
