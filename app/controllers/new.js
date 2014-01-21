@@ -3,7 +3,6 @@ export default Ember.Controller.extend({
   media: null,
   deckUrl: null,
   mediaUrl: null,
-  requestPending: null,
   modelsValid: Em.computed.and('deck.valid', 'media.valid'),
 
   Deck: function() {
@@ -12,16 +11,25 @@ export default Ember.Controller.extend({
 
   addModel: function(type) {
     var self = this,
-        url = this.get(type + 'Url');
+        url = this.get(type + 'Url'),
+        model = this.store.createRecord(type, {
+          validationState: 'pending'
+        });
 
+    this.set(type, null);
     if (!url) { return; }
 
-    var model = this.get('Deck').find(type, { url: url })
-                    .then(function(model) {
-                      self.set(type, model);
-                      self.set('requestPending', null);
-                      self.transitionToEdit();
-                    });
+    this.set(type, model);
+
+    try {  // queryParams will throw error if URL is invalid
+      this.get('Deck').find(type, { url: url })
+        .then(function(model) {
+          self.set(type, model);
+          self.transitionToEdit();
+        });
+    } catch (e) {
+      this.set(type + '.validationState', e.message);
+    }
   },
 
   transitionToEdit: function() {
@@ -36,12 +44,10 @@ export default Ember.Controller.extend({
 
   actions: {
     addDeck: function() {
-      this.set('requestPending', true);
       this.addModel('deck');
     },
 
     addMedia: function() {
-      this.set('requestPending', true);
       this.addModel('media');
     },
 
@@ -51,19 +57,19 @@ export default Ember.Controller.extend({
     },
 
     addTestingUrls: function() {
-      var deck, media,
-          self = this,
-          deckUrl = 'http://www.slideshare.net/nzakas/maintainable-javascript-2012',
-          mediaUrl = 'http://www.youtube.com/watch?v=c-kav7Tf834';
+      var deckUrl, mediaUrl,
+          self = this;
 
-      // deckUrl = 'http://www.slideshare.net/nzakas/maintainable-javascript-2012';
+
+      deckUrl = 'http://www.slideshare.net/nzakas/maintainable-javascript-2012';
       // deckUrl = 'https://docs.google.com/presentation/d/1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI/edit?pli=1#slide=id.g177d510c8_0342';
       // deckUrl = 'http://slid.es/jonathangoldman/reducecomputed/';
-      // videoUrl = "http://www.youtube.com/watch?v=c-kav7Tf834";
-      // videoUrl = "https://soundcloud.com/armadamusic/armin-van-buuren-shivers";
-
       this.set('deckUrl', deckUrl);
+
+      mediaUrl = 'http://www.youtube.com/watch?v=c-kav7Tf834';
+      // mediaUrl = "https://soundcloud.com/armadamusic/armin-van-buuren-shivers";
       this.set('mediaUrl', mediaUrl);
+
       this.send('submitUrls');
     }
   }

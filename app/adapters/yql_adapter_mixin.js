@@ -18,8 +18,11 @@ export default Ember.Mixin.create({
         props = this.get('modelProperties'),
         url = props.url,
         domainRoot = props.domainRoot,
-        query = this[domainRoot + 'Query']();  //= "speakerdeckQuery"
+        queryFunc = this[domainRoot + 'Query'];
 
+    if (!queryFunc) { throw new Error('notSupported'); }
+
+    var query = queryFunc.bind(this)();
     return yql + query.replace('URL', encodeURIComponent(url)) + '&format=json';
   }.property('modelProperties'),
 

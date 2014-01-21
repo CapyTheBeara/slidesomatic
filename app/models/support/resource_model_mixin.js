@@ -1,3 +1,5 @@
+/* jshint eqeqeq: false */
+
 import queryParams from 'appkit/utils/query_params';
 
 var attr = DS.attr;
@@ -25,5 +27,33 @@ export default Ember.Mixin.create({
 
   setPropertiesFromParams: function(params) {
     this.setProperties(queryParams(params));
-  }
+  },
+
+  validateQueryResult: function() {
+    var results, status,
+        state = 'invalidId',
+        res = this.get('queryResult');
+
+    if (!res) { return; }
+
+    if (res.query) {  // yql query
+      results = res.query.results;
+
+      if (results) {
+        if (results.resources) {
+          status = results.resources.status;
+
+          if (status && status == '200') {  // VALIDATE that large google presentations don't error
+            state = 'valid';
+          }
+        } else {
+          state = 'valid';
+        }
+      }
+    } else if (res.apiVersion) {  // gdata for youtube
+      state = 'valid';
+    }
+
+    this.set('validationState', state);
+  }.observes('queryResult').on('init')
 });

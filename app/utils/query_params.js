@@ -55,8 +55,10 @@ var QueryParams = Ember.Object.extend({
       return this.get('domain') + this.get('externalId');
     }
 
-    var match = url.match(urlRegex),
-        externalId = match[2],
+    var match = url.match(urlRegex);
+    if (!match) { throw new Error('invalidUrl'); }
+
+    var externalId = match[2],
         domainRoot = match[1],
         domain = domains.find(function(d) {
           return d.match(domainRoot + '\\.');
@@ -68,7 +70,7 @@ var QueryParams = Ember.Object.extend({
     }
 
     if (domainRoot === 'youtube') {
-      externalId = externalId.replace('watch?v=', '').split('&')[0];
+      externalId = externalId.replace('watch?v=', '').split(/&|#/)[0];
     }
 
     this.setProperties({

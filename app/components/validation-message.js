@@ -1,20 +1,32 @@
 var validationMsg = {
-  pending: 'Fetching',
-  valid: 'Got it!',
-  validationSkipped: 'Cannot validate this address. Please proceed. If it does not work, make sure that it is correct.',
-  invalidUrl: 'Is that a valid address?',
-  notSupported: "That website isn't supported at the moment.",
-  requestError: 'There was a problem contacting that site. Please try again later.'
-};
+      valid: 'Got it!',
+      invalidUrl: 'Is that a valid URL?',
+      invalidId: 'Is that the correct address?',
+      validationSkipped: 'Cannot validate this address. Please proceed. If it does not work, make sure that it is correct.',
+      notSupported: "That website isn't supported at the moment.",
+      requestError: 'There was a problem contacting that site. Please try again later.'
+    },
+
+    labelType = {
+      pending: 'primary',
+      valid: 'info',
+      invalidUrl: 'danger',
+      invalidId: 'danger',
+      validationSkipped: 'warning',
+      notSupported: 'primary',
+      requestError: 'danger'
+    };
 
 export default Ember.Component.extend({
-  tagName: 'span',
-  classNames: ['validation-message'],
   validationState: null,
+
+  labelType: function() {
+    var state = this.get('validationState');
+    return 'label-' + labelType[state];
+  }.property('validationMsg'),
 
   validationMsg: function() {
     var state = this.get('validationState');
-    if (!state) { return; }
     return validationMsg[state];
   }.property('validationState'),
 

@@ -1,5 +1,7 @@
-{{validationMsg}}
-
 {{#if pending}}
-    {{partial '_pending'}}
+    {{partial 'loading'}}
+{{else}}
+    <span {{bind-attr class=':label labelType'}}>
+        {{validationMsg}}
+    </span>
 {{/if}}

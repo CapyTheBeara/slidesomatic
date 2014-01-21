@@ -48,14 +48,25 @@ Deck.reopenClass({
       function(res) {
         var model = res.get('firstObject');
         model.setPropertiesFromParams(params);
-        model.set('validationState', 'valid');
         return model;
       },
-      function(res) {
-        console.log('requestError', res);
 
+      function(res) {
+        var json, error,
+            state = 'requestError';
+
+        if (res.responseText) {
+          json = JSON.parse(res.responseText);
+          error = json.error;
+
+          if (error  && error.code) {
+            state = 'invalidId'; // gdata, bad youtube id
+          }
+        }
+
+        console.log(state, res);
         return self.store.createRecord(modelType, {
-          validationState: 'requestError'
+          validationState: state
         });
       }
     );

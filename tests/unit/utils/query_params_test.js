@@ -63,6 +63,9 @@ test('externalId is correct', function() {
   equal(p1.externalId, 'jonathangoldman/reducecomputed');
   equal(p2.externalId, '1JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI');
   equal(p3.externalId, 'c-kav7Tf834');
+
+  var p4 = queryParams({url: "http://www.youtube.com/watch?v=c-kav7Tf834#t=123"});
+  equal(p4.externalId, 'c-kav7Tf834');
 });
 
 test('domainRoot is correct', function() {
@@ -86,5 +89,16 @@ test('id is correct', function() {
 test('domainIndex is correct', function() {
   equal(p1.domainIndex, '6');
 });
+
+test('error is thrown for invalid url', function() {
+  throws(
+    function() {
+      queryParams({url: 'nope'});
+    },
+    /invalidUrl/,
+    "expeced 'invalidUrl' error"
+  );
+});
+
 
 

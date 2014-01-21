@@ -8,23 +8,23 @@
 
         <div class="help-block">
             {{#if deck.validationState}}
-                {{validation-message validationState = deck.validationState}}
+               {{validation-message validationState = deck.validationState}}
             {{else}}
-                    Supported sites:
-                    <a target='_blank' href="https://speakerdeck.com/">
-                        Speaker Deck
-                    </a>,
-                    <a target='_blank' href="http://www.slideshare.net">
-                        SlideShare
-                    </a>,
-                    <a target='_blank' href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">
-                        Google Drive
-                    </a>, or
-                    <a target='_blank' href="http://slid.es/">
-                        Slid.es
-                    </a>
-                    .
-                    <br>(Vertical & fragment slides are not supported for Slid.es.)
+                Supported sites:
+                <a target='_blank' href="https://speakerdeck.com/">
+                    Speaker Deck
+                </a>,
+                <a target='_blank' href="http://www.slideshare.net">
+                    SlideShare
+                </a>,
+                <a target='_blank' href="https://support.google.com/drive/answer/126127?hl=en&ref_topic=19431">
+                    Google Drive
+                </a>, or
+                <a target='_blank' href="http://slid.es/">
+                    Slid.es
+                </a>
+                .
+                <br>(Vertical & fragment slides are not supported for Slid.es.)
             {{/if}}
         </div>
     </div>
@@ -44,13 +44,13 @@
                     {{validation-message validationState = media.validationState}}
                 {{else}}
                     Supported sites:
-                        <a target='_blank' href="http://www.youtube.com">
-                            YouTube
-                        </a>,
-                        <a target='_blank' href="https://vimeo.com/">
-                            Vimeo
-                        </a>,
-                        <a target='_blank' href="https://soundcloud.com/">SoundCloud</a>
+                    <a target='_blank' href="http://www.youtube.com">
+                        YouTube
+                    </a>,
+                    <a target='_blank' href="https://vimeo.com/">
+                        Vimeo
+                    </a>,
+                    <a target='_blank' href="https://soundcloud.com/">SoundCloud</a>
                 {{/if}}
             </div>
         </div>
@@ -60,11 +60,6 @@
 <div class="row">
     <div class='form-group col-md-12'>
         <button class='btn btn-success' {{action 'submitUrls'}}>Go</button>
-
-
-        {{#if requestPending}}
-            {{partial 'loading'}}
-        {{/if}}
     </div>
 
     <div class="form-group col-md-12">
