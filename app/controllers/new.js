@@ -66,7 +66,7 @@ export default Ember.Controller.extend({
       // deckUrl = 'http://slid.es/jonathangoldman/reducecomputed/';
       this.set('deckUrl', deckUrl);
 
-      mediaUrl = 'http://www.youtube.com/watch?v=c-kav7Tf834';
+      mediaUrl = 'http://www.youtube.com/watch?v=c-kav7Tf834#t=1';
       // mediaUrl = "https://soundcloud.com/armadamusic/armin-van-buuren-shivers";
       this.set('mediaUrl', mediaUrl);
 
