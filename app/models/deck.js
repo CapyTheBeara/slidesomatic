@@ -36,7 +36,7 @@ var Deck = DS.Model.extend(
   }.property('queryResult'),
 
   googleEndpoint: function() {
-    return [this.get('domain'), this.get('id'),'/embed#slide=NUMBER'].join('');
+    return [this.get('domain'), this.get('externalId'),'/embed#slide=NUMBER'].join('');
   }.property('queryResult')
 });
 
@@ -52,7 +52,8 @@ Deck.reopenClass({
         return model;
       },
       function(res) {
-console.log('requestError', res);
+        console.log('requestError', res);
+
         return self.store.createRecord(modelType, {
           validationState: 'requestError'
         });

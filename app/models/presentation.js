@@ -1,37 +1,37 @@
 var SITE_DELIMETER = '+';
 
 export default DS.Model.extend({
+  shortUrl: DS.attr(),
   deck: DS.belongsTo('deck'),
   media: DS.belongsTo('media'),
   sequences: DS.hasMany('sequence'),
 
-  sequencesUrlFrag: undefined,
-  sitesFrag: undefined,
+  sequencesHash: null,
+  sitesHash: null,
 
   path: function() {
-    var deckId = this.get('deck.routeId'),
-        mediaId = this.get('media.routeId'),
-        encodedSequences = this.get('encodedSequences'),
-        encodedSites = this.get('encodedSites'),
+    var deckId = this.get('deck.id'),
+        mediaId = this.get('media.id'),
+        sequencesPath = this.get('sequencesPath'),
+        deck = deckId ? '/' + deckId : '',
+        media = mediaId ? '/' + mediaId : '',
+        seq = sequencesPath ? '/' + sequencesPath : '';
 
-        route = "#/?",
-        version = 'v=1',
-        deck = deckId ? '&d=' + encodeURIComponent(deckId) : '',
-        media = mediaId ? '&m=' + encodeURIComponent(mediaId) : '',
-        seq = encodedSequences ? "&s=" + encodedSequences : '',
-        sites = encodedSites ? "&u=" + encodedSites : '';
-
-    return [route, version, deck, media, seq, sites].join('');
-  }.property('deck.url', 'media.url', 'encodedSequences', 'encodedSites'),
+    return ['#/view', deck, media, seq].join('');
+  }.property('deck.id', 'media.id', 'sequencesPath'),
 
   url: function() {
     var location = window.location;
-    return [location.protocol, '/', location.host, 'a/', this.get('path')].join('/');
+    return [location.protocol + '/', location.host, 'b', this.get('path')].join('/');
   }.property('path'),
 
-  firstSequence: function() {
-    return this.get('sequences').sortBy('start')[0];
-  }.property('sequences.@each.start'),
+  sequencesPath: function() {
+    var sites = this.get('encodedSites'),
+        path = this.get('encodedSequences');
+
+    if (sites) { path = path + '?s=' + sites; }
+    return path;
+  }.property('encodedSequences', 'encodedSites'),
 
   encodedSequences: function() {
     return this.get('sequences')
@@ -43,27 +43,31 @@ export default DS.Model.extend({
     return this.get('sequences')
                .filterBy('isSiteOn')
                .mapBy('encoded').join(SITE_DELIMETER);
-  }.property('sequences.@each.isSiteOn'),
+  }.property('sequences.@each.encoded'),
 
-  sequencesUrlFragDidChange: function() {
+  firstSequence: function() {
+    return this.get('sequences').sortBy('start')[0];
+  }.property('sequences.@each.start'),
+
+  sequencesHashDidChange: function() {
     var self = this,
-        frags = this.get('sequencesUrlFrag'),
+        hash = this.get('sequencesHash'),
 
-        seqs = frags.match(/.{1,5}/g).map(function(frag) {
-          return self.store.createRecord('sequence', { urlFrag: frag });
+        seqs = hash.match(/.{1,5}/g).map(function(part) {
+          return self.store.createRecord('sequence', { hash: part });
         });
 
     this.get('sequences').pushObjects(seqs);
-  }.observes('sequencesUrlFrag'),
+  }.observes('sequencesHash'),
 
-  sitesFragDidChange: function() {
-    var frags = this.get('sitesFrag'),
+  sitesHashDidChange: function() {
+    var hash = this.get('sitesHash'),
         self = this,
 
-        seqs = frags.split(SITE_DELIMETER).map(function(frag) {
-          return self.store.createRecord('sequence', { siteFrag: frag });
+        seqs = hash.split(SITE_DELIMETER).map(function(part) {
+          return self.store.createRecord('sequence', { siteHash: part });
         });
 
     this.get('sequences').pushObjects(seqs);
-  }.observes('sitesFrag')
+  }.observes('sitesHash')
 });
