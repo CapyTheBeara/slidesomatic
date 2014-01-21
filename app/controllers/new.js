@@ -28,9 +28,10 @@ export default Ember.Controller.extend({
     if (!this.get('modelsValid')) { return; }
 
     var deck = this.get('deck'),
-        media = this.get('media');
+        media = this.get('media'),
+        pres = this.store.createRecord('presentation');
 
-    this.transitionToRoute('media', deck, media);
+    this.transitionToRoute('edit.sequences', pres, deck, media, pres);
   },
 
   actions: {

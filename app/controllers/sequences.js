@@ -8,20 +8,18 @@ var SequencesController = Ember.ArrayController.extend({
   currentSequence: null,
 
   // override in route
-  editMode: false,
+  editMode: null,
 
   needs: ['media'],
   timeBinding: 'controllers.media.time',
   presentationModeBinding: 'playback.presentationMode',
 
   filteredContent: function() {
-    if (this.get('editMode')) {
-      return this;
-    } else {
-      return this.filter(function(seq) {
-        return seq.get('isNotPauseOff');
-      });
-    }
+    if (this.get('editMode')) { return this; }
+
+    return this.filter(function(seq) {
+      return seq.get('isNotPauseOff');
+    });
   }.property('editMode'),
 
   timeDidChange: function() {

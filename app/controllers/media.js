@@ -12,13 +12,14 @@ export default Ember.ObjectController.extend({
   soundcloud: equal('domainRoot', 'soundcloud'),
   vimeo: equal('domainRoot', 'vimeo'),
 
+  needs: ['sequences'],
+  sequences: Em.computed.alias('controllers.sequences'),
   time: 0,
+  player: null,
   animation: null,
   presentationModeBinding: 'playback.presentationMode',
 
-  // set/override these in route
-  editMode: false,
-  sequences: null,
+  editMode: false,  // set in route
 
   pauseMode: false,
   findPauseMode: sequenceFinder('pause').observes('time'),
