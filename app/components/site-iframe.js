@@ -11,6 +11,7 @@ function setMatchMedia(component) {
 
     check.addListener(function(mediaQueryList) {
       Ember.run(function() {
+        if (!component) { return; }
         component.set('check' + width, mediaQueryList.matches);
       });
     });
