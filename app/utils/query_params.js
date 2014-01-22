@@ -31,12 +31,12 @@ var QueryParams = Ember.Object.extend({
     if (v) {
       this.setProperties({
         domainIndex: v.charAt(0),
-        externalId: decodeURIComponent(v.slice(1))
+        externalId: v.slice(1).replace('___', '/')
       });
       return v;
     }
 
-    return this.get('domainIndex') + encodeURIComponent(this.get('externalId'));
+    return this.get('domainIndex') + this.get('externalId').replace('/', '___');
   }.property('domainIndex', 'externalId'),
 
   domain: function() {

@@ -1,12 +1,12 @@
 // example route ids:
-// 0jrallison%2Fember-components
-// 1tboyt%2Fpresentation-27430110
+// 0jrallison___ember-components
+// 1tboyt___presentation-27430110
 // 28MYcjaar7Vw
-// 3armadamusic%2Farmin-van-buuren-shivers
+// 3armadamusic___armin-van-buuren-shivers
 // 476153146
 // 51e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA
 // 51JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI
-// 6jonathangoldman%2Freducecomputed
+// 6jonathangoldman___reducecomputed
 
 import queryParams from 'appkit/utils/query_params';
 
@@ -14,7 +14,7 @@ var p1, p2, p3;
 
 module("queryParams - converting from id:", {
   setup: function() {
-    p1 = queryParams({ id: '0jrallison%2Fember-components' });
+    p1 = queryParams({ id: '0jrallison___ember-components' });
     p2 = queryParams({ id: '51e0z1pT9JuEh8G5DOtib6XFDHK0GUFtrZrU3IfxJynaA' });
     p3 = queryParams({ id: '28MYcjaar7Vw' });
   }
@@ -81,7 +81,7 @@ test('domain is correct', function() {
 });
 
 test('id is correct', function() {
-  equal(p1.id, '6jonathangoldman%2Freducecomputed');
+  equal(p1.id, '6jonathangoldman___reducecomputed');
   equal(p2.id, '51JU1ToBg-K7_vLC5bt2gEcEy3p12mCQG8CGELOP3vWvI');
   equal(p3.id, '2c-kav7Tf834');
 });
