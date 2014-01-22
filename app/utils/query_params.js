@@ -74,7 +74,7 @@ var QueryParams = Ember.Object.extend({
     }
 
     this.setProperties({
-      externalId: externalId.replace(/\/$/, ''),
+      externalId: externalId.replace(/(\/|#)$/, ''),
       domainIndex: domainIndex
     });
 

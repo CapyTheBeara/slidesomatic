@@ -16,6 +16,7 @@ export default Ember.ObjectController.extend({
   siteModeBinding: 'controllers.deck.siteMode',
   presentationModeBinding: 'playback.presentationMode',
   videoModeBinding: 'controllers.media.videoMode',
+  timeBinding: 'controllers.media.time',
 
   maxSeqs: function() {
     var base = this.get('url').replace(new RegExp(this.get('encodedSequences')), '');
